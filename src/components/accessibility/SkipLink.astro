@@ -1,0 +1,22 @@
+<a class="skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
+
+<style>
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    inset-block-start: var(--space-3);
+    inset-inline-start: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    color: var(--color-text-inverse);
+    background: var(--color-brand-primary);
+    border-radius: var(--radius-small);
+    font-family: var(--font-family-interface);
+    font-weight: 700;
+    transform: translateY(calc(-100% - var(--space-5)));
+    transition: transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+</style>

@@ -1,0 +1,15 @@
+.section-space {
+  padding-block: var(--section-space);
+}
+
+.flow > * + * {
+  margin-block-start: var(--flow-space, var(--space-5));
+}
+
+.reading-measure {
+  max-width: 70ch;
+}
+
+.interface-text {
+  font-family: var(--font-family-interface);
+}

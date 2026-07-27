@@ -1,0 +1,56 @@
+---
+type Variant =
+  "general" | "institutional" | "reading" | "opening" | "cards" | "player";
+type Element = "div" | "section" | "article";
+
+interface Props {
+  as?: Element;
+  variant?: Variant;
+  id?: string;
+  class?: string;
+}
+
+const {
+  as: Tag = "div",
+  variant = "general",
+  id,
+  class: className,
+}: Props = Astro.props;
+---
+
+<Tag {id} class:list={["container", `container--${variant}`, className]}>
+  <slot />
+</Tag>
+
+<style>
+  .container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  .container--general {
+    --container-width: var(--width-general);
+  }
+
+  .container--institutional {
+    --container-width: var(--width-institutional);
+  }
+
+  .container--reading {
+    --container-width: var(--width-reading);
+  }
+
+  .container--opening {
+    --container-width: var(--width-opening);
+  }
+
+  .container--cards {
+    --container-width: var(--width-cards);
+  }
+
+  .container--player {
+    --container-width: var(--width-player);
+  }
+</style>

@@ -1,0 +1,52 @@
+html {
+  background: var(--color-background-primary);
+}
+
+body {
+  min-width: 20rem;
+  overflow-wrap: break-word;
+  color: var(--color-text-primary);
+  background: var(--color-background-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: var(--color-text-primary);
+  background: var(--color-selection);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+main {
+  display: block;
+}
+
+p a:not([class]) {
+  color: var(--color-brand-primary);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.18em;
+}
+
+p a:not([class]):hover {
+  color: var(--color-brand-hover);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+  }
+}

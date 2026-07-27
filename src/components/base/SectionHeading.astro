@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  label?: string;
+  intro?: string;
+  level?: "h2" | "h3";
+}
+
+const { title, label, intro, level: Heading = "h2" } = Astro.props;
+---
+
+<header class="section-heading flow">
+  {label && <p class="section-heading__label type-meta">{label}</p>}
+  <Heading>{title}</Heading>
+  {intro && <p class="section-heading__intro">{intro}</p>}
+</header>
+
+<style>
+  .section-heading {
+    --flow-space: var(--space-4);
+    max-width: var(--width-opening);
+  }
+
+  .section-heading__label {
+    color: var(--color-brand-primary);
+  }
+
+  .section-heading__intro {
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-editorial);
+    font-size: var(--font-size-body-large);
+    line-height: 1.6;
+  }
+</style>

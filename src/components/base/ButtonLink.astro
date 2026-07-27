@@ -1,0 +1,75 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+  target?: string;
+  rel?: string;
+  "aria-label"?: string;
+  class?: string;
+}
+
+const {
+  href,
+  variant = "primary",
+  target,
+  rel,
+  "aria-label": ariaLabel,
+  class: className,
+} = Astro.props;
+---
+
+<a
+  class:list={["button-link", `button-link--${variant}`, className]}
+  {href}
+  {target}
+  {rel}
+  aria-label={ariaLabel}
+>
+  <slot />
+</a>
+
+<style>
+  .button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-5);
+    border: var(--border-width-default) solid var(--color-brand-primary);
+    border-radius: var(--radius-small);
+    font-family: var(--font-family-interface);
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    transition:
+      color var(--duration-fast) var(--ease-standard),
+      background-color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+  }
+
+  .button-link--primary {
+    color: var(--color-text-inverse);
+    background: var(--color-brand-primary);
+  }
+
+  .button-link--primary:hover {
+    background: var(--color-brand-hover);
+    border-color: var(--color-brand-hover);
+  }
+
+  .button-link--secondary {
+    color: var(--color-brand-primary);
+    background: transparent;
+  }
+
+  .button-link--secondary:hover {
+    color: var(--color-brand-hover);
+    background: var(--color-brand-soft);
+    border-color: var(--color-brand-hover);
+  }
+
+  .button-link:active {
+    transform: translateY(2px);
+  }
+</style>

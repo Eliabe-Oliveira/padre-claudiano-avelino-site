@@ -1,0 +1,115 @@
+---
+import Container from "../base/Container.astro";
+
+const year = new Date().getFullYear();
+const items = [
+  { label: "Início", href: "/" },
+  { label: "Sobre", href: "/sobre/" },
+  { label: "Reflexões", href: "/reflexoes/" },
+  { label: "Vídeos", href: "/videos/" },
+  { label: "Contato", href: "/contato/" },
+];
+---
+
+<footer class="site-footer">
+  <Container>
+    <div class="site-footer__grid">
+      <div class="site-footer__identity flow">
+        <p class="site-footer__name">Padre Claudiano Avelino</p>
+        <p>Espiritualidade, reflexão e encontro com a Palavra.</p>
+      </div>
+
+      <nav aria-label="Navegação do rodapé">
+        <p class="site-footer__label">Navegação</p>
+        <ul role="list">
+          {
+            items.map((item) => (
+              <li>
+                <a href={item.href}>{item.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="flow">
+        <p class="site-footer__label">Contato</p>
+        <p>E-mail de contato a definir</p>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>Site pessoal de Padre Claudiano Avelino.</p>
+      <p>&copy; {year}</p>
+    </div>
+  </Container>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-9) var(--space-6);
+    color: var(--color-text-inverse);
+    background: var(--color-surface-dark);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(10rem, 1fr));
+    gap: var(--space-7);
+  }
+
+  .site-footer__identity {
+    --flow-space: var(--space-3);
+    max-width: 27rem;
+    font-family: var(--font-family-editorial);
+    font-size: var(--font-size-body-editorial);
+  }
+
+  .site-footer__name {
+    font-size: var(--font-size-h4);
+    font-weight: 600;
+  }
+
+  .site-footer__label {
+    margin-block-end: var(--space-3);
+    color: var(--color-background-secondary);
+    font-size: var(--font-size-meta);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .site-footer nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-text-inverse);
+    text-underline-offset: 0.2em;
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-block-start: var(--space-6);
+    margin-block-start: var(--space-7);
+    border-block-start: var(--border-width-default) solid rgb(247 243 234 / 24%);
+    font-size: var(--font-size-small);
+  }
+
+  @media (max-width: 47.999rem) {
+    .site-footer {
+      padding-block-start: var(--space-8);
+    }
+
+    .site-footer__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .site-footer__bottom {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  }
+</style>

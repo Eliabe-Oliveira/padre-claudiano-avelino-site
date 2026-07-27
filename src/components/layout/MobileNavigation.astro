@@ -1,0 +1,146 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const items = [
+  { label: "Início", href: "/" },
+  { label: "Sobre", href: "/sobre/" },
+  { label: "Reflexões", href: "/reflexoes/" },
+  { label: "Vídeos", href: "/videos/" },
+  { label: "Contato", href: "/contato/" },
+];
+---
+
+<div class="mobile-navigation" data-mobile-navigation>
+  <button
+    class="mobile-navigation__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="mobile-navigation-panel"
+    data-menu-toggle
+  >
+    <span data-menu-label>Menu</span>
+  </button>
+
+  <div
+    class="mobile-navigation__panel"
+    id="mobile-navigation-panel"
+    data-menu-panel
+    hidden
+  >
+    <nav aria-label="Navegação principal móvel">
+      <ul role="list">
+        {
+          items.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={currentPath === item.href ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<script>
+  const navigationRoots = document.querySelectorAll<HTMLElement>(
+    "[data-mobile-navigation]",
+  );
+
+  for (const root of navigationRoots) {
+    const toggle = root.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+    const panel = root.querySelector<HTMLElement>("[data-menu-panel]");
+    const label = root.querySelector<HTMLElement>("[data-menu-label]");
+
+    if (!toggle || !panel || !label) continue;
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      panel.hidden = !open;
+      label.textContent = open ? "Fechar menu" : "Menu";
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    panel.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !panel.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .mobile-navigation {
+    display: none;
+  }
+
+  .mobile-navigation__toggle {
+    min-width: 4.5rem;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-brand-primary);
+    background: transparent;
+    border: var(--border-width-default) solid var(--color-brand-primary);
+    border-radius: var(--radius-small);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobile-navigation__toggle:hover {
+    background: var(--color-brand-soft);
+  }
+
+  .mobile-navigation__panel {
+    position: absolute;
+    z-index: 20;
+    inset-block-start: 100%;
+    inset-inline: 0;
+    padding: var(--space-3) var(--page-gutter) var(--space-5);
+    background: var(--color-background-primary);
+    border-block-end: var(--border-width-default) solid
+      var(--color-border-default);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .mobile-navigation__panel ul {
+    display: grid;
+  }
+
+  .mobile-navigation__panel a {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding-inline: var(--space-2);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-block-end: var(--border-width-default) solid
+      var(--color-border-default);
+  }
+
+  .mobile-navigation__panel a[aria-current="page"] {
+    color: var(--color-brand-primary);
+    box-shadow: inset 3px 0 0 var(--color-accent-primary);
+  }
+
+  @media (max-width: 55.999rem) {
+    .mobile-navigation {
+      display: block;
+    }
+  }
+</style>

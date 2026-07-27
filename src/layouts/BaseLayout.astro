@@ -1,0 +1,40 @@
+---
+import "@fontsource-variable/source-serif-4/wght.css";
+import "@fontsource-variable/source-serif-4/wght-italic.css";
+import "@fontsource-variable/inter/wght.css";
+import "../styles/reset.css";
+import "../styles/tokens.css";
+import "../styles/typography.css";
+import "../styles/global.css";
+import "../styles/utilities.css";
+import SkipLink from "../components/accessibility/SkipLink.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPath: string;
+  showSiteChrome?: boolean;
+}
+
+const { title, description, currentPath, showSiteChrome = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
+  </head>
+  <body>
+    <SkipLink />
+    {showSiteChrome && <SiteHeader {currentPath} />}
+    <main id="conteudo-principal">
+      <slot />
+    </main>
+    {showSiteChrome && <SiteFooter />}
+  </body>
+</html>
