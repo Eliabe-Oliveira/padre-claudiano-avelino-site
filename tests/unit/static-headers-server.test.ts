@@ -1,8 +1,12 @@
 import { once } from "node:events";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { createStaticHeadersServer } from "../security/static-headers-server.mjs";
 
 const servers: ReturnType<typeof createStaticHeadersServer>[] = [];
+const temporaryDirectories: string[] = [];
 
 afterEach(async () => {
   await Promise.all(
@@ -13,11 +17,25 @@ afterEach(async () => {
           new Promise<void>((resolve) => server.close(() => resolve())),
       ),
   );
+  await Promise.all(
+    temporaryDirectories
+      .splice(0)
+      .map((directory) => rm(directory, { recursive: true, force: true })),
+  );
 });
 
 describe("servidor de cabeçalhos estáticos", () => {
   it("aplica segurança e cache sem tornar HTML imutável", async () => {
-    const server = createStaticHeadersServer();
+    const root = await mkdtemp(join(tmpdir(), "static-headers-test-"));
+    temporaryDirectories.push(root);
+    await mkdir(join(root, "_astro"));
+    await writeFile(
+      join(root, "index.html"),
+      '<link rel="stylesheet" href="/_astro/site.css">',
+    );
+    await writeFile(join(root, "_astro/site.css"), "body { color: black; }");
+
+    const server = createStaticHeadersServer({ root });
     servers.push(server);
     server.listen(0, "127.0.0.1");
     await once(server, "listening");
