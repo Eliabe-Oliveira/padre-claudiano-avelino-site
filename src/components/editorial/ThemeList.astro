@@ -1,0 +1,27 @@
+---
+interface Props {
+  variant?: "home" | "about" | "compact";
+}
+
+const { variant = "home" } = Astro.props;
+const themes = [
+  "Evangelho e vida cotidiana",
+  "Oração e vida espiritual",
+  "Santos e testemunhos de fé",
+  "Família, relações e virtudes cristãs",
+  "Palavra, pensamento e comunicação",
+];
+---
+
+<ol class:list={["editorial-themes", `editorial-themes--${variant}`]}>
+  {
+    themes.map((theme, index) => (
+      <li class="editorial-themes__item">
+        <span class="editorial-themes__number" aria-hidden="true">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span class="editorial-themes__title">{theme}</span>
+      </li>
+    ))
+  }
+</ol>

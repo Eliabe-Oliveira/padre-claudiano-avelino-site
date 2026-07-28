@@ -5,7 +5,7 @@ const sectionIds = async (page: import("@playwright/test").Page) =>
     .locator("main > section")
     .evaluateAll((sections) => sections.map((section) => section.id));
 
-test("Início apresenta a ordem editorial e os estados vazios", async ({
+test("Início apresenta a nova ordem editorial sem estados vazios repetidos", async ({
   page,
 }) => {
   const externalRequests: string[] = [];
@@ -21,24 +21,23 @@ test("Início apresenta a ordem editorial e os estados vazios", async ({
   await expect(page.locator("h1")).toHaveCount(1);
   expect(await sectionIds(page)).toEqual([
     "inicio-abertura",
-    "inicio-apresentacao",
-    "inicio-reflexao-destaque",
-    "inicio-homilia",
-    "inicio-reflexoes-recentes",
+    "inicio-declaracao",
+    "inicio-palavra-encontro",
+    "inicio-temas",
     "inicio-encerramento",
   ]);
   await expect(
-    page.getByText("Padre Claudiano Avelino é sacerdote"),
+    page.getByText(
+      /Um espaço pessoal de espiritualidade católica, reflexão e encontro/,
+    ),
   ).toBeVisible();
   await expect(
-    page.getByText("As primeiras reflexões serão publicadas em breve."),
+    page.getByRole("heading", { name: "Palavra, reflexão e encontro" }),
   ).toBeVisible();
-  await expect(
-    page.getByText("Breves reflexões em vídeo serão reunidas aqui em breve."),
-  ).toBeVisible();
-  await expect(
-    page.getByText("O acervo de reflexões será iniciado em breve."),
-  ).toBeVisible();
+  await expect(page.locator("#inicio-temas li")).toHaveCount(5);
+  await expect(page.getByText(/serão publicadas em breve/i)).toHaveCount(0);
+  await expect(page.getByText(/serão reunidas aqui em breve/i)).toHaveCount(0);
+  await expect(page.getByText(/acervo.*iniciado em breve/i)).toHaveCount(0);
   await expect(page.getByText(/Fixture técnica/i)).toHaveCount(0);
   await expect(page.getByText(/Sistema visual/i)).toHaveCount(0);
   await expect(page.getByText(/Provincial/i)).toHaveCount(0);
@@ -56,17 +55,17 @@ test("Sobre apresenta somente a biografia e os cinco temas autorizados", async (
   expect(await sectionIds(page)).toEqual([
     "sobre-abertura",
     "sobre-biografia",
-    "sobre-palavra-comunicacao",
+    "sobre-posicionamento",
     "sobre-temas",
-    "sobre-homilia",
-    "sobre-convite",
   ]);
   await expect(page.getByText(/Valente, na Bahia/)).toBeVisible();
   await expect(page.getByText(/PUC-SP/)).toBeVisible();
   await expect(page.getByText(/UNIFESP/)).toBeVisible();
   await expect(page.locator("#sobre-temas li")).toHaveCount(5);
   await expect(
-    page.getByText("Homilia de 1 minuto", { exact: true }).first(),
+    page.getByText(
+      "Fé, experiência pastoral e pensamento próximos da vida cotidiana.",
+    ),
   ).toBeVisible();
   await expect(page.getByText(/Provincial/i)).toHaveCount(0);
   await expect(page.locator("img")).toHaveCount(1);
@@ -79,12 +78,7 @@ test("Contato mantém o estado seguro sem e-mail configurado", async ({
   expect((await page.goto("/contato/"))?.ok()).toBe(true);
   await expect(page).toHaveTitle("Contato | Padre Claudiano Avelino");
   await expect(page.locator("h1")).toHaveCount(1);
-  expect(await sectionIds(page)).toEqual([
-    "contato-abertura",
-    "contato-canal",
-    "contato-orientacao",
-    "contato-privacidade",
-  ]);
+  expect(await sectionIds(page)).toEqual(["contato-abertura", "contato-canal"]);
   await expect(page.locator("form, input, textarea")).toHaveCount(0);
   await expect(page.getByText(/telefone|WhatsApp/i)).toHaveCount(0);
   await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);

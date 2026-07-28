@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatPublicationDate } from "../../lib/dates";
+import { EDITORIAL_THEME_LABELS } from "../../config/editorial";
+import EditorialLink from "../base/EditorialLink.astro";
+import Container from "../base/Container.astro";
+
+interface Props {
+  reflection?: CollectionEntry<"reflections">;
+  video?: CollectionEntry<"videos">;
+}
+
+const { reflection, video } = Astro.props;
+---
+
+<section id="inicio-palavra-encontro" class="home-axes">
+  <Container>
+    <header class="home-axes__header">
+      <p class="type-meta">Reflexões e vídeos</p>
+      <h2>Palavra, reflexão e encontro</h2>
+      <p class="type-body-large">
+        Textos e vídeos breves para aproximar o Evangelho da vida cotidiana.
+      </p>
+    </header>
+
+    <div class="home-axes__grid">
+      <article class="home-axis home-axis--reflection">
+        <p class="home-axis__number" aria-hidden="true">01</p>
+        <div class="home-axis__content">
+          <h3>Reflexões</h3>
+          {
+            reflection ? (
+              <>
+                <p class="content-meta">
+                  {EDITORIAL_THEME_LABELS[reflection.data.theme]} ·{" "}
+                  {formatPublicationDate(reflection.data.publishedAt)}
+                </p>
+                <p class="type-editorial">{reflection.data.title}</p>
+              </>
+            ) : (
+              <p class="type-editorial">
+                Textos sobre o Evangelho, a oração, a vida espiritual e os
+                desafios cotidianos.
+              </p>
+            )
+          }
+          <EditorialLink href="/reflexoes/">Conhecer as reflexões</EditorialLink
+          >
+        </div>
+      </article>
+
+      <article class="home-axis home-axis--video">
+        <p class="home-axis__number" aria-hidden="true">02</p>
+        <div class="home-axis__content">
+          <h3>Homilia de 1 minuto</h3>
+          <p class="type-editorial">
+            {
+              video
+                ? video.data.title
+                : "Breves reflexões em vídeo a partir da Palavra de Deus."
+            }
+          </p>
+          <EditorialLink href="/videos/">Assistir aos vídeos</EditorialLink>
+        </div>
+      </article>
+    </div>
+  </Container>
+</section>

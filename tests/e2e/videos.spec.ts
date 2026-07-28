@@ -33,18 +33,15 @@ test("Vídeos apresenta o estado vazio e a ordem editorial aprovada", async ({
     await page
       .locator("main > section")
       .evaluateAll((sections) => sections.map(({ id }) => id)),
-  ).toEqual(["videos-abertura", "videos-listagem", "videos-encerramento"]);
+  ).toEqual(["videos-abertura", "videos-proposta"]);
   await expect(
-    page.getByRole("heading", {
-      name: "As primeiras homilias serão reunidas em breve.",
-    }),
+    page.getByText("Breves reflexões em vídeo a partir da Palavra de Deus."),
   ).toBeVisible();
   await expect(
-    page.getByText(
-      "Cada homilia nasce de uma passagem do Evangelho e propõe um pequeno espaço de escuta durante o dia.",
-    ),
+    page.getByRole("link", { name: "Conhecer as reflexões" }),
   ).toBeVisible();
-  await expect(page.locator("img, iframe, form, .video-card")).toHaveCount(0);
+  await expect(page.locator("img")).toHaveCount(1);
+  await expect(page.locator("iframe, form, .video-card")).toHaveCount(0);
   await expect(
     page.getByText(/Fixture|youtubeId|coleção vazia|vídeo fictício/i),
   ).toHaveCount(0);
@@ -56,9 +53,7 @@ test("Vídeos apresenta o estado vazio e a ordem editorial aprovada", async ({
   expect(externalRequests).toEqual([]);
 });
 
-test("Início preserva o estado vazio sem requisições ao YouTube", async ({
-  page,
-}) => {
+test("Início integra Vídeos sem requisições ao YouTube", async ({ page }) => {
   const youtubeRequests: string[] = [];
   page.on("request", (request) => {
     const hostname = new URL(request.url()).hostname;
@@ -72,7 +67,7 @@ test("Início preserva o estado vazio sem requisições ao YouTube", async ({
   });
   await page.goto("/");
   await expect(
-    page.getByText("Breves reflexões em vídeo serão reunidas aqui em breve."),
+    page.getByRole("link", { name: "Assistir aos vídeos" }),
   ).toBeVisible();
   expect(
     await page
@@ -80,10 +75,9 @@ test("Início preserva o estado vazio sem requisições ao YouTube", async ({
       .evaluateAll((sections) => sections.map(({ id }) => id)),
   ).toEqual([
     "inicio-abertura",
-    "inicio-apresentacao",
-    "inicio-reflexao-destaque",
-    "inicio-homilia",
-    "inicio-reflexoes-recentes",
+    "inicio-declaracao",
+    "inicio-palavra-encontro",
+    "inicio-temas",
     "inicio-encerramento",
   ]);
   await expect(page.locator("iframe")).toHaveCount(0);

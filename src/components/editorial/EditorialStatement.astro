@@ -1,0 +1,21 @@
+---
+import Container from "../base/Container.astro";
+
+interface Props {
+  id?: string;
+  number?: string;
+}
+
+const { id, number = "01" } = Astro.props;
+---
+
+<section {id} class="editorial-statement">
+  <Container>
+    <div class="editorial-statement__inner">
+      <p class="editorial-statement__number" aria-hidden="true">{number}</p>
+      <p class="editorial-statement__text">
+        <slot />
+      </p>
+    </div>
+  </Container>
+</section>

@@ -1,5 +1,7 @@
 ---
 import Container from "../../components/base/Container.astro";
+import EditorialLink from "../../components/base/EditorialLink.astro";
+import ThemeList from "../../components/editorial/ThemeList.astro";
 import FeaturedReflection from "../../components/reflections/FeaturedReflection.astro";
 import ReflectionCard from "../../components/reflections/ReflectionCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
@@ -11,7 +13,6 @@ import {
 import { excludeFeaturedFromListing } from "../../lib/reflections";
 
 await assertContentIntegrity();
-
 const [publishedReflections, featuredReflection] = await Promise.all([
   getPublishedReflections(),
   getFeaturedReflection(),
@@ -20,6 +21,7 @@ const listedReflections = excludeFeaturedFromListing(
   publishedReflections,
   featuredReflection,
 );
+const hasReflections = Boolean(featuredReflection || listedReflections.length);
 ---
 
 <BaseLayout
@@ -28,109 +30,59 @@ const listedReflections = excludeFeaturedFromListing(
   currentPath="/reflexoes/"
   structuredDataType="collection"
 >
-  <Container
-    as="section"
-    variant="opening"
-    id="reflexoes-abertura"
-    class="reflections-opening"
-  >
-    <p class="type-meta">Reflexões</p>
-    <h1>Reflexões para o caminho</h1>
-    <p class="type-body-large">
-      Textos sobre o Evangelho, a oração, a vida espiritual e os desafios
-      cotidianos, escritos para serem lidos com calma e levados à oração.
-    </p>
-  </Container>
+  <section id="reflexoes-abertura" class="collection-opening">
+    <Container>
+      <p class="collection-opening__number" aria-hidden="true">01</p>
+      <div>
+        <p class="type-meta">Reflexões</p>
+        <h1>Reflexões para o caminho</h1>
+        <p class="type-body-large">
+          Textos sobre o Evangelho, a oração, a vida espiritual e os desafios
+          cotidianos, escritos para serem lidos com calma e levados à oração.
+        </p>
+      </div>
+    </Container>
+  </section>
 
   {
-    featuredReflection && (
-      <FeaturedReflection
-        reflection={featuredReflection}
-        id="reflexoes-destaque"
-      />
-    )
-  }
-
-  <section id="reflexoes-acervo" class="reflections-archive">
-    <Container variant="cards">
-      {
-        listedReflections.length > 0 ? (
-          <>
+    hasReflections ? (
+      <>
+        {featuredReflection && (
+          <FeaturedReflection
+            reflection={featuredReflection}
+            id="reflexoes-destaque"
+          />
+        )}
+        <section id="reflexoes-acervo" class="reflections-archive">
+          <Container variant="cards">
             <h2>Acervo de reflexões</h2>
             <div class="reflections-grid">
               {listedReflections.map((reflection) => (
                 <ReflectionCard {reflection} headingLevel="h3" />
               ))}
             </div>
-          </>
-        ) : (
-          <div class="reflections-empty flow">
-            <h2>O acervo de reflexões será iniciado em breve.</h2>
+          </Container>
+        </section>
+      </>
+    ) : (
+      <section id="reflexoes-proposta" class="empty-editorial">
+        <Container>
+          <div class="empty-editorial__intro">
+            <p class="type-meta">Proposta editorial</p>
+            <h2>Palavra, pensamento e comunicação</h2>
             <p class="type-editorial">
-              Novos textos serão publicados quinzenalmente neste espaço.
+              A espiritualidade, nesse caminho, não se reduz a respostas
+              prontas. Ela também envolve silêncio, escuta, discernimento e
+              atenção ao modo como a fé encontra a vida.
             </p>
           </div>
-        )
-      }
-    </Container>
-  </section>
-
-  <section id="reflexoes-periodicidade" class="reflections-periodicity">
-    <Container variant="institutional">
-      <p>Novas reflexões são publicadas quinzenalmente.</p>
-    </Container>
-  </section>
+          <ThemeList variant="compact" />
+          <div class="empty-editorial__footer">
+            <p>Novos textos a cada duas semanas.</p>
+            <EditorialLink href="/sobre/">Conhecer a trajetória</EditorialLink>
+          </div>
+        </Container>
+      </section>
+    )
+  }
 </BaseLayout>
-
-<style>
-  .reflections-opening {
-    display: grid;
-    gap: var(--space-5);
-    padding-block: clamp(var(--space-9), 8vw, var(--space-11));
-  }
-
-  .reflections-opening h1 {
-    max-width: 14ch;
-  }
-
-  .reflections-opening .type-body-large {
-    max-width: 43rem;
-  }
-
-  .reflections-archive {
-    padding-block: var(--section-space);
-    background: var(--color-surface-primary);
-    border-block: var(--border-width-default) solid var(--color-border-default);
-  }
-
-  .reflections-archive h2 {
-    margin-block-end: var(--space-7);
-  }
-
-  .reflections-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
-
-  .reflections-empty {
-    --flow-space: var(--space-5);
-    max-width: var(--width-opening);
-  }
-
-  .reflections-periodicity {
-    padding-block: var(--space-7);
-  }
-
-  .reflections-periodicity p {
-    color: var(--color-text-secondary);
-    font-family: var(--font-family-interface);
-    font-size: var(--font-size-small);
-  }
-
-  @media (max-width: 47.999rem) {
-    .reflections-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

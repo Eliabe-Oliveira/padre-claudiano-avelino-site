@@ -1,5 +1,6 @@
 import homeHeroPhoto from "../assets/photos/final/padre-claudiano-retrato.png";
 import aboutPortraitPhoto from "../assets/photos/final/padre-celebracao.jpeg";
+import celebrationPhoto from "../assets/photos/final/celebracao-missa.jpeg";
 
 interface SiteMediaItem {
   src: typeof homeHeroPhoto;
@@ -11,6 +12,7 @@ interface SiteMediaItem {
 interface SiteMedia {
   homeHero?: SiteMediaItem;
   aboutPortrait?: SiteMediaItem;
+  celebration?: SiteMediaItem;
 }
 
 export const siteMedia: SiteMedia = {
@@ -25,5 +27,11 @@ export const siteMedia: SiteMedia = {
     alt: "Padre Claudiano Avelino durante uma leitura.",
     objectPosition: "50% 38%",
     sourceFilename: "padre-celebracao.jpeg",
+  },
+  celebration: {
+    src: celebrationPhoto,
+    alt: "Padre Claudiano Avelino durante uma celebração.",
+    objectPosition: "50% 48%",
+    sourceFilename: "celebracao-missa.jpeg",
   },
 };

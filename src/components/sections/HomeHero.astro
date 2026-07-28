@@ -8,7 +8,10 @@ import Container from "../base/Container.astro";
 <Container as="section" id="inicio-abertura" class="home-hero">
   <div class="home-hero__content">
     <p class="type-meta">Espiritualidade e vida cotidiana</p>
-    <h1>Uma palavra para iluminar a vida cotidiana</h1>
+    <h1>Padre <i>Claudiano</i> Avelino</h1>
+    <p class="home-hero__positioning">
+      Uma palavra para iluminar a vida cotidiana
+    </p>
     <p class="type-body-large">
       Reflexões e breves homilias sobre espiritualidade católica, oração e
       encontro com a Palavra de Deus.
@@ -20,54 +23,23 @@ import Container from "../base/Container.astro";
       </ButtonLink>
     </div>
   </div>
-  {
-    siteMedia.homeHero && (
-      <Picture
-        class="home-hero__photo"
-        src={siteMedia.homeHero.src}
-        alt={siteMedia.homeHero.alt}
-        formats={["avif", "webp"]}
-        widths={[360, 480, 720]}
-        sizes="(max-width: 63.999rem) calc(100vw - 2.5rem), 28rem"
-        quality={80}
-        loading="eager"
-        fetchpriority="high"
-        style={`object-position: ${siteMedia.homeHero.objectPosition}`}
-      />
-    )
-  }
+  <div class="home-hero__visual">
+    <span class="home-hero__accent" aria-hidden="true"></span>
+    {
+      siteMedia.homeHero && (
+        <Picture
+          class="home-hero__photo"
+          src={siteMedia.homeHero.src}
+          alt={siteMedia.homeHero.alt}
+          formats={["avif", "webp"]}
+          widths={[360, 480, 557]}
+          sizes="(max-width: 63.999rem) calc(100vw - 4rem), 31rem"
+          quality={80}
+          loading="eager"
+          fetchpriority="high"
+          style={`object-position: ${siteMedia.homeHero.objectPosition}`}
+        />
+      )
+    }
+  </div>
 </Container>
-
-<style>
-  .home-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(20rem, 0.65fr);
-    align-items: center;
-    gap: clamp(var(--space-7), 6vw, var(--space-10));
-  }
-
-  .home-hero__content {
-    display: grid;
-    gap: var(--space-5);
-  }
-
-  .home-hero__photo {
-    display: block;
-    width: min(100%, 30rem);
-    aspect-ratio: 4 / 5;
-    justify-self: end;
-    object-fit: cover;
-    border-radius: var(--radius-card);
-  }
-
-  @media (max-width: 63.999rem) {
-    .home-hero {
-      grid-template-columns: 1fr;
-    }
-
-    .home-hero__photo {
-      width: min(100%, 32rem);
-      justify-self: start;
-    }
-  }
-</style>

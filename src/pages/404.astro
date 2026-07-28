@@ -11,33 +11,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   canonicalPath={false}
   noindex
 >
-  <Container as="section" variant="opening" class="not-found">
-    <p class="type-meta">Erro 404</p>
-    <h1>Página não encontrada</h1>
-    <p class="type-body-large">
-      O conteúdo que você procura não está disponível ou pode ter mudado de
-      endereço.
-    </p>
-    <div class="page-actions">
-      <ButtonLink href="/">Voltar ao início</ButtonLink>
-      <ButtonLink href="/reflexoes/" variant="secondary">
-        Conhecer as reflexões
-      </ButtonLink>
-      <ButtonLink href="/videos/" variant="secondary">
-        Conhecer os vídeos
-      </ButtonLink>
-    </div>
-  </Container>
+  <section class="not-found">
+    <Container>
+      <p class="not-found__number" aria-hidden="true">404</p>
+      <div class="not-found__copy">
+        <p class="type-meta">Erro 404</p>
+        <h1>Página não encontrada</h1>
+        <p class="type-body-large">
+          O conteúdo que você procura não está disponível ou pode ter mudado de
+          endereço.
+        </p>
+        <ButtonLink href="/">Voltar ao início</ButtonLink>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
-
-<style>
-  .not-found {
-    display: grid;
-    gap: var(--space-5);
-    padding-block: clamp(var(--space-9), 10vw, var(--space-11));
-  }
-
-  .not-found .type-body-large {
-    max-width: 42rem;
-  }
-</style>

@@ -46,6 +46,12 @@ npm install
 
 ## Estado
 
+A Etapa extraordinária 5.7-B reconstruiu a apresentação visual e editorial sem
+alterar rotas, conteúdo real, schemas ou infraestrutura. A direção “Palavra que
+respira” agora usa maior escala tipográfica, assimetria, planos verdes e as três
+fotografias autorizadas. As coleções de reflexões e vídeos permanecem vazias e
+recebem tratamento editorial intencional, sem conteúdo fictício.
+
 A Etapa 5.8 está tecnicamente concluída: as páginas existentes possuem URLs
 públicas centralizadas, canonical, Open Graph, JSON-LD, sitemap, robots e
 favicon. A configuração futura de cabeçalhos do Cloudflare Pages também está

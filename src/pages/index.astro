@@ -1,10 +1,10 @@
 ---
-import ClosingInvitation from "../components/sections/ClosingInvitation.astro";
+import Container from "../components/base/Container.astro";
+import ButtonLink from "../components/base/ButtonLink.astro";
+import EditorialStatement from "../components/editorial/EditorialStatement.astro";
+import ThemeList from "../components/editorial/ThemeList.astro";
+import HomeEditorialAxes from "../components/sections/HomeEditorialAxes.astro";
 import HomeHero from "../components/sections/HomeHero.astro";
-import HomeIntroduction from "../components/sections/HomeIntroduction.astro";
-import HomeRecentReflections from "../components/sections/HomeRecentReflections.astro";
-import HomeReflectionHighlight from "../components/sections/HomeReflectionHighlight.astro";
-import HomeVideoHighlight from "../components/sections/HomeVideoHighlight.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   assertContentIntegrity,
@@ -22,7 +22,6 @@ const [featuredReflection, featuredVideo, publishedReflections] =
     getFeaturedVideo(),
     getPublishedReflections(),
   ]);
-const recentReflections = publishedReflections.slice(0, 3);
 ---
 
 <BaseLayout
@@ -33,9 +32,34 @@ const recentReflections = publishedReflections.slice(0, 3);
   structuredDataType="home"
 >
   <HomeHero />
-  <HomeIntroduction />
-  <HomeReflectionHighlight reflection={featuredReflection} />
-  <HomeVideoHighlight video={featuredVideo} />
-  <HomeRecentReflections reflections={recentReflections} />
-  <ClosingInvitation />
+  <EditorialStatement id="inicio-declaracao">
+    Um espaço pessoal de espiritualidade católica, reflexão e encontro com a
+    Palavra, no qual fé, experiência pastoral e pensamento se aproximam da vida
+    cotidiana.
+  </EditorialStatement>
+  <HomeEditorialAxes
+    reflection={featuredReflection ?? publishedReflections[0]}
+    video={featuredVideo}
+  />
+  <section id="inicio-temas" class="home-themes">
+    <Container>
+      <div class="home-themes__heading">
+        <p class="type-meta">Temas</p>
+        <h2>Cinco caminhos de reflexão</h2>
+      </div>
+      <ThemeList />
+    </Container>
+  </section>
+  <section id="inicio-encerramento" class="home-closing">
+    <Container>
+      <div class="home-closing__inner">
+        <p class="home-closing__words">
+          Espiritualidade católica <i>Reflexão</i> Encontro com a Palavra
+        </p>
+        <ButtonLink href="/sobre/" variant="secondary">
+          Conhecer a trajetória
+        </ButtonLink>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>

@@ -53,7 +53,17 @@ test("fotografias locais têm fontes responsivas, dimensões e carregamento coer
   expect(aboutSrc).toMatch(/^\/(?:_image\?|.*\.(?:jpeg|jpg|webp|avif))/);
   expect(aboutSrc).not.toBe(homeSrc);
 
-  for (const route of routes.slice(2)) {
+  await page.goto("/videos/");
+  const celebration = page.locator("#videos-abertura picture");
+  await expect(celebration).toHaveCount(1);
+  await expect(celebration.locator("source")).toHaveCount(2);
+  await expect(celebration.locator("img")).toHaveAttribute(
+    "alt",
+    "Padre Claudiano Avelino durante uma celebração.",
+  );
+  await expect(celebration.locator("img")).toHaveAttribute("loading", "lazy");
+
+  for (const route of ["/contato/", "/reflexoes/", "/404.html"]) {
     await page.goto(route);
     await expect(page.locator("main picture, main img")).toHaveCount(0);
   }

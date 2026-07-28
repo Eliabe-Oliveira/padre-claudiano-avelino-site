@@ -61,14 +61,14 @@ const contactHref = siteConfig.contactEmail
 
 <style>
   .site-footer {
-    padding-block: var(--space-9) var(--space-6);
+    padding-block: clamp(var(--space-9), 8vw, var(--space-11)) var(--space-6);
     color: var(--color-text-inverse);
     background: var(--color-surface-dark);
   }
 
   .site-footer__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(10rem, 1fr));
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(10rem, 0.75fr));
     gap: var(--space-7);
   }
 
@@ -80,8 +80,10 @@ const contactHref = siteConfig.contactEmail
   }
 
   .site-footer__name {
-    font-size: var(--font-size-h4);
-    font-weight: 600;
+    max-width: 12ch;
+    font-size: clamp(2rem, 1.5rem + 1.5vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1;
   }
 
   .site-footer__label {

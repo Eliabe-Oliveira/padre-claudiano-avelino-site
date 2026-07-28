@@ -3,7 +3,10 @@ html {
 }
 
 body {
-  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
   overflow-wrap: break-word;
   color: var(--color-text-primary);
   background: var(--color-background-primary);
@@ -22,6 +25,7 @@ body {
 
 main {
   display: block;
+  flex: 1;
 }
 
 p a:not([class]) {

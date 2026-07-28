@@ -58,9 +58,10 @@ const items = [
 
 <style>
   .site-header {
-    position: relative;
+    position: sticky;
+    inset-block-start: 0;
     z-index: 10;
-    background: var(--color-background-primary);
+    background: rgb(245 241 232 / 96%);
     border-block-end: var(--border-width-default) solid
       var(--color-border-default);
   }
@@ -69,15 +70,15 @@ const items = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 5.5rem;
+    min-height: 6rem;
     gap: var(--space-5);
   }
 
   .site-header__name {
-    max-width: 18rem;
+    max-width: 20rem;
     color: var(--color-text-primary);
     font-family: var(--font-family-editorial);
-    font-size: 1.375rem;
+    font-size: clamp(1.25rem, 1.05rem + 0.5vw, 1.625rem);
     font-weight: 600;
     line-height: 1.15;
     text-decoration: none;
@@ -87,7 +88,7 @@ const items = [
   .site-header__desktop-navigation ul {
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: clamp(var(--space-4), 2vw, var(--space-6));
   }
 
   .site-header__desktop-navigation a {

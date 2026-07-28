@@ -34,19 +34,14 @@ test("Reflexões apresenta acervo vazio e ordem editorial aprovada", async ({
     await page
       .locator("main > section")
       .evaluateAll((sections) => sections.map(({ id }) => id)),
-  ).toEqual([
-    "reflexoes-abertura",
-    "reflexoes-acervo",
-    "reflexoes-periodicidade",
-  ]);
+  ).toEqual(["reflexoes-abertura", "reflexoes-proposta"]);
   await expect(
-    page.getByRole("heading", {
-      name: "O acervo de reflexões será iniciado em breve.",
-    }),
+    page.getByText("Novos textos a cada duas semanas."),
   ).toBeVisible();
   await expect(
-    page.getByText("Novas reflexões são publicadas quinzenalmente."),
+    page.getByRole("link", { name: "Conhecer a trajetória" }),
   ).toBeVisible();
+  await expect(page.locator("#reflexoes-proposta li")).toHaveCount(5);
   await expect(page.locator(".reflection-card")).toHaveCount(0);
   await expect(page.locator("img, iframe, form")).toHaveCount(0);
   await expect(
@@ -81,13 +76,9 @@ test("404 apresenta conteúdo e ações aprovados", async ({ page }) => {
       "O conteúdo que você procura não está disponível ou pode ter mudado de endereço.",
     ),
   ).toBeVisible();
-  for (const action of [
-    "Voltar ao início",
-    "Conhecer as reflexões",
-    "Conhecer os vídeos",
-  ]) {
-    await expect(page.getByRole("link", { name: action })).toBeVisible();
-  }
+  await expect(
+    page.getByRole("link", { name: "Voltar ao início" }),
+  ).toBeVisible();
   await expect(page.locator("img, form")).toHaveCount(0);
   await expect(page.getByText(/stack|node_modules|src\//i)).toHaveCount(0);
 });
