@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+  <defs>
+    <filter id="pigment" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".009 .034" numOctaves="4" seed="27" result="grain"/>
+      <feColorMatrix in="grain" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono" result="soft-grain">
+        <feFuncA type="table" tableValues="0 .16"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="soft-grain" mode="soft-light"/>
+    </filter>
+    <filter id="dry-brush" x="-10%" y="-20%" width="120%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency=".018 .08" numOctaves="2" seed="11" result="bristles"/>
+      <feDisplacementMap in="SourceGraphic" in2="bristles" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1200" fill="#132a22"/>
+  <g filter="url(#pigment)">
+    <path fill="#1b352a" d="M-80 48C302-22 517 118 861 72c300-40 472-158 822-70v244c-338 67-609-12-906 45-287 55-568 10-857 72Z"/>
+    <path fill="#234235" opacity=".78" d="M-94 338c313-94 583 65 858 2 323-74 583-39 922 31v208c-366-95-600 9-903 45-314 36-567-94-877 13Z"/>
+    <path fill="#172f26" d="M-62 670c289-85 519 27 805-20 345-57 605-26 919 79v252c-308-103-584-108-894-37-283 65-533-14-830 46Z"/>
+    <path fill="#284638" opacity=".56" d="M-84 1017c312-90 558 3 842-23 318-29 570-1 912 106v146H-84Z"/>
+    <path fill="none" stroke="#486454" stroke-width="54" stroke-linecap="round" opacity=".13" filter="url(#dry-brush)" d="M-40 178c312 64 514-59 805 7 332 75 544-44 887 10"/>
+    <path fill="none" stroke="#081a15" stroke-width="71" stroke-linecap="round" opacity=".18" filter="url(#dry-brush)" d="M-63 537c276-79 524 41 834-17 337-63 562 36 896-45"/>
+    <path fill="none" stroke="#7a8a68" stroke-width="31" stroke-linecap="round" opacity=".07" filter="url(#dry-brush)" d="M-26 885c312 48 515-54 793 17 319 81 566-66 892 2"/>
+  </g>
+  <path fill="none" stroke="#b5a77b" stroke-width="7" stroke-linecap="round" opacity=".035" d="M148 112c245 96 281 5 494 53M982 318c174-44 271-31 469 26M201 765c210-51 331-13 501 36M1047 1024c148-38 248-14 398 31"/>
+</svg>

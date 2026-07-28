@@ -12,11 +12,13 @@ foram mantidos localmente, sem dependência de rede em produção.
   <https://commons.wikimedia.org/wiki/File:Creation_of_Adam_(Michelangelo)_Detail.jpg>
 - **Domínio público:** a página identifica a reprodução fiel de obra
   bidimensional como `PD-Art`; Michelangelo morreu em 1564.
-- **Arquivo local:** `michelangelo-creation-adam-hands.jpg`
+- **Arquivos locais:** `michelangelo-creation-adam-hands.jpg` e a derivação
+  transparente `michelangelo-hands-cutout.png`.
 - **Página:** Início
 - **Uso:** recorte simbólico decorativo na primeira dobra.
-- **Tratamento:** duas metades responsivas, leve dessaturação, véu verde,
-  enquadramento editorial e aproximação lenta em CSS. A animação é neutralizada
+- **Tratamento:** extração local do fundo para que braços e mãos funcionem como
+  fragmentos orgânicos; preservação da anatomia, pátina e matéria pictórica;
+  duas camadas responsivas e aproximação lenta em CSS. A animação é neutralizada
   por `prefers-reduced-motion`.
 
 ## São Jerônimo em seu estudo

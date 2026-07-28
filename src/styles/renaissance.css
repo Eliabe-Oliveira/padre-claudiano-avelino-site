@@ -1,6 +1,7 @@
 :root {
   --color-renaissance-ochre: #927343;
   --color-renaissance-ochre-light: #c5aa72;
+  --painted-cypress: url("../assets/art/painted-cypress-surface.webp");
   --sacred-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
 }
 
@@ -13,7 +14,9 @@
 .not-found,
 .site-footer {
   background-color: var(--color-surface-dark);
-  background-image: var(--sacred-texture);
+  background-image: var(--painted-cypress);
+  background-position: center;
+  background-size: cover;
   background-blend-mode: soft-light;
 }
 
@@ -22,7 +25,10 @@
   width: 100%;
   padding-inline: max(var(--page-gutter), calc((100vw - 80rem) / 2));
   color: var(--color-text-inverse);
-  background-color: var(--color-surface-dark);
+  background-color: #132a22;
+  background-image: var(--painted-cypress);
+  background-position: center;
+  background-size: cover;
   border-block-end: 1px solid rgb(197 170 114 / 45%);
 }
 
@@ -58,64 +64,74 @@
 }
 
 .home-hero__visual::before {
-  inset: var(--space-5) 0 var(--space-5) var(--space-5);
-  background: rgb(14 29 23 / 55%);
-  border: 1px solid rgb(197 170 114 / 42%);
+  inset: var(--space-5) 0;
+  background: rgb(9 24 19 / 16%);
+  border-block: 1px solid rgb(197 170 114 / 30%);
 }
 
 .sacred-encounter {
   position: absolute;
   z-index: 1;
-  inset: var(--space-7) 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  height: clamp(15rem, 24vw, 22rem);
+  inset: var(--space-5) -4% auto -8%;
+  height: clamp(18rem, 28vw, 26rem);
   overflow: hidden;
-  background: var(--color-background-secondary);
-  border: 1px solid rgb(197 170 114 / 55%);
+  isolation: isolate;
 }
 
-.sacred-encounter::after {
+.sacred-encounter::before {
   position: absolute;
-  inset: 0;
+  z-index: -1;
+  inset: 18% 4% 8%;
   content: "";
   pointer-events: none;
-  background: rgb(31 48 40 / 16%) var(--sacred-texture);
-  background-blend-mode: color, soft-light;
+  background: rgb(7 20 16 / 24%);
+  filter: blur(2rem);
+  border-radius: 50%;
 }
 
-.sacred-encounter__half {
-  position: relative;
+.sacred-encounter__fragment {
+  position: absolute;
+  inset-block: 0;
+  width: 54%;
   overflow: hidden;
+}
+
+.sacred-encounter__fragment--human {
+  inset-inline-start: 0;
+}
+
+.sacred-encounter__fragment--divine {
+  inset-inline-end: 0;
 }
 
 .sacred-encounter__image {
   position: absolute;
   inset-block: 0;
-  width: 200%;
+  width: 185%;
   max-width: none;
   height: 100%;
-  object-fit: cover;
-  filter: saturate(0.72) sepia(0.09) contrast(1.04);
+  object-fit: contain;
+  filter: saturate(0.78) sepia(0.08) contrast(1.06)
+    drop-shadow(0 0.8rem 0.7rem rgb(4 15 11 / 34%));
 }
 
-.sacred-encounter__half--human .sacred-encounter__image {
+.sacred-encounter__fragment--human .sacred-encounter__image {
   inset-inline-start: 0;
-  animation: sacred-human-breath 12s ease-in-out infinite alternate;
+  animation: sacred-human-encounter 10s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.sacred-encounter__half--divine .sacred-encounter__image {
+.sacred-encounter__fragment--divine .sacred-encounter__image {
   inset-inline-end: 0;
-  animation: sacred-divine-breath 12s ease-in-out infinite alternate;
+  animation: sacred-divine-encounter 10s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-.sacred-encounter__line {
+.sacred-encounter__patina {
   position: absolute;
-  z-index: 2;
-  inset-block-end: var(--space-4);
-  inset-inline: 12%;
-  height: 1px;
-  background: rgb(146 115 67 / 70%);
+  inset: 5% 2% 2%;
+  pointer-events: none;
+  background: var(--sacred-texture);
+  opacity: 0.1;
+  mix-blend-mode: soft-light;
 }
 
 .home-hero__portrait {
@@ -206,16 +222,43 @@
   position: relative;
   overflow: hidden;
   min-height: 30rem;
-  background: var(--color-surface-dark);
-  border: 1px solid var(--color-renaissance-ochre);
+  background: transparent;
 }
 
 .about-sacred-study .renaissance-artwork {
+  clip-path: polygon(
+    4% 2%,
+    96% 0,
+    100% 8%,
+    98% 31%,
+    100% 58%,
+    97% 78%,
+    99% 97%,
+    75% 100%,
+    51% 98%,
+    26% 100%,
+    2% 96%,
+    0 71%,
+    3% 49%,
+    0 23%
+  );
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.7) sepia(0.1);
+  filter: saturate(0.7) sepia(0.1)
+    drop-shadow(0.8rem 1rem 0.8rem rgb(8 23 18 / 22%));
   animation: sacred-art-drift 18s ease-in-out infinite alternate;
+}
+
+.about-sacred-study::after {
+  position: absolute;
+  inset: 1.5% 2% 2%;
+  content: "";
+  pointer-events: none;
+  background: var(--sacred-texture);
+  opacity: 0.1;
+  mix-blend-mode: soft-light;
+  clip-path: polygon(4% 2%, 96% 0, 100% 8%, 98% 96%, 51% 98%, 2% 96%);
 }
 
 .about-positioning > .container {
@@ -234,15 +277,33 @@
   overflow: hidden;
   min-height: 18rem;
   margin-block-start: var(--space-8);
-  border-block: 1px solid var(--color-renaissance-ochre);
 }
 
 .reflection-sacred-art .renaissance-artwork {
+  clip-path: polygon(
+    1% 7%,
+    12% 3%,
+    27% 5%,
+    41% 1%,
+    57% 4%,
+    71% 2%,
+    87% 5%,
+    99% 1%,
+    97% 94%,
+    84% 98%,
+    69% 95%,
+    53% 99%,
+    39% 96%,
+    24% 99%,
+    9% 95%,
+    2% 98%
+  );
   width: 100%;
   height: 100%;
   min-height: 18rem;
   object-fit: cover;
-  filter: saturate(0.62) sepia(0.11) contrast(1.05);
+  filter: saturate(0.62) sepia(0.11) contrast(1.05)
+    drop-shadow(0 0.8rem 0.7rem rgb(8 23 18 / 24%));
   animation: sacred-art-drift 20s ease-in-out infinite alternate-reverse;
 }
 
@@ -293,21 +354,27 @@
   border-block-start: 1px solid rgb(197 170 114 / 45%);
 }
 
-@keyframes sacred-human-breath {
-  from {
-    transform: translateX(-3px);
+@keyframes sacred-human-encounter {
+  0%,
+  100% {
+    transform: translateX(-4px) translateY(1px);
   }
-  to {
-    transform: translateX(2px);
+
+  44%,
+  56% {
+    transform: translateX(2px) translateY(-1px);
   }
 }
 
-@keyframes sacred-divine-breath {
-  from {
-    transform: translateX(3px);
+@keyframes sacred-divine-encounter {
+  0%,
+  100% {
+    transform: translateX(4px) translateY(-1px);
   }
-  to {
-    transform: translateX(-2px);
+
+  44%,
+  56% {
+    transform: translateX(-2px) translateY(1px);
   }
 }
 
@@ -330,6 +397,7 @@
   }
 
   .sacred-encounter {
+    inset-inline: 0;
     height: 20rem;
   }
 
@@ -349,7 +417,15 @@
 
   .sacred-encounter {
     inset-block-start: var(--space-5);
-    height: 12.5rem;
+    height: 13.5rem;
+  }
+
+  .sacred-encounter__fragment {
+    width: 55%;
+  }
+
+  .sacred-encounter__image {
+    width: 190%;
   }
 
   .home-hero__portrait {
@@ -378,7 +454,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sacred-encounter__half .sacred-encounter__image,
+  .sacred-encounter__fragment .sacred-encounter__image,
   .about-sacred-study .renaissance-artwork,
   .reflection-sacred-art .renaissance-artwork {
     animation: none;

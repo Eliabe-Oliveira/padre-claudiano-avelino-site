@@ -45,14 +45,25 @@ test("preserva a reorientação católica renascentista", async ({ page }) => {
   await expect(page.locator("h1")).toHaveCount(1);
 
   const animation = await page
-    .locator(".sacred-encounter__image")
+    .locator(".sacred-encounter__fragment--human .sacred-encounter__image")
     .first()
-    .evaluate((element) => getComputedStyle(element).animationName);
-  expect(animation).toBe("sacred-human-breath");
+    .evaluate((element) => {
+      const style = getComputedStyle(element);
+      return {
+        duration: style.animationDuration,
+        iterationCount: style.animationIterationCount,
+        name: style.animationName,
+      };
+    });
+  expect(animation).toEqual({
+    duration: "10s",
+    iterationCount: "infinite",
+    name: "sacred-human-encounter",
+  });
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   const reducedAnimation = await page
-    .locator(".sacred-encounter__image")
+    .locator(".sacred-encounter__fragment--human .sacred-encounter__image")
     .first()
     .evaluate((element) => getComputedStyle(element).animationName);
   expect(reducedAnimation).toBe("none");

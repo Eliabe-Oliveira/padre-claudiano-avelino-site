@@ -9,9 +9,22 @@ coleções, fotografias e comportamento funcional.
 ## Estratégia
 
 A intervenção acrescenta uma camada artística contida: três reproduções em
-domínio público, textura orgânica leve, ocre envelhecido, filetes e movimento
-lento em CSS. A página continua sendo uma publicação autoral, não um museu
-digital ou interface devocional genérica.
+domínio público, recortes pictóricos orgânicos, textura de pigmento, ocre
+envelhecido, filetes e movimento lento em CSS. A página continua sendo uma
+publicação autoral, não um museu digital ou interface devocional genérica.
+
+## Colagem sacra
+
+As mãos deixaram de ocupar dois retângulos fotográficos e passaram a existir
+como camadas transparentes sobre o verde. São Jerônimo e a Anunciação receberam
+limites deliberadamente irregulares, preservando pátina, luz, sombra e a matéria
+das reproduções. A irregularidade é contida para que a composição não pareça
+adesivo digital, scrapbook ou ornamentação infantil.
+
+O verde-cipreste usa uma superfície local de 1600 × 1200 px construída com
+pinceladas amplas, veladuras, áreas foscas, pigmento e marcas de pincel seco. O
+SVG-fonte permanece como registro editável, enquanto a produção carrega sua
+versão WebP de 16 KB para evitar rasterização de filtros no navegador.
 
 ## Início
 
@@ -70,7 +83,7 @@ responsivos, AVIF, WebP e fallback. A arte da Início é eager por estar na
 primeira dobra; os outros dois recortes são lazy. Nenhuma dependência, fonte,
 biblioteca ou requisição externa foi adicionada.
 
-Na auditoria Lighthouse final, a Início obteve 95 em Performance no perfil
+Na auditoria Lighthouse final, a Início obteve 97 em Performance no perfil
 mobile e 100 no desktop; Sobre obteve 99 e Vídeos 97 no mobile. Todas as quatro
 execuções obtiveram 100 em Acessibilidade, Boas Práticas e SEO, com TBT de
 0 ms e CLS máximo de 0,019. O resumo está em
