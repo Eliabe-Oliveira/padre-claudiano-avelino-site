@@ -2,7 +2,36 @@
   --color-renaissance-ochre: #927343;
   --color-renaissance-ochre-light: #c5aa72;
   --painted-cypress: url("../assets/art/painted-cypress-surface.webp");
+  --creation-hero: url("../assets/art/public-domain/michelangelo-creation-adam-hero.webp");
   --sacred-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+body.page-home .site-header {
+  background: rgb(5 31 23 / 98%);
+  border-block-end-color: rgb(146 115 67 / 58%);
+}
+
+body.page-home .site-header__name {
+  color: var(--color-renaissance-ochre-light);
+  font-weight: 520;
+  letter-spacing: 0.025em;
+}
+
+body.page-home .site-header__desktop-navigation a {
+  color: #dfd0b6 !important;
+  font-family: var(--font-family-editorial);
+  font-size: 1.05rem;
+  font-weight: 470;
+}
+
+body.page-home .site-header__desktop-navigation a:hover,
+body.page-home .site-header__desktop-navigation a[aria-current="page"] {
+  color: var(--color-renaissance-ochre-light) !important;
+}
+
+body.page-home .mobile-navigation__toggle {
+  color: var(--color-renaissance-ochre-light);
+  border-color: var(--color-renaissance-ochre);
 }
 
 .home-hero,
@@ -21,18 +50,42 @@
 }
 
 .home-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   max-width: none;
   width: 100%;
-  grid-template-columns: minmax(16rem, 0.72fr) minmax(28rem, 1.28fr);
+  grid-template-columns: 1fr;
+  align-items: center;
   min-height: calc(100svh - 5.5rem);
-  gap: clamp(var(--space-5), 3vw, var(--space-8));
   padding-inline: max(var(--page-gutter), calc((100vw - 80rem) / 2));
   color: var(--color-text-inverse);
   background-color: #132a22;
-  background-image: var(--painted-cypress);
+  border-block-end: 1px solid rgb(197 170 114 / 45%);
+}
+
+.home-hero::before,
+.home-hero::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.home-hero::before {
+  z-index: -2;
+  inset: -1%;
+  background-image: var(--creation-hero);
   background-position: center;
   background-size: cover;
-  border-block-end: 1px solid rgb(197 170 114 / 45%);
+  animation: sacred-fresco-breath 18s ease-in-out infinite alternate;
+}
+
+.home-hero::after {
+  z-index: -1;
+  background-color: rgb(4 30 22 / 48%);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
 }
 
 .home-hero h1,
@@ -40,37 +93,41 @@
   color: var(--color-text-inverse);
 }
 
-.home-hero h1 i {
-  color: var(--color-renaissance-ochre-light);
+.home-hero h1 {
+  max-width: none;
+  color: #e5d6ba;
+  font-size: clamp(4.2rem, 7vw, 7rem);
+  font-weight: 390;
+  letter-spacing: -0.055em;
+  line-height: 0.77;
+  text-transform: uppercase;
+  text-shadow: 0 0.15rem 1.4rem rgb(0 13 9 / 42%);
+}
+
+.home-hero h1 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .home-hero__content {
+  width: min(100%, 48rem);
   gap: clamp(var(--space-5), 3vw, var(--space-7));
 }
 
 .home-hero__message {
-  max-width: 22ch;
+  max-width: 28ch;
+  color: var(--color-renaissance-ochre-light);
   font-family: var(--font-family-editorial);
-  font-size: clamp(1.35rem, 1rem + 0.9vw, 2rem);
+  font-size: clamp(1.15rem, 0.95rem + 0.65vw, 1.6rem);
+  letter-spacing: 0.045em;
   line-height: 1.25;
   text-wrap: balance;
 }
 
 .home-hero .button-link--primary {
-  color: var(--color-surface-dark);
-  background: var(--color-text-inverse);
-  border-color: var(--color-text-inverse);
-}
-
-.home-hero__visual {
-  place-items: stretch;
-  min-height: clamp(30rem, 68vh, 44rem);
-}
-
-.home-hero__visual::before {
-  inset: var(--space-5) 0;
-  background: rgb(9 24 19 / 16%);
-  border-block: 1px solid rgb(197 170 114 / 30%);
+  color: #eadabb;
+  background: rgb(5 32 24 / 82%);
+  border-color: var(--color-renaissance-ochre);
 }
 
 .sacred-encounter {
@@ -374,14 +431,22 @@
   }
 }
 
+@keyframes sacred-fresco-breath {
+  from {
+    transform: scale(1.01) translateX(-3px);
+  }
+  to {
+    transform: scale(1.015) translateX(3px);
+  }
+}
+
 @media (max-width: 55.999rem) {
   .home-hero {
-    grid-template-columns: minmax(0, 0.82fr) minmax(20rem, 1.18fr);
     padding-inline: var(--page-gutter);
   }
 
-  .home-hero__visual {
-    min-height: 30rem;
+  .home-hero::before {
+    background-position: 52% center;
   }
 
   .sacred-encounter {
@@ -391,28 +456,34 @@
 }
 
 @media (max-width: 47.999rem) {
+  :root {
+    --creation-hero: url("../assets/art/public-domain/michelangelo-creation-adam-hero-mobile.webp");
+  }
+
   .home-hero {
     grid-template-columns: 1fr;
     align-content: center;
     min-height: calc(100svh - 5rem);
-    padding-block-start: var(--space-8);
+    padding-block: var(--space-9);
   }
 
-  .home-hero__visual {
-    min-height: 17rem;
+  .home-hero::before {
+    background-position: 50% center;
   }
 
-  .sacred-encounter {
-    inset-block-start: var(--space-5);
-    height: 13.5rem;
+  .home-hero::after {
+    background-color: rgb(4 30 22 / 62%);
   }
 
-  .sacred-encounter__fragment {
-    width: 55%;
+  .home-hero h1 {
+    max-width: none;
+    font-size: clamp(2.85rem, 15vw, 4.25rem);
+    letter-spacing: -0.065em;
   }
 
-  .sacred-encounter__image {
-    width: 190%;
+  .home-hero__content {
+    align-content: end;
+    min-height: calc(100svh - 15rem);
   }
 
   .about-positioning > .container {
@@ -434,6 +505,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .home-hero::before,
   .sacred-encounter__fragment .sacred-encounter__image,
   .about-sacred-study .renaissance-artwork,
   .reflection-sacred-art .renaissance-artwork {

@@ -32,18 +32,13 @@ test("imagens locais têm fontes responsivas, dimensões e carregamento coerente
   page,
 }) => {
   await page.goto("/");
-  const hands = page.locator("[data-sacred-encounter] picture");
-  await expect(hands).toHaveCount(2);
-  await expect(hands.first().locator("source")).toHaveCount(2);
-  await expect(hands.first().locator("img")).toHaveAttribute("alt", "");
-  await expect(hands.first().locator("img")).toHaveAttribute("width", /\d+/);
-  await expect(hands.first().locator("img")).toHaveAttribute("height", /\d+/);
-  await expect(hands.first().locator("img")).toHaveAttribute(
-    "loading",
-    "eager",
-  );
-  const handsSrc = await hands.first().locator("img").getAttribute("src");
-  expect(handsSrc).toMatch(/^\/(?:_image\?|.*\.(?:png|webp|avif))/);
+  await expect(page.locator("#inicio-abertura img")).toHaveCount(0);
+  const heroBackground = await page
+    .locator("#inicio-abertura")
+    .evaluate(
+      (element) => getComputedStyle(element, "::before").backgroundImage,
+    );
+  expect(heroBackground).toContain("michelangelo-creation-adam-hero");
 
   await page.goto("/sobre/");
   const about = page.locator("#sobre-biografia picture");
@@ -53,7 +48,6 @@ test("imagens locais têm fontes responsivas, dimensões e carregamento coerente
   await expect(about.locator("img")).toHaveAttribute("loading", "lazy");
   const aboutSrc = await about.locator("img").getAttribute("src");
   expect(aboutSrc).toMatch(/^\/(?:_image\?|.*\.(?:jpeg|jpg|webp|avif))/);
-  expect(aboutSrc).not.toBe(handsSrc);
 
   await page.goto("/videos/");
   const celebration = page.locator("#videos-abertura picture");

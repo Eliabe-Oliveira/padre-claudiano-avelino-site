@@ -3,7 +3,27 @@
 Foram selecionadas três reproduções de obras em domínio público. Os arquivos
 foram mantidos localmente, sem dependência de rede em produção.
 
-## A Criação de Adão — detalhe das mãos
+## A Criação de Adão — composição completa
+
+- **Título:** _A Criação de Adão_
+- **Autor:** Michelangelo Buonarroti
+- **Data:** cerca de 1511–1512
+- **Origem:** Wikimedia Commons —
+  <https://commons.wikimedia.org/wiki/File:Michelangelo,_The_Creation_of_Adam.jpg>
+- **Domínio público:** a página identifica a reprodução fiel de obra
+  bidimensional como `PD-Art`; Michelangelo morreu em 1564.
+- **Arquivos locais:** `michelangelo-creation-adam-full.jpg` e as derivações
+  otimizadas `michelangelo-creation-adam-hero.webp` e
+  `michelangelo-creation-adam-hero-mobile.webp`.
+- **Página:** Início
+- **Uso:** plano pictórico integral da primeira dobra, com Adão à esquerda, o
+  gesto das mãos ao centro e Deus à direita.
+- **Tratamento:** recorte panorâmico, derivações de 2400 × 1350 px para desktop
+  e 1200 × 675 px para mobile, tonalização verde-cipreste, contraste contido,
+  compressão WebP e movimento respiratório muito discreto em CSS. A animação é
+  neutralizada por `prefers-reduced-motion`.
+
+## A Criação de Adão — detalhe das mãos (acervo da etapa anterior)
 
 - **Título:** _A Criação de Adão_ — detalhe das mãos
 - **Autor:** Michelangelo Buonarroti
@@ -14,8 +34,9 @@ foram mantidos localmente, sem dependência de rede em produção.
   bidimensional como `PD-Art`; Michelangelo morreu em 1564.
 - **Arquivos locais:** `michelangelo-creation-adam-hands.jpg` e a derivação
   transparente `michelangelo-hands-cutout.png`.
-- **Página:** Início
-- **Uso:** recorte simbólico decorativo na primeira dobra.
+- **Página:** acervo local
+- **Uso:** preservado como registro da composição anterior; não é carregado
+  pelo hero atual.
 - **Tratamento:** extração local do fundo para que braços e mãos funcionem como
   fragmentos orgânicos; preservação da anatomia, pátina e matéria pictórica;
   duas camadas responsivas e aproximação lenta em CSS. A animação é neutralizada

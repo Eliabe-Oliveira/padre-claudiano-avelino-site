@@ -39,33 +39,35 @@ const finalCaptures = [
 
 test("preserva a reorientação católica renascentista", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("[data-sacred-encounter]")).toHaveCount(1);
-  await expect(page.locator("[data-sacred-encounter] picture")).toHaveCount(2);
+  await expect(page.locator("[data-sacred-encounter]")).toHaveCount(0);
+  await expect(page.locator("#inicio-abertura img")).toHaveCount(0);
   await expect(page.locator(".home-hero__portrait picture")).toHaveCount(0);
   await expect(page.locator("h1")).toHaveCount(1);
 
   const animation = await page
-    .locator(".sacred-encounter__fragment--human .sacred-encounter__image")
+    .locator("#inicio-abertura")
     .first()
     .evaluate((element) => {
-      const style = getComputedStyle(element);
+      const style = getComputedStyle(element, "::before");
       return {
+        backgroundImage: style.backgroundImage,
         duration: style.animationDuration,
         iterationCount: style.animationIterationCount,
         name: style.animationName,
       };
     });
   expect(animation).toEqual({
-    duration: "10s",
+    backgroundImage: expect.stringContaining("michelangelo-creation-adam-hero"),
+    duration: "18s",
     iterationCount: "infinite",
-    name: "sacred-human-encounter",
+    name: "sacred-fresco-breath",
   });
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   const reducedAnimation = await page
-    .locator(".sacred-encounter__fragment--human .sacred-encounter__image")
+    .locator("#inicio-abertura")
     .first()
-    .evaluate((element) => getComputedStyle(element).animationName);
+    .evaluate((element) => getComputedStyle(element, "::before").animationName);
   expect(reducedAnimation).toBe("none");
 
   await page.goto("/sobre/");

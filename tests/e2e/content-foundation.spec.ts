@@ -42,10 +42,14 @@ test("Início apresenta a nova ordem editorial sem estados vazios repetidos", as
   await expect(page.getByText(/Sistema visual/i)).toHaveCount(0);
   await expect(page.getByText(/Provincial/i)).toHaveCount(0);
   await expect(page.locator(".home-hero__portrait img")).toHaveCount(0);
-  await expect(page.locator("[data-sacred-encounter] img")).toHaveCount(2);
-  await expect(
-    page.locator("[data-sacred-encounter] img").first(),
-  ).toHaveAttribute("alt", "");
+  await expect(page.locator("#inicio-abertura img")).toHaveCount(0);
+  expect(
+    await page
+      .locator("#inicio-abertura")
+      .evaluate(
+        (element) => getComputedStyle(element, "::before").backgroundImage,
+      ),
+  ).toContain("michelangelo-creation-adam-hero");
   await expect(
     page
       .locator("#inicio-abertura")

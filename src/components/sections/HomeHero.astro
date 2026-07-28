@@ -1,19 +1,18 @@
 ---
-import SacredEncounter from "../art/SacredEncounter.astro";
 import ButtonLink from "../base/ButtonLink.astro";
 import Container from "../base/Container.astro";
 ---
 
 <Container as="section" id="inicio-abertura" class="home-hero">
   <div class="home-hero__content">
-    <h1>Padre <i>Claudiano</i> Avelino</h1>
+    <h1>
+      <span>Padre</span>
+      <span>Claudiano</span>
+      <span>Avelino</span>
+    </h1>
     <p class="home-hero__message">Palavra, reflexão e encontro com Deus.</p>
     <div class="page-actions">
       <ButtonLink href="/reflexoes/">Conhecer as reflexões</ButtonLink>
     </div>
-  </div>
-  <div class="home-hero__visual">
-    <span class="home-hero__accent" aria-hidden="true"></span>
-    <SacredEncounter />
   </div>
 </Container>
