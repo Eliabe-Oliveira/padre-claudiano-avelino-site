@@ -43,7 +43,12 @@ test("Reflexões apresenta acervo vazio e ordem editorial aprovada", async ({
   ).toBeVisible();
   await expect(page.locator("#reflexoes-proposta li")).toHaveCount(5);
   await expect(page.locator(".reflection-card")).toHaveCount(0);
-  await expect(page.locator("img, iframe, form")).toHaveCount(0);
+  await expect(page.locator(".reflection-sacred-art img")).toHaveCount(1);
+  await expect(page.locator(".reflection-sacred-art img")).toHaveAttribute(
+    "alt",
+    "",
+  );
+  await expect(page.locator("iframe, form")).toHaveCount(0);
   await expect(
     page.getByText(/Fixture|coleção vazia|schema|erro/i),
   ).toHaveCount(0);

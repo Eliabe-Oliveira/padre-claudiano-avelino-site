@@ -11,7 +11,7 @@ import { chromium } from "@playwright/test";
 
 const port = 4322;
 const origin = `http://127.0.0.1:${port}`;
-const artifactDirectory = new URL("./artifacts/etapa-5-7-b/", import.meta.url);
+const artifactDirectory = new URL("./artifacts/etapa-5-7-c/", import.meta.url);
 const desktopThrottling = {
   rttMs: 40,
   throughputKbps: 10_240,
@@ -124,7 +124,7 @@ try {
   await writeFile(
     new URL("resumo.md", artifactDirectory),
     [
-      "# Lighthouse — Etapa 5.7-B",
+      "# Lighthouse — Etapa 5.7-C",
       "",
       "| Auditoria | Performance | Accessibility | Best Practices | SEO | FCP | LCP | CLS | TBT | Speed Index |",
       "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",

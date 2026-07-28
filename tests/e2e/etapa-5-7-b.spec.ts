@@ -46,7 +46,7 @@ test("valida a reconstrução visual e editorial", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Padre Claudiano Avelino" }),
   ).toBeVisible();
-  await expect(page.locator("#inicio-abertura picture")).toHaveCount(1);
+  await expect(page.locator(".home-hero__portrait picture")).toHaveCount(1);
   await expect(
     page.getByRole("link", { name: "Ler as reflexões" }),
   ).toHaveAttribute("href", "/reflexoes/");

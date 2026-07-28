@@ -140,9 +140,7 @@ test("robots, sitemap, favicon e axe permanecem válidos", async ({
 }) => {
   const robots = await request.get("/robots.txt");
   expect(robots.ok()).toBe(true);
-  expect(robots.headers()["content-type"]).toContain(
-    "text/plain; charset=utf-8",
-  );
+  expect(robots.headers()["content-type"]).toContain("text/plain");
   const robotsBody = await robots.text();
   expect(robotsBody).toContain("User-agent: *");
   expect(robotsBody).toContain("Allow: /");

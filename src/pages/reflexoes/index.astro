@@ -1,4 +1,6 @@
 ---
+import annunciation from "../../assets/art/public-domain/lippi-annunciation.jpg";
+import RenaissanceArtwork from "../../components/art/RenaissanceArtwork.astro";
 import Container from "../../components/base/Container.astro";
 import EditorialLink from "../../components/base/EditorialLink.astro";
 import ThemeList from "../../components/editorial/ThemeList.astro";
@@ -40,6 +42,13 @@ const hasReflections = Boolean(featuredReflection || listedReflections.length);
           Textos sobre o Evangelho, a oração, a vida espiritual e os desafios
           cotidianos, escritos para serem lidos com calma e levados à oração.
         </p>
+        <div class="reflection-sacred-art" aria-hidden="true">
+          <RenaissanceArtwork
+            src={annunciation}
+            objectPosition="50% 46%"
+            sizes="(max-width: 47.999rem) calc(100vw - 2.5rem), 54rem"
+          />
+        </div>
       </div>
     </Container>
   </section>

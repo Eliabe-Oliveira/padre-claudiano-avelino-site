@@ -46,11 +46,12 @@ npm install
 
 ## Estado
 
-A Etapa extraordinária 5.7-B reconstruiu a apresentação visual e editorial sem
-alterar rotas, conteúdo real, schemas ou infraestrutura. A direção “Palavra que
-respira” agora usa maior escala tipográfica, assimetria, planos verdes e as três
-fotografias autorizadas. As coleções de reflexões e vídeos permanecem vazias e
-recebem tratamento editorial intencional, sem conteúdo fictício.
+A Etapa extraordinária 5.7-C reorientou a apresentação consolidada na 5.7-B
+para um catolicismo editorial renascentista contemporâneo. A estrutura, a copy
+e as fotografias autorizadas foram preservadas; três obras em domínio público,
+textura pictórica leve e movimento CSS sutil acrescentam uma camada católica e
+contemplativa. As coleções de reflexões e vídeos permanecem vazias e recebem
+tratamento editorial intencional, sem conteúdo fictício.
 
 A Etapa 5.8 está tecnicamente concluída: as páginas existentes possuem URLs
 públicas centralizadas, canonical, Open Graph, JSON-LD, sitemap, robots e

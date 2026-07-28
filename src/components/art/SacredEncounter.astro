@@ -1,0 +1,32 @@
+---
+import { Picture } from "astro:assets";
+import creationHands from "../../assets/art/public-domain/michelangelo-creation-adam-hands.jpg";
+---
+
+<div class="sacred-encounter" aria-hidden="true" data-sacred-encounter>
+  <div class="sacred-encounter__half sacred-encounter__half--human">
+    <Picture
+      class="sacred-encounter__image"
+      src={creationHands}
+      alt=""
+      formats={["avif", "webp"]}
+      widths={[640, 960, 1400]}
+      sizes="(max-width: 55.999rem) calc(100vw - 2.5rem), 42rem"
+      quality={78}
+      loading="eager"
+    />
+  </div>
+  <div class="sacred-encounter__half sacred-encounter__half--divine">
+    <Picture
+      class="sacred-encounter__image"
+      src={creationHands}
+      alt=""
+      formats={["avif", "webp"]}
+      widths={[640, 960, 1400]}
+      sizes="(max-width: 55.999rem) calc(100vw - 2.5rem), 42rem"
+      quality={78}
+      loading="eager"
+    />
+  </div>
+  <span class="sacred-encounter__line"></span>
+</div>

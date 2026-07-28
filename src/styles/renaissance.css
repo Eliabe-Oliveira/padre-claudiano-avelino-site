@@ -1,0 +1,387 @@
+:root {
+  --color-renaissance-ochre: #927343;
+  --color-renaissance-ochre-light: #c5aa72;
+  --sacred-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+.home-hero,
+.editorial-statement,
+.home-axis--reflection,
+.home-closing,
+.videos-empty-editorial,
+.contact-channel,
+.not-found,
+.site-footer {
+  background-color: var(--color-surface-dark);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.home-hero {
+  max-width: none;
+  width: 100%;
+  padding-inline: max(var(--page-gutter), calc((100vw - 80rem) / 2));
+  color: var(--color-text-inverse);
+  background-color: var(--color-surface-dark);
+  border-block-end: 1px solid rgb(197 170 114 / 45%);
+}
+
+.home-hero h1,
+.home-hero .type-body-large,
+.home-hero__positioning {
+  color: var(--color-text-inverse);
+}
+
+.home-hero h1 i,
+.home-hero .type-meta {
+  color: var(--color-renaissance-ochre-light);
+}
+
+.home-hero__positioning {
+  border-color: var(--color-renaissance-ochre-light);
+}
+
+.home-hero .button-link--primary {
+  color: var(--color-surface-dark);
+  background: var(--color-text-inverse);
+  border-color: var(--color-text-inverse);
+}
+
+.home-hero .button-link--secondary {
+  color: var(--color-text-inverse);
+  border-color: var(--color-renaissance-ochre-light);
+}
+
+.home-hero__visual {
+  place-items: stretch;
+  min-height: 40rem;
+}
+
+.home-hero__visual::before {
+  inset: var(--space-5) 0 var(--space-5) var(--space-5);
+  background: rgb(14 29 23 / 55%);
+  border: 1px solid rgb(197 170 114 / 42%);
+}
+
+.sacred-encounter {
+  position: absolute;
+  z-index: 1;
+  inset: var(--space-7) 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: clamp(15rem, 24vw, 22rem);
+  overflow: hidden;
+  background: var(--color-background-secondary);
+  border: 1px solid rgb(197 170 114 / 55%);
+}
+
+.sacred-encounter::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: rgb(31 48 40 / 16%) var(--sacred-texture);
+  background-blend-mode: color, soft-light;
+}
+
+.sacred-encounter__half {
+  position: relative;
+  overflow: hidden;
+}
+
+.sacred-encounter__image {
+  position: absolute;
+  inset-block: 0;
+  width: 200%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.72) sepia(0.09) contrast(1.04);
+}
+
+.sacred-encounter__half--human .sacred-encounter__image {
+  inset-inline-start: 0;
+  animation: sacred-human-breath 12s ease-in-out infinite alternate;
+}
+
+.sacred-encounter__half--divine .sacred-encounter__image {
+  inset-inline-end: 0;
+  animation: sacred-divine-breath 12s ease-in-out infinite alternate;
+}
+
+.sacred-encounter__line {
+  position: absolute;
+  z-index: 2;
+  inset-block-end: var(--space-4);
+  inset-inline: 12%;
+  height: 1px;
+  background: rgb(146 115 67 / 70%);
+}
+
+.home-hero__portrait {
+  position: absolute;
+  z-index: 3;
+  inset-inline-end: var(--space-5);
+  inset-block-end: 0;
+  width: clamp(9rem, 14vw, 14rem);
+  padding: var(--space-2) var(--space-2) 0;
+  background: var(--color-background-primary);
+  border-block-start: 2px solid var(--color-renaissance-ochre-light);
+}
+
+.home-hero__photo {
+  width: 100%;
+  max-height: 20rem;
+  transform: none;
+}
+
+.editorial-statement {
+  border-block-end: 1px solid rgb(197 170 114 / 35%);
+}
+
+.editorial-statement__number,
+.home-closing__words i,
+.videos-empty-editorial__number {
+  color: var(--color-renaissance-ochre-light);
+}
+
+.home-axes {
+  background-color: var(--color-background-primary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.home-axis--reflection {
+  border: 1px solid rgb(197 170 114 / 45%);
+}
+
+.home-axis--video {
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.home-themes {
+  position: relative;
+  background-color: var(--color-surface-primary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.editorial-themes__item {
+  border-color: rgb(146 115 67 / 45%);
+}
+
+.editorial-themes__number {
+  color: var(--color-renaissance-ochre);
+}
+
+.about-opening,
+.collection-opening,
+.contact-opening {
+  position: relative;
+  background-color: var(--color-background-primary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.about-opening::after,
+.collection-opening::after,
+.contact-opening::after {
+  position: absolute;
+  inset-block: var(--space-7);
+  inset-inline-end: var(--page-gutter);
+  width: 1px;
+  content: "";
+  background: var(--color-renaissance-ochre);
+  opacity: 0.65;
+}
+
+.about-biography-section {
+  background-color: var(--color-background-secondary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.about-sacred-study {
+  position: relative;
+  overflow: hidden;
+  min-height: 30rem;
+  background: var(--color-surface-dark);
+  border: 1px solid var(--color-renaissance-ochre);
+}
+
+.about-sacred-study .renaissance-artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7) sepia(0.1);
+  animation: sacred-art-drift 18s ease-in-out infinite alternate;
+}
+
+.about-positioning > .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.4fr);
+  gap: clamp(var(--space-7), 7vw, var(--space-10));
+  align-items: center;
+}
+
+.about-positioning p {
+  border-color: var(--color-renaissance-ochre);
+}
+
+.reflection-sacred-art {
+  position: relative;
+  overflow: hidden;
+  min-height: 18rem;
+  margin-block-start: var(--space-8);
+  border-block: 1px solid var(--color-renaissance-ochre);
+}
+
+.reflection-sacred-art .renaissance-artwork {
+  width: 100%;
+  height: 100%;
+  min-height: 18rem;
+  object-fit: cover;
+  filter: saturate(0.62) sepia(0.11) contrast(1.05);
+  animation: sacred-art-drift 20s ease-in-out infinite alternate-reverse;
+}
+
+.empty-editorial {
+  background-color: var(--color-surface-primary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+}
+
+.videos-editorial-opening__visual {
+  background-color: var(--color-brand-primary);
+  background-image: var(--sacred-texture);
+  background-blend-mode: soft-light;
+  border: 1px solid var(--color-renaissance-ochre);
+}
+
+.videos-editorial-opening__series {
+  border-color: var(--color-renaissance-ochre);
+}
+
+.contact-channel {
+  border: 1px solid rgb(197 170 114 / 50%);
+}
+
+.contact-channel::after {
+  justify-self: end;
+  width: clamp(4rem, 10vw, 8rem);
+  aspect-ratio: 1;
+  content: "";
+  border: 1px solid rgb(197 170 114 / 60%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 0.75rem rgb(197 170 114 / 7%),
+    0 0 0 1.5rem rgb(197 170 114 / 4%);
+}
+
+.not-found::after {
+  position: absolute;
+  inset: 12% 8% auto auto;
+  width: min(22rem, 42vw);
+  aspect-ratio: 1;
+  content: "";
+  border: 1px solid rgb(197 170 114 / 38%);
+  border-radius: 50%;
+}
+
+.site-footer {
+  border-block-start: 1px solid rgb(197 170 114 / 45%);
+}
+
+@keyframes sacred-human-breath {
+  from {
+    transform: translateX(-3px);
+  }
+  to {
+    transform: translateX(2px);
+  }
+}
+
+@keyframes sacred-divine-breath {
+  from {
+    transform: translateX(3px);
+  }
+  to {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes sacred-art-drift {
+  from {
+    transform: scale(1.015) translateY(-2px);
+  }
+  to {
+    transform: scale(1.015) translateY(3px);
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .home-hero {
+    padding-inline: var(--page-gutter);
+  }
+
+  .home-hero__visual {
+    min-height: 33rem;
+  }
+
+  .sacred-encounter {
+    height: 20rem;
+  }
+
+  .home-hero__portrait {
+    width: 11rem;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .home-hero {
+    padding-block-start: var(--space-8);
+  }
+
+  .home-hero__visual {
+    min-height: 31rem;
+  }
+
+  .sacred-encounter {
+    inset-block-start: var(--space-5);
+    height: 12.5rem;
+  }
+
+  .home-hero__portrait {
+    inset-block-start: 14.5rem;
+    inset-block-end: auto;
+    inset-inline-end: var(--space-3);
+    width: 9rem;
+  }
+
+  .about-positioning > .container {
+    grid-template-columns: 1fr;
+  }
+
+  .about-sacred-study {
+    min-height: 19rem;
+  }
+
+  .reflection-sacred-art,
+  .reflection-sacred-art .renaissance-artwork {
+    min-height: 12rem;
+  }
+
+  .contact-channel::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sacred-encounter__half .sacred-encounter__image,
+  .about-sacred-study .renaissance-artwork,
+  .reflection-sacred-art .renaissance-artwork {
+    animation: none;
+    transform: none;
+  }
+}

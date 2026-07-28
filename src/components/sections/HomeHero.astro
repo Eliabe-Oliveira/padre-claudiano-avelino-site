@@ -1,6 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import { siteMedia } from "../../config/media";
+import SacredEncounter from "../art/SacredEncounter.astro";
 import ButtonLink from "../base/ButtonLink.astro";
 import Container from "../base/Container.astro";
 ---
@@ -25,20 +26,23 @@ import Container from "../base/Container.astro";
   </div>
   <div class="home-hero__visual">
     <span class="home-hero__accent" aria-hidden="true"></span>
+    <SacredEncounter />
     {
       siteMedia.homeHero && (
-        <Picture
-          class="home-hero__photo"
-          src={siteMedia.homeHero.src}
-          alt={siteMedia.homeHero.alt}
-          formats={["avif", "webp"]}
-          widths={[360, 480, 557]}
-          sizes="(max-width: 63.999rem) calc(100vw - 4rem), 31rem"
-          quality={80}
-          loading="eager"
-          fetchpriority="high"
-          style={`object-position: ${siteMedia.homeHero.objectPosition}`}
-        />
+        <div class="home-hero__portrait">
+          <Picture
+            class="home-hero__photo"
+            src={siteMedia.homeHero.src}
+            alt={siteMedia.homeHero.alt}
+            formats={["avif", "webp"]}
+            widths={[240, 360, 480]}
+            sizes="(max-width: 55.999rem) 9rem, 14rem"
+            quality={80}
+            loading="eager"
+            fetchpriority="high"
+            style={`object-position: ${siteMedia.homeHero.objectPosition}`}
+          />
+        </div>
       )
     }
   </div>

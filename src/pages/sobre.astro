@@ -1,5 +1,7 @@
 ---
 import { Picture } from "astro:assets";
+import saintJerome from "../assets/art/public-domain/antonello-saint-jerome-study.jpg";
+import RenaissanceArtwork from "../components/art/RenaissanceArtwork.astro";
 import Container from "../components/base/Container.astro";
 import EditorialLink from "../components/base/EditorialLink.astro";
 import ThemeList from "../components/editorial/ThemeList.astro";
@@ -80,6 +82,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section id="sobre-posicionamento" class="about-positioning">
     <Container>
       <p>Fé, experiência pastoral e pensamento próximos da vida cotidiana.</p>
+      <div class="about-sacred-study" aria-hidden="true">
+        <RenaissanceArtwork
+          src={saintJerome}
+          objectPosition="50% 56%"
+          sizes="(max-width: 47.999rem) calc(100vw - 2.5rem), 24rem"
+        />
+      </div>
     </Container>
   </section>
 

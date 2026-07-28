@@ -32,7 +32,7 @@ test("fotografias locais têm fontes responsivas, dimensões e carregamento coer
   page,
 }) => {
   await page.goto("/");
-  const home = page.locator("#inicio-abertura picture");
+  const home = page.locator(".home-hero__portrait picture");
   await expect(home).toHaveCount(1);
   await expect(home.locator("source")).toHaveCount(2);
   await expect(home.locator("img")).toHaveAttribute("alt", /Padre Claudiano/);
@@ -63,10 +63,17 @@ test("fotografias locais têm fontes responsivas, dimensões e carregamento coer
   );
   await expect(celebration.locator("img")).toHaveAttribute("loading", "lazy");
 
-  for (const route of ["/contato/", "/reflexoes/", "/404.html"]) {
+  for (const route of ["/contato/", "/404.html"]) {
     await page.goto(route);
     await expect(page.locator("main picture, main img")).toHaveCount(0);
   }
+
+  await page.goto("/reflexoes/");
+  await expect(page.locator(".reflection-sacred-art picture")).toHaveCount(1);
+  await expect(page.locator(".reflection-sacred-art img")).toHaveAttribute(
+    "alt",
+    "",
+  );
 });
 
 test("as seis rotas funcionam em 390 px sem JavaScript", async ({
