@@ -1,11 +1,11 @@
 ---
-import { Picture } from "astro:assets";
+import creationAdam from "../assets/art/public-domain/michelangelo-creation-adam-full.jpg";
+import RenaissanceArtwork from "../components/art/RenaissanceArtwork.astro";
 import Container from "../components/base/Container.astro";
 import EditorialLink from "../components/base/EditorialLink.astro";
 import ReflectionCard from "../components/reflections/ReflectionCard.astro";
 import FeaturedVideo from "../components/videos/FeaturedVideo.astro";
 import VideoCard from "../components/videos/VideoCard.astro";
-import { siteMedia } from "../config/media";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   assertContentIntegrity,
@@ -40,7 +40,7 @@ const hasVideos = Boolean(featuredVideo || listedVideos.length);
     <Container>
       <div class="videos-editorial-opening__copy">
         <p class="type-meta">Vídeos</p>
-        <h1>Homilia de 1 minuto</h1>
+        <h1>Vídeos</h1>
         <p class="type-body-large">
           Uma breve pausa para escutar o Evangelho e levá-lo para a vida. Em
           cada vídeo, Padre Claudiano apresenta uma reflexão simples e direta a
@@ -50,24 +50,13 @@ const hasVideos = Boolean(featuredVideo || listedVideos.length);
           Breves reflexões em vídeo a partir da Palavra de Deus.
         </p>
       </div>
-      <figure class="videos-editorial-opening__visual">
-        {
-          siteMedia.celebration && (
-            <Picture
-              class="videos-editorial-opening__photo"
-              src={siteMedia.celebration.src}
-              alt={siteMedia.celebration.alt}
-              formats={["avif", "webp"]}
-              widths={[360, 480, 720, 960]}
-              sizes="(max-width: 55.999rem) calc(100vw - 2.5rem), 40vw"
-              quality={80}
-              loading="lazy"
-              style={`object-position: ${siteMedia.celebration.objectPosition}`}
-            />
-          )
-        }
-        <figcaption>Padre Claudiano Avelino durante uma celebração.</figcaption>
-      </figure>
+      <div class="videos-editorial-opening__visual" aria-hidden="true">
+        <RenaissanceArtwork
+          src={creationAdam}
+          objectPosition="72% 44%"
+          sizes="(max-width: 55.999rem) 100vw, 58vw"
+        />
+      </div>
     </Container>
   </section>
 
@@ -90,22 +79,34 @@ const hasVideos = Boolean(featuredVideo || listedVideos.length);
       </>
     ) : (
       <section id="videos-proposta" class="videos-empty-editorial">
-        <Container>
-          <p class="videos-empty-editorial__number" aria-hidden="true">
-            01
-          </p>
-          <div>
+        <div class="videos-empty-feature">
+          <Container>
+            <div class="videos-empty-feature__art" aria-hidden="true" />
+            <div class="videos-empty-feature__copy">
+              <p class="type-meta">Em destaque</p>
+              <h2>Homilia de 1 minuto</h2>
+              <p class="type-editorial">
+                Em poucos instantes, cada mensagem procura oferecer uma pausa,
+                uma pergunta ou um convite para continuar o dia com um novo
+                olhar.
+              </p>
+            </div>
+          </Container>
+        </div>
+        <div class="videos-empty-series">
+          <Container>
             <p class="type-meta">Homilia de 1 minuto</p>
-            <h2>Homilia de 1 minuto</h2>
-            <p class="type-editorial">
-              Em poucos instantes, cada mensagem procura oferecer uma pausa, uma
-              pergunta ou um convite para continuar o dia com um novo olhar.
-            </p>
+            <div class="videos-empty-series__composition" aria-hidden="true" />
+          </Container>
+        </div>
+        <div class="videos-empty-lower">
+          <Container>
             <EditorialLink href="/reflexoes/">
               Conhecer as reflexões
             </EditorialLink>
-          </div>
-        </Container>
+          </Container>
+        </div>
+        <div class="videos-empty-closing" aria-hidden="true" />
       </section>
     )
   }

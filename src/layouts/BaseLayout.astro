@@ -104,7 +104,14 @@ const generatedStructuredData =
     />
     {generatedStructuredData && <JsonLd data={generatedStructuredData} />}
   </head>
-  <body class:list={{ "page-home": currentPath === "/" }}>
+  <body
+    class:list={{
+      "page-home": currentPath === "/",
+      "page-about": currentPath === "/sobre/",
+      "page-reflections": currentPath === "/reflexoes/",
+      "page-videos": currentPath === "/videos/",
+    }}
+  >
     <SkipLink />
     {showSiteChrome && <SiteHeader {currentPath} />}
     <main id="conteudo-principal" tabindex="-1">

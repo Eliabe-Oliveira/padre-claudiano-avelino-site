@@ -31,25 +31,27 @@ const [featuredReflection, featuredVideo, publishedReflections] =
   pageType="website"
   structuredDataType="home"
 >
-  <HomeHero />
-  <EditorialStatement id="inicio-declaracao">
-    Um espaço pessoal de espiritualidade católica, reflexão e encontro com a
-    Palavra, no qual fé, experiência pastoral e pensamento se aproximam da vida
-    cotidiana.
-  </EditorialStatement>
-  <HomeEditorialAxes
-    reflection={featuredReflection ?? publishedReflections[0]}
-    video={featuredVideo}
-  />
-  <section id="inicio-temas" class="home-themes">
-    <Container>
-      <div class="home-themes__heading">
-        <p class="type-meta">Temas</p>
-        <h2>Cinco caminhos de reflexão</h2>
-      </div>
-      <ThemeList />
-    </Container>
-  </section>
+  <div class="home-reference-stage">
+    <HomeHero />
+    <EditorialStatement id="inicio-declaracao">
+      Um espaço pessoal de espiritualidade católica, reflexão e encontro com a
+      Palavra, no qual fé, experiência pastoral e pensamento se aproximam da
+      vida cotidiana.
+    </EditorialStatement>
+    <HomeEditorialAxes
+      reflection={featuredReflection ?? publishedReflections[0]}
+      video={featuredVideo}
+    />
+    <section id="inicio-temas" class="home-themes">
+      <Container>
+        <div class="home-themes__heading">
+          <p class="type-meta">Temas</p>
+          <h2>Cinco caminhos de reflexão</h2>
+        </div>
+        <ThemeList />
+      </Container>
+    </section>
+  </div>
   <section id="inicio-encerramento" class="home-closing">
     <Container>
       <div class="home-closing__inner">

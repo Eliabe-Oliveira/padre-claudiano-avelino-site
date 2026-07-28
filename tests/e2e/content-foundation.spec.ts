@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 const sectionIds = async (page: import("@playwright/test").Page) =>
   page
-    .locator("main > section")
+    .locator("main section[id]")
     .evaluateAll((sections) => sections.map((section) => section.id));
 
 test("Início apresenta a nova ordem editorial sem estados vazios repetidos", async ({
@@ -42,14 +42,8 @@ test("Início apresenta a nova ordem editorial sem estados vazios repetidos", as
   await expect(page.getByText(/Sistema visual/i)).toHaveCount(0);
   await expect(page.getByText(/Provincial/i)).toHaveCount(0);
   await expect(page.locator(".home-hero__portrait img")).toHaveCount(0);
-  await expect(page.locator("#inicio-abertura img")).toHaveCount(0);
-  expect(
-    await page
-      .locator("#inicio-abertura")
-      .evaluate(
-        (element) => getComputedStyle(element, "::before").backgroundImage,
-      ),
-  ).toContain("michelangelo-creation-adam-hero");
+  await expect(page.locator("#inicio-abertura img")).toHaveCount(2);
+  await expect(page.locator("[data-sacred-encounter] picture")).toHaveCount(2);
   await expect(
     page
       .locator("#inicio-abertura")

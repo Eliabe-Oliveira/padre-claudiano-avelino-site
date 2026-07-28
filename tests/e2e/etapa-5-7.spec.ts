@@ -32,13 +32,8 @@ test("imagens locais têm fontes responsivas, dimensões e carregamento coerente
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator("#inicio-abertura img")).toHaveCount(0);
-  const heroBackground = await page
-    .locator("#inicio-abertura")
-    .evaluate(
-      (element) => getComputedStyle(element, "::before").backgroundImage,
-    );
-  expect(heroBackground).toContain("michelangelo-creation-adam-hero");
+  await expect(page.locator("#inicio-abertura img")).toHaveCount(2);
+  await expect(page.locator("[data-sacred-encounter] picture")).toHaveCount(2);
 
   await page.goto("/sobre/");
   const about = page.locator("#sobre-biografia picture");
@@ -53,10 +48,7 @@ test("imagens locais têm fontes responsivas, dimensões e carregamento coerente
   const celebration = page.locator("#videos-abertura picture");
   await expect(celebration).toHaveCount(1);
   await expect(celebration.locator("source")).toHaveCount(2);
-  await expect(celebration.locator("img")).toHaveAttribute(
-    "alt",
-    "Padre Claudiano Avelino durante uma celebração.",
-  );
+  await expect(celebration.locator("img")).toHaveAttribute("alt", "");
   await expect(celebration.locator("img")).toHaveAttribute("loading", "lazy");
 
   for (const route of ["/contato/", "/404.html"]) {

@@ -6,8 +6,31 @@
   --sacred-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
 }
 
+.painted-background,
+.sacred-surface--dark {
+  color: var(--color-sacred-ivory);
+  background-color: var(--color-sacred-green-950);
+  background-image: var(--texture-painted-green);
+  background-position: center;
+  background-size: cover;
+}
+
+.aged-paper-section,
+.sacred-surface--light {
+  color: var(--color-sacred-ink);
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+  background-position: center;
+  background-size: cover;
+}
+
+.renaissance-artwork {
+  border: 1px solid var(--color-sacred-rule-dark);
+  border-radius: 0;
+  filter: saturate(0.72) sepia(0.12) contrast(1.03);
+}
+
 body.page-home .site-header {
-  background: rgb(5 31 23 / 98%);
   border-block-end-color: rgb(146 115 67 / 58%);
 }
 
@@ -206,7 +229,7 @@ body.page-home .mobile-navigation__toggle {
 }
 
 .home-axes {
-  background-color: var(--color-background-primary);
+  background-color: var(--color-sacred-green-950);
   background-image: var(--sacred-texture);
   background-blend-mode: soft-light;
 }
@@ -455,6 +478,379 @@ body.page-home .mobile-navigation__toggle {
   }
 }
 
+/* Etapa 5.7-D — Fase 4: composição editorial de Reflexões */
+body.page-reflections .collection-opening {
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(32rem, 43vw, 42rem);
+  padding-block: 0;
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 21 15 / 30%), transparent 48%),
+    var(--texture-painted-green);
+}
+
+body.page-reflections .collection-opening::after {
+  display: none;
+}
+
+body.page-reflections .collection-opening > .container {
+  position: relative;
+  display: grid;
+  min-height: inherit;
+  grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr);
+  gap: 0;
+  align-items: center;
+}
+
+body.page-reflections .collection-opening__copy {
+  position: relative;
+  z-index: 2;
+}
+
+body.page-reflections .collection-opening__copy .type-meta {
+  margin-block-end: var(--space-5);
+  color: var(--color-sacred-gold-light);
+}
+
+body.page-reflections .collection-opening h1 {
+  max-width: none;
+  color: var(--color-sacred-ivory-light);
+  font-size: clamp(5rem, 7vw, 7rem);
+  font-weight: 430;
+  line-height: 0.88;
+}
+
+body.page-reflections .collection-opening h1::after {
+  display: block;
+  width: min(18rem, 76%);
+  height: 1px;
+  margin-block: var(--space-6);
+  content: "";
+  background: linear-gradient(
+    90deg,
+    var(--color-sacred-gold-light),
+    transparent
+  );
+}
+
+body.page-reflections .collection-opening .type-body-large {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--color-sacred-ivory);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.1rem, 1.5vw, 1.45rem);
+  line-height: 1.42;
+}
+
+body.page-reflections .reflection-sacred-art {
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  inset-inline: 42% calc(-1 * var(--page-gutter));
+  min-height: 0;
+  margin: 0;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 90%) 22%,
+    #000 45%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 90%) 22%,
+    #000 45%
+  );
+}
+
+body.page-reflections .reflection-sacred-art picture,
+body.page-reflections .reflection-sacred-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.page-reflections .reflection-sacred-art img {
+  min-height: 0;
+  object-fit: cover;
+  filter: sepia(0.4) saturate(0.68) brightness(0.64) contrast(1.08);
+  clip-path: none;
+  animation: none;
+}
+
+body.page-reflections .reflection-sacred-art::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, var(--color-sacred-green-950), transparent 42%),
+    var(--texture-painted-green);
+  opacity: 0.34;
+  mix-blend-mode: multiply;
+}
+
+body.page-reflections .empty-editorial {
+  padding: 0;
+  color: var(--color-sacred-ink);
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+}
+
+body.page-reflections .reflections-empty {
+  min-height: clamp(39rem, 50vw, 48rem);
+  padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+body.page-reflections .empty-editorial__intro {
+  display: grid;
+  max-width: 62rem;
+  margin-inline: auto;
+  grid-template-columns: minmax(9rem, 0.35fr) minmax(0, 1fr);
+  gap: var(--space-5) clamp(3rem, 7vw, 7rem);
+  align-items: start;
+}
+
+body.page-reflections .empty-editorial__intro .type-meta {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  padding-block-start: 0.7rem;
+  color: #6f5228;
+}
+
+body.page-reflections .empty-editorial__intro h2 {
+  grid-column: 2;
+  max-width: 16ch;
+  color: var(--color-sacred-green-950);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 430;
+  line-height: 1;
+}
+
+body.page-reflections .empty-editorial__intro .type-editorial {
+  grid-column: 2;
+  max-width: 36rem;
+  margin-block-start: var(--space-4);
+  color: var(--color-sacred-ink);
+}
+
+body.page-reflections .empty-editorial__footer {
+  display: flex;
+  width: min(100%, 62rem);
+  margin: clamp(7rem, 12vw, 12rem) auto 0;
+  padding-block-start: var(--space-5);
+  justify-content: space-between;
+  gap: var(--space-5);
+  border-block-start: 1px solid rgb(111 83 39 / 38%);
+}
+
+body.page-reflections .empty-editorial__footer p {
+  color: var(--color-sacred-green-950);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+}
+
+body.page-reflections .reflections-theme-index {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  border-block-start: 1px solid rgb(111 83 39 / 28%);
+}
+
+body.page-reflections .reflections-theme-index .type-meta {
+  margin-block-end: var(--space-6);
+  color: #6f5228;
+  text-align: center;
+}
+
+body.page-reflections .reflections-theme-index .editorial-themes--compact {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-block: 0;
+}
+
+body.page-reflections .reflections-theme-index .editorial-themes__item {
+  display: flex;
+  min-height: 10rem;
+  padding: var(--space-4) var(--space-5);
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: center;
+  border-block: 0;
+  border-inline-end: 1px solid rgb(111 83 39 / 30%);
+  text-align: center;
+}
+
+body.page-reflections
+  .reflections-theme-index
+  .editorial-themes__item:last-child {
+  border-inline-end: 0;
+}
+
+body.page-reflections .reflections-theme-index .editorial-themes__number {
+  color: #6f5228;
+  font-size: 1rem;
+}
+
+body.page-reflections .reflections-theme-index .editorial-themes__title {
+  max-width: 14ch;
+  color: var(--color-sacred-ink);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  line-height: 1.2;
+}
+
+body.page-reflections .reflections-contemplative {
+  min-height: clamp(13rem, 19vw, 18rem);
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 24 17 / 25%), rgb(4 24 17 / 55%)),
+    url("../assets/art/public-domain/lippi-annunciation.jpg");
+  background-position:
+    center,
+    32% 50%;
+  background-size: cover, cover;
+  background-blend-mode: normal, luminosity;
+  border-block-start: 1px solid var(--color-sacred-rule-dark);
+}
+
+/* A coleção futura assume a listagem horizontal definida pela referência. */
+body.page-reflections .featured-reflection,
+body.page-reflections .reflections-archive {
+  padding-block: clamp(4rem, 7vw, 6rem);
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+}
+
+body.page-reflections .featured-reflection__inner,
+body.page-reflections .reflection-card {
+  border: 1px solid rgb(111 83 39 / 34%);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.page-reflections .reflections-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+body.page-reflections .reflection-card {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.85fr) minmax(0, 1.15fr);
+  align-items: stretch;
+}
+
+body.page-reflections .reflection-card__cover {
+  width: 100%;
+  height: 100%;
+  min-height: 17rem;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+@media (max-width: 47.999rem) {
+  body.page-reflections .collection-opening {
+    min-height: auto;
+  }
+
+  body.page-reflections .collection-opening > .container {
+    display: grid;
+    min-height: 43rem;
+    padding-block: var(--space-8) 0;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  body.page-reflections .collection-opening h1 {
+    font-size: clamp(3.6rem, 16vw, 4.4rem);
+  }
+
+  body.page-reflections .collection-opening .type-body-large {
+    max-width: 27rem;
+    padding: var(--space-3);
+    color: var(--color-sacred-ivory);
+    background: rgb(4 24 17 / 80%);
+    font-size: 1.05rem;
+  }
+
+  body.page-reflections .reflection-sacred-art {
+    inset: 47% calc(-1 * var(--page-gutter)) 0 8%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 25%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 25%);
+  }
+
+  body.page-reflections .reflection-sacred-art::after {
+    background: linear-gradient(
+      180deg,
+      var(--color-sacred-green-950),
+      transparent 46%
+    );
+  }
+
+  body.page-reflections .reflections-empty {
+    min-height: auto;
+    padding-block: var(--space-9);
+  }
+
+  body.page-reflections .empty-editorial__intro {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  body.page-reflections .empty-editorial__intro .type-meta,
+  body.page-reflections .empty-editorial__intro h2,
+  body.page-reflections .empty-editorial__intro .type-editorial {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  body.page-reflections .empty-editorial__intro h2 {
+    font-size: clamp(2.75rem, 13vw, 3.75rem);
+  }
+
+  body.page-reflections .empty-editorial__footer {
+    margin-block-start: var(--space-9);
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  body.page-reflections .reflections-theme-index .editorial-themes--compact {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-reflections .reflections-theme-index .editorial-themes__item {
+    min-height: 5.25rem;
+    padding: var(--space-4) 0;
+    flex-direction: row;
+    justify-content: flex-start;
+    border-block-end: 1px solid rgb(111 83 39 / 30%);
+    border-inline-end: 0;
+    text-align: start;
+  }
+
+  body.page-reflections .reflections-theme-index .editorial-themes__number {
+    width: 3rem;
+    flex: 0 0 3rem;
+  }
+
+  body.page-reflections .reflections-theme-index .editorial-themes__title {
+    max-width: none;
+  }
+
+  body.page-reflections .reflections-contemplative {
+    min-height: 14rem;
+    background-position:
+      center,
+      45% 50%;
+    background-size: cover, cover;
+  }
+
+  body.page-reflections .reflection-card {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 47.999rem) {
   :root {
     --creation-hero: url("../assets/art/public-domain/michelangelo-creation-adam-hero-mobile.webp");
@@ -511,5 +907,1138 @@ body.page-home .mobile-navigation__toggle {
   .reflection-sacred-art .renaissance-artwork {
     animation: none;
     transform: none;
+  }
+}
+
+/* Etapa 5.7-D — Fase 3: composição editorial da página Sobre */
+body.page-about .about-opening {
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(31rem, 43vw, 42rem);
+  padding-block: 0;
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 21 15 / 28%), transparent 46%),
+    var(--sacred-texture);
+}
+
+body.page-about .about-opening::after {
+  display: none;
+}
+
+body.page-about .about-opening > .container {
+  position: relative;
+  display: grid;
+  min-height: inherit;
+  grid-template-columns: minmax(0, 0.78fr) minmax(27rem, 1.22fr);
+  gap: 0;
+  align-items: center;
+}
+
+body.page-about .about-opening__copy {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  padding-block: var(--space-9);
+}
+
+body.page-about .about-opening__copy .type-meta {
+  margin-block-end: var(--space-5);
+  color: var(--color-renaissance-ochre);
+}
+
+body.page-about .about-opening__copy h1 {
+  max-width: none;
+  color: var(--color-text-inverse);
+  font-size: clamp(6rem, 10vw, 9rem);
+  font-weight: 430;
+  line-height: 0.82;
+}
+
+body.page-about .about-opening__copy h1::after {
+  display: block;
+  width: min(18rem, 80%);
+  height: 1px;
+  margin-block: var(--space-6);
+  content: "";
+  background: linear-gradient(
+    90deg,
+    var(--color-renaissance-ochre),
+    transparent
+  );
+}
+
+body.page-about .about-opening__copy .type-body-large {
+  max-width: 31rem;
+  margin: 0;
+  color: var(--color-accent-primary);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+  line-height: 1.35;
+}
+
+body.page-about .about-opening__art {
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  inset-inline: 43% calc(-1 * var(--page-gutter));
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 88%) 18%,
+    #000 42%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 88%) 18%,
+    #000 42%
+  );
+}
+
+body.page-about .about-opening__art picture,
+body.page-about .about-opening__art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.page-about .about-opening__art img {
+  min-height: 0;
+  object-fit: cover;
+  filter: sepia(0.32) saturate(0.62) contrast(1.04) brightness(0.68);
+  mix-blend-mode: luminosity;
+  clip-path: none;
+  animation: none;
+}
+
+body.page-about .about-opening__art::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, var(--color-background-primary) 0, transparent 38%),
+    linear-gradient(0deg, rgb(4 24 17 / 24%), transparent 45%),
+    var(--sacred-texture);
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+}
+
+body.page-about .about-biography-section {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+  background-color: var(--color-background-secondary);
+  background-image: var(--sacred-ivory-texture);
+}
+
+body.page-about .about-biography {
+  grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(4rem, 8vw, 8rem);
+  align-items: center;
+}
+
+body.page-about .about-biography__copy {
+  grid-column: 2;
+  gap: var(--space-5);
+}
+
+body.page-about .about-biography__copy h2 {
+  max-width: 18ch;
+  color: var(--color-sacred-green-950);
+  font-size: clamp(2.6rem, 4vw, 4.25rem);
+  font-weight: 430;
+  line-height: 1.02;
+}
+
+body.page-about .about-biography__copy .type-meta {
+  color: #6f5228;
+}
+
+body.page-about .about-biography__text {
+  max-width: 41rem;
+  color: var(--color-ink);
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
+  line-height: 1.58;
+}
+
+body.page-about .about-biography__visual {
+  grid-column: 1;
+  grid-row: 1;
+  width: min(100%, 24rem);
+  height: 34rem;
+  margin: 0 auto;
+  padding: 0.35rem;
+  border: 1px solid var(--color-renaissance-ochre);
+  border-radius: 13rem 13rem 0 0;
+}
+
+body.page-about .about-biography__visual::before {
+  inset: -0.85rem;
+  border: 1px solid rgb(165 123 49 / 46%);
+  border-radius: 14rem 14rem 0 0;
+}
+
+body.page-about .about-biography__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 12.5rem 12.5rem 0 0;
+  object-fit: cover;
+}
+
+body.page-about .about-positioning {
+  overflow: hidden;
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 24 17 / 96%) 0 44%, rgb(4 24 17 / 55%)),
+    url("../assets/art/public-domain/lippi-annunciation.jpg"),
+    var(--sacred-texture);
+  background-position:
+    center,
+    82% 47%,
+    center;
+  background-size:
+    cover,
+    58% auto,
+    auto;
+  background-blend-mode: normal, luminosity, soft-light;
+}
+
+body.page-about .about-positioning > .container {
+  display: block;
+}
+
+body.page-about .about-positioning p {
+  max-width: 29ch;
+  padding-inline-start: 0;
+  border: 0;
+  color: var(--color-background-secondary);
+  font-size: clamp(2.15rem, 3.7vw, 4rem);
+  line-height: 1.08;
+}
+
+body.page-about .about-positioning p::before {
+  display: block;
+  width: 5rem;
+  height: 0.3rem;
+  margin-block-end: var(--space-5);
+  content: "";
+  background: var(--color-renaissance-ochre);
+}
+
+body.page-about .about-themes {
+  padding-block: clamp(4.5rem, 7vw, 6.5rem) 0;
+  background-color: var(--color-background-secondary);
+  background-image: var(--sacred-ivory-texture);
+}
+
+body.page-about .about-themes__heading {
+  display: grid;
+  justify-items: center;
+  margin-block-end: var(--space-7);
+  text-align: center;
+}
+
+body.page-about .about-themes__heading .type-meta {
+  color: #6f5228;
+}
+
+body.page-about .about-themes__heading h2 {
+  max-width: 17ch;
+  color: var(--color-sacred-green-950);
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 430;
+}
+
+body.page-about .editorial-themes--about {
+  width: min(100%, 54rem);
+  margin-inline: auto;
+  border-block: 1px solid rgb(146 115 67 / 32%);
+}
+
+body.page-about .editorial-themes--about .editorial-themes__item {
+  display: grid;
+  min-height: 5.5rem;
+  padding: var(--space-4) 0;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: center;
+  border-block-end: 1px solid rgb(146 115 67 / 32%);
+}
+
+body.page-about
+  .editorial-themes--about
+  .editorial-themes__item:nth-child(even) {
+  padding-inline-start: 0;
+}
+
+body.page-about .editorial-themes--about .editorial-themes__number {
+  color: #6f5228;
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+body.page-about .editorial-themes--about .editorial-themes__title {
+  color: var(--color-ink);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+}
+
+body.page-about .about-themes__closing {
+  margin-block-start: clamp(4.5rem, 7vw, 6.5rem);
+  padding-block: clamp(4rem, 6vw, 5.5rem);
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 24 17 / 94%), rgb(4 24 17 / 58%)),
+    url("../assets/art/public-domain/michelangelo-creation-adam-hands.jpg"),
+    var(--sacred-texture);
+  background-position:
+    center,
+    85% 45%,
+    center;
+  background-size:
+    cover,
+    55% auto,
+    auto;
+}
+
+body.page-about .about-themes__closing > .container {
+  display: flex;
+  justify-content: center;
+}
+
+body.page-about .about-themes__closing .editorial-link {
+  margin: 0;
+  padding: 0.9rem 1.5rem;
+  color: var(--color-sacred-green-950);
+  background: var(--color-sacred-gold-light);
+  border: 1px solid var(--color-sacred-gold-light);
+}
+
+@media (max-width: 47.999rem) {
+  body.page-about .about-opening {
+    min-height: auto;
+    padding-block: 0;
+  }
+
+  body.page-about .about-opening > .container {
+    display: grid;
+    min-height: 43rem;
+    padding-block: var(--space-8) 0;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  body.page-about .about-opening__copy {
+    padding-block: 0;
+  }
+
+  body.page-about .about-opening__copy h1 {
+    font-size: clamp(4.75rem, 25vw, 6.5rem);
+  }
+
+  body.page-about .about-opening__copy .type-body-large {
+    max-width: 26rem;
+    padding: var(--space-3);
+    color: var(--color-sacred-ivory);
+    background: rgb(4 24 17 / 78%);
+    font-size: 1.08rem;
+  }
+
+  body.page-about .about-opening__art {
+    inset: 47% calc(-1 * var(--page-gutter)) 0 10%;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 26%);
+    mask-image: linear-gradient(180deg, transparent 0, #000 26%);
+  }
+
+  body.page-about .about-opening__art::after {
+    background: linear-gradient(
+      180deg,
+      var(--color-background-primary),
+      transparent 45%
+    );
+  }
+
+  body.page-about .about-biography {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  body.page-about .about-biography__copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  body.page-about .about-biography__copy h2 {
+    font-size: clamp(2.35rem, 12vw, 3.25rem);
+  }
+
+  body.page-about .about-biography__visual {
+    grid-column: 1;
+    grid-row: 2;
+    width: min(82vw, 22rem);
+    height: 31rem;
+  }
+
+  body.page-about .about-positioning {
+    background-position:
+      center,
+      78% 50%,
+      center;
+    background-size:
+      cover,
+      auto 100%,
+      auto;
+  }
+
+  body.page-about .about-positioning p {
+    max-width: 18ch;
+    font-size: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  body.page-about .editorial-themes--about {
+    width: 100%;
+  }
+
+  body.page-about .editorial-themes--about .editorial-themes__item {
+    min-height: 5rem;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  body.page-about .about-themes__closing {
+    background-position:
+      center,
+      68% 50%,
+      center;
+    background-size:
+      cover,
+      auto 100%,
+      auto;
+  }
+}
+
+/* Etapa 5.7-D, Fase 2: composição deliberada da Home aprovada. */
+@media (min-width: 56rem) {
+  body.page-home .site-header {
+    position: relative;
+  }
+
+  .home-reference-stage {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 52.5rem;
+    color: var(--color-sacred-ivory);
+    background-color: var(--color-sacred-green-950);
+    background-image: var(--texture-painted-green);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .home-reference-stage::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(3 20 14 / 18%), transparent 44%),
+      var(--sacred-texture);
+    opacity: 0.42;
+    mix-blend-mode: soft-light;
+  }
+
+  .home-reference-stage .home-hero {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .home-reference-stage .home-hero::before,
+  .home-reference-stage .home-hero::after {
+    display: none;
+  }
+
+  .home-reference-stage .home-hero__content {
+    position: absolute;
+    z-index: 4;
+    inset-block-start: 22%;
+    inset-inline-start: max(var(--page-gutter), calc((100vw - 80rem) / 2));
+    width: min(36vw, 32rem);
+    gap: var(--space-4);
+  }
+
+  .home-reference-stage .home-hero h1 {
+    font-size: clamp(4.1rem, 6.2vw, 6.2rem);
+    line-height: 0.76;
+  }
+
+  .home-reference-stage .home-hero__message {
+    max-width: none;
+    color: var(--color-sacred-gold-light);
+    font-size: 1.02rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .home-reference-stage .home-hero .page-actions {
+    padding-block-start: var(--space-2);
+  }
+
+  .home-reference-stage .sacred-encounter {
+    z-index: 2;
+    inset: 5% -3% auto 32%;
+    height: 36rem;
+  }
+
+  .home-reference-stage .sacred-encounter::before {
+    display: none;
+  }
+
+  .home-reference-stage .sacred-encounter__fragment {
+    width: 56%;
+  }
+
+  .home-reference-stage .sacred-encounter__image {
+    width: 172%;
+    filter: saturate(0.66) sepia(0.16) contrast(1.08)
+      drop-shadow(0 0.75rem 0.8rem rgb(0 10 7 / 35%));
+  }
+
+  .home-reference-stage .editorial-statement {
+    position: absolute;
+    z-index: 5;
+    inset-block-start: 5%;
+    inset-inline-start: max(var(--page-gutter), calc((100vw - 80rem) / 2));
+    width: min(30rem, 34vw);
+    border: 0;
+    background: transparent;
+  }
+
+  .home-reference-stage .editorial-statement > .container {
+    padding: 0;
+  }
+
+  .home-reference-stage .editorial-statement__inner {
+    display: block;
+    padding: 0;
+  }
+
+  .home-reference-stage .editorial-statement__number {
+    display: none;
+  }
+
+  .home-reference-stage .editorial-statement__text {
+    max-width: 34ch;
+    color: var(--color-sacred-gold-light);
+    font-size: 1.02rem;
+    line-height: 1.35;
+  }
+
+  .home-reference-stage .home-axes {
+    position: absolute;
+    z-index: 5;
+    inset-block-start: 56%;
+    inset-inline-end: max(var(--page-gutter), calc((100vw - 80rem) / 2));
+    width: min(41rem, 47vw);
+    padding: 0;
+    background: rgb(4 25 18 / 64%);
+    border-block: 1px solid var(--color-sacred-gold);
+  }
+
+  .home-reference-stage .home-axes > .container {
+    padding: var(--space-3) 0 0;
+  }
+
+  .home-reference-stage .home-axes__header {
+    display: block;
+    margin: 0;
+    padding-inline: var(--space-4);
+  }
+
+  .home-reference-stage .home-axes__header .type-meta {
+    color: var(--color-sacred-gold-light);
+  }
+
+  .home-reference-stage .home-axes__header h2 {
+    max-width: none;
+    color: var(--color-sacred-gold-light);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-block-end: 1px solid var(--color-sacred-rule-dark);
+    padding-block-end: var(--space-2);
+  }
+
+  .home-reference-stage .home-axes__header .type-body-large {
+    display: none;
+  }
+
+  .home-reference-stage .home-axes__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-block-start: var(--space-3);
+  }
+
+  .home-reference-stage .home-axis {
+    grid-template-columns: auto minmax(0, 1fr);
+    min-height: 0;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    color: var(--color-sacred-ivory);
+    background: transparent;
+    border: 0;
+  }
+
+  .home-reference-stage .home-axis + .home-axis {
+    border-inline-start: 1px solid var(--color-sacred-rule-dark);
+  }
+
+  .home-reference-stage .home-axis__number {
+    color: var(--color-sacred-gold-light);
+    font-size: 2.8rem;
+    line-height: 0.8;
+  }
+
+  .home-reference-stage .home-axis__content {
+    gap: var(--space-2);
+  }
+
+  .home-reference-stage .home-axis h3 {
+    color: var(--color-sacred-gold-light);
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  .home-reference-stage .home-axis .type-editorial {
+    color: var(--color-sacred-ivory);
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .home-reference-stage .home-axis .editorial-link {
+    min-height: 2.75rem;
+    color: var(--color-sacred-gold-light);
+    font-size: 0.8rem;
+  }
+
+  .home-reference-stage .home-themes {
+    position: absolute;
+    z-index: 6;
+    inset: auto 0 0;
+    padding: var(--space-3) 0 var(--space-5);
+    color: var(--color-sacred-ivory);
+    background: rgb(3 22 16 / 82%);
+    border-block-start: 1px solid var(--color-sacred-rule-dark);
+  }
+
+  .home-reference-stage .home-themes__heading {
+    display: block;
+    margin: 0 0 var(--space-2);
+  }
+
+  .home-reference-stage .home-themes__heading .type-meta {
+    color: var(--color-sacred-gold-light);
+  }
+
+  .home-reference-stage .home-themes__heading h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .home-reference-stage .editorial-themes {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .home-reference-stage .editorial-themes__item,
+  .home-reference-stage .editorial-themes__item:first-child {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    min-height: 4.2rem;
+    gap: var(--space-2);
+    align-items: start;
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    border-inline-start: 1px solid var(--color-sacred-rule-dark);
+  }
+
+  .home-reference-stage .editorial-themes__item:first-child {
+    border-inline-start: 0;
+  }
+
+  .home-reference-stage .editorial-themes__number {
+    color: var(--color-sacred-gold-light);
+    font-size: 0.8rem;
+  }
+
+  .home-reference-stage .editorial-themes__title,
+  .home-reference-stage
+    .editorial-themes--home
+    .editorial-themes__item:first-child
+    .editorial-themes__title {
+    color: var(--color-sacred-ivory);
+    font-size: 0.88rem;
+    line-height: 1.15;
+  }
+
+  body.page-home .home-closing {
+    padding-block: var(--space-5);
+    color: var(--color-sacred-ink);
+    background-color: var(--color-sacred-ivory);
+    background-image: var(--texture-aged-ivory);
+    border-block: 1px solid var(--color-sacred-rule-light);
+  }
+
+  body.page-home .home-closing__inner {
+    align-items: center;
+  }
+
+  body.page-home .home-closing__words {
+    max-width: none;
+    color: var(--color-sacred-ink);
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  body.page-home .home-closing__words i {
+    color: var(--color-sacred-gold);
+  }
+
+  body.page-home .home-closing .button-link--secondary {
+    color: var(--color-sacred-ivory);
+    background: var(--color-sacred-green-950);
+    border-color: var(--color-sacred-green-950);
+  }
+}
+
+@media (max-width: 55.999rem) {
+  .home-reference-stage {
+    background-color: var(--color-sacred-green-950);
+    background-image: var(--texture-painted-green);
+  }
+
+  .home-reference-stage .home-hero {
+    min-height: calc(100svh - 5.5rem);
+    background: transparent;
+  }
+
+  .home-reference-stage .home-hero::before {
+    display: none;
+  }
+
+  .home-reference-stage .home-hero::after {
+    background-color: rgb(4 30 22 / 28%);
+  }
+
+  .home-reference-stage .sacred-encounter {
+    inset: 6rem -14% auto -18%;
+    height: 20rem;
+  }
+
+  .home-reference-stage .home-hero__content {
+    z-index: 4;
+    align-self: end;
+  }
+
+  .home-reference-stage .editorial-statement,
+  .home-reference-stage .home-axes {
+    background-image: var(--texture-painted-green);
+  }
+}
+
+/* Etapa 5.7-D — Fase 5: composição editorial de Vídeos */
+body.page-videos .videos-editorial-opening {
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(35rem, 48vw, 46rem);
+  padding-block: 0 clamp(7rem, 12vw, 11rem);
+  background-color: var(--color-sacred-green-950);
+  background-image: var(--texture-painted-green);
+}
+
+body.page-videos .videos-editorial-opening > .container {
+  position: relative;
+  display: grid;
+  min-height: clamp(29rem, 39vw, 38rem);
+  grid-template-columns: 1fr;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+body.page-videos .videos-editorial-opening__copy {
+  position: relative;
+  z-index: 3;
+  max-width: 44rem;
+  padding-block: var(--space-8);
+}
+
+body.page-videos .videos-editorial-opening__copy .type-meta {
+  margin-block-end: var(--space-4);
+  color: var(--color-sacred-gold-light);
+}
+
+body.page-videos .videos-editorial-opening h1 {
+  color: var(--color-sacred-ivory-light);
+  font-size: clamp(5.5rem, 9vw, 8.5rem);
+  font-weight: 430;
+  line-height: 0.9;
+}
+
+body.page-videos .videos-editorial-opening h1::after {
+  display: block;
+  width: 18rem;
+  max-width: 74%;
+  height: 1px;
+  margin: var(--space-6) auto;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-sacred-gold-light),
+    transparent
+  );
+}
+
+body.page-videos .videos-editorial-opening .type-body-large {
+  max-width: 36rem;
+  margin-inline: auto;
+  color: var(--color-sacred-ivory);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.1rem, 1.45vw, 1.4rem);
+  line-height: 1.45;
+}
+
+body.page-videos .videos-editorial-opening__series {
+  margin-block-start: var(--space-4);
+  color: var(--color-sacred-gold-light);
+  font-family: var(--font-family-editorial);
+}
+
+body.page-videos .videos-editorial-opening__visual {
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  inset-inline: 52% calc(-1 * var(--page-gutter));
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 82%) 24%,
+    #000 48%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    rgb(0 0 0 / 82%) 24%,
+    #000 48%
+  );
+}
+
+body.page-videos .videos-editorial-opening__visual picture,
+body.page-videos .videos-editorial-opening__visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+body.page-videos .videos-editorial-opening__visual img {
+  min-height: 0;
+  object-fit: cover;
+  filter: sepia(0.42) saturate(0.72) brightness(0.62) contrast(1.08);
+}
+
+body.page-videos .videos-editorial-opening__visual::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    var(--color-sacred-green-950),
+    transparent 55%
+  );
+  opacity: 0.52;
+}
+
+body.page-videos .videos-empty-editorial {
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  color: var(--color-sacred-ink);
+  background-color: var(--color-sacred-green-950);
+  background-image: var(--texture-painted-green);
+}
+
+body.page-videos .videos-empty-feature {
+  width: min(calc(100% - 2 * var(--page-gutter)), 80rem);
+  margin: clamp(-10rem, -11vw, -7rem) auto 0;
+  padding: var(--space-5);
+  color: var(--color-sacred-ink);
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+  border: 1px solid rgb(154 120 59 / 55%);
+}
+
+body.page-videos .videos-empty-feature > .container {
+  display: grid;
+  padding: 0;
+  grid-template-columns: minmax(0, 1.25fr) minmax(19rem, 0.75fr);
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: center;
+}
+
+body.page-videos .videos-empty-feature__art {
+  position: relative;
+  min-height: clamp(22rem, 31vw, 30rem);
+  background-color: var(--color-sacred-green-900);
+  background-image:
+    linear-gradient(135deg, rgb(196 161 92 / 8%), rgb(4 24 17 / 48%)),
+    var(--texture-painted-green);
+  background-position: center;
+  background-size: cover;
+  border: 1px solid rgb(111 83 39 / 36%);
+}
+
+body.page-videos .videos-empty-feature__art::after {
+  position: absolute;
+  inset: var(--space-5);
+  content: "";
+  border: 1px solid rgb(196 161 92 / 26%);
+}
+
+body.page-videos .videos-empty-feature__copy .type-meta {
+  color: #6f5228;
+}
+
+body.page-videos .videos-empty-feature__copy h2 {
+  max-width: 10ch;
+  margin-block: var(--space-4) var(--space-5);
+  color: var(--color-sacred-green-950);
+  font-size: clamp(3rem, 4.5vw, 4.5rem);
+  font-weight: 430;
+  line-height: 0.98;
+}
+
+body.page-videos .videos-empty-feature__copy .type-editorial {
+  max-width: 27rem;
+  color: var(--color-sacred-ink);
+}
+
+body.page-videos .videos-empty-series {
+  min-height: clamp(31rem, 43vw, 41rem);
+  padding-block: clamp(5rem, 8vw, 7rem);
+  color: var(--color-sacred-ivory);
+  background-color: var(--color-sacred-green-950);
+  background-image: var(--texture-painted-green);
+  text-align: center;
+}
+
+body.page-videos .videos-empty-series .type-meta {
+  color: var(--color-sacred-gold-light);
+  font-family: var(--font-family-editorial);
+  font-size: clamp(2.75rem, 4vw, 4rem);
+  font-weight: 430;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+body.page-videos .videos-empty-series > .container > p:not(.type-meta) {
+  max-width: 32rem;
+  margin: var(--space-4) auto 0;
+  font-family: var(--font-family-editorial);
+  font-size: 1.2rem;
+}
+
+body.page-videos .videos-empty-series__composition {
+  width: min(100%, 68rem);
+  min-height: 15rem;
+  margin: clamp(4rem, 8vw, 7rem) auto 0;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 24.8%,
+      rgb(196 161 92 / 35%) 25%,
+      transparent 25.2%,
+      transparent 49.8%,
+      rgb(196 161 92 / 35%) 50%,
+      transparent 50.2%,
+      transparent 74.8%,
+      rgb(196 161 92 / 35%) 75%,
+      transparent 75.2%
+    ),
+    linear-gradient(
+      0deg,
+      rgb(196 161 92 / 38%),
+      transparent 1px,
+      transparent calc(100% - 1px),
+      rgb(196 161 92 / 38%)
+    );
+}
+
+body.page-videos .videos-empty-lower {
+  min-height: clamp(25rem, 34vw, 33rem);
+  padding-block: clamp(6rem, 10vw, 9rem);
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+}
+
+body.page-videos .videos-empty-lower > .container {
+  display: flex;
+  min-height: 12rem;
+  align-items: center;
+  justify-content: center;
+  border-block: 1px solid rgb(111 83 39 / 30%);
+}
+
+body.page-videos .videos-empty-lower .editorial-link {
+  padding: 0.9rem 1.5rem;
+  color: var(--color-sacred-green-950);
+  border: 1px solid rgb(111 83 39 / 52%);
+}
+
+body.page-videos .videos-empty-closing {
+  min-height: clamp(13rem, 19vw, 18rem);
+  background-color: var(--color-sacred-green-950);
+  background-image:
+    linear-gradient(90deg, rgb(4 24 17 / 75%), rgb(4 24 17 / 30%)),
+    url("../assets/art/public-domain/antonello-saint-jerome-study.jpg");
+  background-position:
+    center,
+    82% 54%;
+  background-size:
+    cover,
+    54% auto;
+  border-block-start: 1px solid var(--color-sacred-rule-dark);
+}
+
+/* Os componentes reais permanecem prontos para assumir a referência. */
+body.page-videos .featured-video,
+body.page-videos .videos-listing {
+  background-color: var(--color-sacred-ivory);
+  background-image: var(--texture-aged-ivory);
+}
+
+body.page-videos .youtube-facade__viewport,
+body.page-videos .video-card {
+  border-radius: 0;
+  border: 1px solid rgb(111 83 39 / 38%);
+  box-shadow: none;
+}
+
+body.page-videos .videos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 47.999rem) {
+  body.page-videos .videos-editorial-opening {
+    min-height: 44rem;
+    padding-block-end: 8rem;
+  }
+
+  body.page-videos .videos-editorial-opening > .container {
+    min-height: 36rem;
+    align-items: start;
+  }
+
+  body.page-videos .videos-editorial-opening__copy {
+    padding-block-start: var(--space-8);
+  }
+
+  body.page-videos .videos-editorial-opening h1 {
+    font-size: clamp(4.5rem, 23vw, 6rem);
+  }
+
+  body.page-videos .videos-editorial-opening .type-body-large,
+  body.page-videos .videos-editorial-opening__series {
+    padding: var(--space-3);
+    background: rgb(4 24 17 / 80%);
+  }
+
+  body.page-videos .videos-editorial-opening__visual {
+    inset: 46% calc(-1 * var(--page-gutter)) 0 4%;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 25%);
+    mask-image: linear-gradient(180deg, transparent, #000 25%);
+  }
+
+  body.page-videos .videos-empty-feature {
+    padding: var(--space-3);
+  }
+
+  body.page-videos .videos-empty-feature > .container {
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
+  }
+
+  body.page-videos .videos-empty-feature__art {
+    min-height: 19rem;
+  }
+
+  body.page-videos .videos-empty-feature__copy {
+    padding: 0 var(--space-3) var(--space-5);
+  }
+
+  body.page-videos .videos-empty-feature__copy h2 {
+    font-size: clamp(2.75rem, 14vw, 3.75rem);
+  }
+
+  body.page-videos .videos-empty-series {
+    min-height: 35rem;
+  }
+
+  body.page-videos .videos-empty-series__composition {
+    min-height: 18rem;
+    background:
+      linear-gradient(
+        0deg,
+        transparent 24.8%,
+        rgb(196 161 92 / 35%) 25%,
+        transparent 25.2%,
+        transparent 49.8%,
+        rgb(196 161 92 / 35%) 50%,
+        transparent 50.2%,
+        transparent 74.8%,
+        rgb(196 161 92 / 35%) 75%,
+        transparent 75.2%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(196 161 92 / 38%),
+        transparent 1px,
+        transparent calc(100% - 1px),
+        rgb(196 161 92 / 38%)
+      );
+  }
+
+  body.page-videos .videos-empty-lower {
+    min-height: 22rem;
+  }
+
+  body.page-videos .videos-empty-closing {
+    min-height: 14rem;
+    background-position:
+      center,
+      62% 50%;
+    background-size:
+      cover,
+      auto 100%;
+  }
+
+  body.page-videos .videos-grid {
+    grid-template-columns: 1fr;
   }
 }

@@ -64,10 +64,10 @@ const items = [
     min-width: 4.5rem;
     min-height: 2.75rem;
     padding: var(--space-2) var(--space-3);
-    color: var(--color-brand-primary);
+    color: var(--color-sacred-gold-light);
     background: transparent;
-    border: var(--border-width-default) solid var(--color-brand-primary);
-    border-radius: var(--radius-small);
+    border: var(--border-width-default) solid var(--color-sacred-gold);
+    border-radius: 0.125rem;
     font-weight: 700;
     cursor: pointer;
     list-style: none;
@@ -78,7 +78,7 @@ const items = [
   }
 
   .mobile-navigation__toggle:hover {
-    background: var(--color-brand-soft);
+    background: rgb(196 161 92 / 10%);
   }
 
   .mobile-navigation__panel {
@@ -87,10 +87,10 @@ const items = [
     inset-block-start: 100%;
     inset-inline: 0;
     padding: var(--space-3) var(--page-gutter) var(--space-5);
-    background: var(--color-background-primary);
+    background-color: var(--color-sacred-ivory);
+    background-image: var(--texture-aged-ivory);
     border-block-end: var(--border-width-default) solid
       var(--color-border-default);
-    box-shadow: var(--shadow-subtle);
   }
 
   .mobile-navigation:not([open]) .mobile-navigation__panel {
@@ -114,8 +114,8 @@ const items = [
   }
 
   .mobile-navigation__panel a[aria-current="page"] {
-    color: var(--color-brand-primary);
-    box-shadow: inset 3px 0 0 var(--color-accent-primary);
+    color: var(--color-sacred-green-900);
+    box-shadow: inset 3px 0 0 var(--color-sacred-gold);
   }
 
   @media (max-width: 55.999rem) {

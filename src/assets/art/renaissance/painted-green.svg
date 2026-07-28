@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="720" viewBox="0 0 960 720">
+  <defs>
+    <filter id="pigment" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".006 .045" numOctaves="3" seed="17" result="grain"/>
+      <feColorMatrix in="grain" values=".18 0 0 0 .02 0 .22 0 0 .035 0 0 .16 0 .025 0 0 0 .34 0" result="tone"/>
+      <feBlend in="SourceGraphic" in2="tone" mode="soft-light"/>
+    </filter>
+    <filter id="craquele">
+      <feTurbulence type="turbulence" baseFrequency=".018" numOctaves="2" seed="31" result="veins"/>
+      <feColorMatrix in="veins" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .09 0"/>
+    </filter>
+    <linearGradient id="wash" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#071d16"/>
+      <stop offset=".52" stop-color="#102b20"/>
+      <stop offset="1" stop-color="#061912"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#wash)"/>
+  <g filter="url(#pigment)" opacity=".72">
+    <path fill="#17382a" d="M-40 88C196 38 365 145 575 89s310-38 440-9v153c-232-41-396 66-623 9S107 207-40 262Z"/>
+    <path fill="#0a241b" d="M-20 382c192-68 343 4 493-32 210-50 344 41 507-16v207c-213 31-341-26-536 20-179 42-328-9-464 28Z"/>
+    <path fill="#19372a" opacity=".52" d="M-40 612c223-55 365 28 557-18 172-41 286 13 483-22v180H-40Z"/>
+  </g>
+  <rect width="960" height="720" filter="url(#craquele)" opacity=".38"/>
+  <g fill="none" stroke="#c09a51" stroke-linecap="round" opacity=".045">
+    <path d="M82 130c173-45 333 18 504-22 112-26 196-18 292 6" stroke-width="5"/>
+    <path d="M16 474c214-42 389 25 589-16 123-25 214-11 335 10" stroke-width="3"/>
+    <path d="M143 676c185-40 353 7 519-22 84-15 151-12 224 0" stroke-width="6"/>
+  </g>
+</svg>

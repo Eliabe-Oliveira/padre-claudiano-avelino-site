@@ -34,21 +34,20 @@ const hasReflections = Boolean(featuredReflection || listedReflections.length);
 >
   <section id="reflexoes-abertura" class="collection-opening">
     <Container>
-      <p class="collection-opening__number" aria-hidden="true">01</p>
-      <div>
+      <div class="collection-opening__copy">
         <p class="type-meta">Reflexões</p>
-        <h1>Reflexões para o caminho</h1>
+        <h1>Reflexões</h1>
         <p class="type-body-large">
           Textos sobre o Evangelho, a oração, a vida espiritual e os desafios
           cotidianos, escritos para serem lidos com calma e levados à oração.
         </p>
-        <div class="reflection-sacred-art" aria-hidden="true">
-          <RenaissanceArtwork
-            src={annunciation}
-            objectPosition="50% 46%"
-            sizes="(max-width: 47.999rem) calc(100vw - 2.5rem), 54rem"
-          />
-        </div>
+      </div>
+      <div class="reflection-sacred-art" aria-hidden="true">
+        <RenaissanceArtwork
+          src={annunciation}
+          objectPosition="50% 46%"
+          sizes="(max-width: 47.999rem) 100vw, 58vw"
+        />
       </div>
     </Container>
   </section>
@@ -75,7 +74,7 @@ const hasReflections = Boolean(featuredReflection || listedReflections.length);
       </>
     ) : (
       <section id="reflexoes-proposta" class="empty-editorial">
-        <Container>
+        <Container class="reflections-empty">
           <div class="empty-editorial__intro">
             <p class="type-meta">Proposta editorial</p>
             <h2>Palavra, pensamento e comunicação</h2>
@@ -85,12 +84,18 @@ const hasReflections = Boolean(featuredReflection || listedReflections.length);
               atenção ao modo como a fé encontra a vida.
             </p>
           </div>
-          <ThemeList variant="compact" />
           <div class="empty-editorial__footer">
             <p>Novos textos a cada duas semanas.</p>
             <EditorialLink href="/sobre/">Conhecer a trajetória</EditorialLink>
           </div>
         </Container>
+        <div class="reflections-theme-index">
+          <Container>
+            <p class="type-meta">Temas das reflexões</p>
+            <ThemeList variant="compact" />
+          </Container>
+        </div>
+        <div class="reflections-contemplative" aria-hidden="true" />
       </section>
     )
   }

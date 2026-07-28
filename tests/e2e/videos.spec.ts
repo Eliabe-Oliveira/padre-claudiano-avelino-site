@@ -31,7 +31,7 @@ test("Vídeos apresenta o estado vazio e a ordem editorial aprovada", async ({
   await expect(page.locator("h1")).toHaveCount(1);
   expect(
     await page
-      .locator("main > section")
+      .locator("main section[id]")
       .evaluateAll((sections) => sections.map(({ id }) => id)),
   ).toEqual(["videos-abertura", "videos-proposta"]);
   await expect(
@@ -71,7 +71,7 @@ test("Início integra Vídeos sem requisições ao YouTube", async ({ page }) =>
   ).toBeVisible();
   expect(
     await page
-      .locator("main > section")
+      .locator("main section[id]")
       .evaluateAll((sections) => sections.map(({ id }) => id)),
   ).toEqual([
     "inicio-abertura",

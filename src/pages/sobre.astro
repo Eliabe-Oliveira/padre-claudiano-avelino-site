@@ -20,17 +20,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <section id="sobre-abertura" class="about-opening">
     <Container>
-      <div class="about-opening__label">
-        <p class="type-meta">Sobre</p>
-        <span aria-hidden="true">01</span>
-      </div>
       <div class="about-opening__copy">
-        <h1>Uma trajetória dedicada à Palavra e à comunicação</h1>
+        <p class="type-meta">Sobre</p>
+        <h1>Sobre</h1>
         <p class="type-body-large">
           Natural de Valente, na Bahia, Padre Claudiano Avelino é sacerdote e
           religioso paulino. Sua trajetória reúne espiritualidade, comunicação,
           formação e trabalho editorial.
         </p>
+      </div>
+      <div class="about-opening__art about-sacred-study" aria-hidden="true">
+        <RenaissanceArtwork
+          src={saintJerome}
+          objectPosition="50% 43%"
+          sizes="(max-width: 47.999rem) 100vw, 58vw"
+        />
       </div>
     </Container>
   </section>
@@ -39,7 +43,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <Container class="about-biography">
       <div class="about-biography__copy">
         <p class="type-meta">Trajetória</p>
-        <h2>Trajetória</h2>
+        <h2>Uma trajetória dedicada à Palavra e à comunicação</h2>
         <div class="about-biography__text">
           <p>
             Padre Claudiano Avelino é mestre em Filosofia pela Pontifícia
@@ -82,13 +86,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <section id="sobre-posicionamento" class="about-positioning">
     <Container>
       <p>Fé, experiência pastoral e pensamento próximos da vida cotidiana.</p>
-      <div class="about-sacred-study" aria-hidden="true">
-        <RenaissanceArtwork
-          src={saintJerome}
-          objectPosition="50% 56%"
-          sizes="(max-width: 47.999rem) calc(100vw - 2.5rem), 24rem"
-        />
-      </div>
     </Container>
   </section>
 
@@ -99,7 +96,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <h2>O que orienta suas reflexões</h2>
       </header>
       <ThemeList variant="about" />
-      <EditorialLink href="/videos/">Conhecer as homilias</EditorialLink>
     </Container>
+    <div class="about-themes__closing">
+      <Container>
+        <EditorialLink href="/videos/">Conhecer as homilias</EditorialLink>
+      </Container>
+    </div>
   </section>
 </BaseLayout>

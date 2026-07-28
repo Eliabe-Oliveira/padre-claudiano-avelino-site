@@ -1,10 +1,10 @@
 ---
 import Container from "../base/Container.astro";
+import OrnamentalDivider from "../art/OrnamentalDivider.astro";
 import { siteConfig } from "../../config/site";
 import { buildMailto } from "../../lib/contact";
 import { buildInternalUrl } from "../../lib/urls";
 
-const year = new Date().getFullYear();
 const items = [
   { label: "Início", href: "/" },
   { label: "Sobre", href: "/sobre/" },
@@ -22,6 +22,7 @@ const contactHref = siteConfig.contactEmail
     <div class="site-footer__grid">
       <div class="site-footer__identity flow">
         <p class="site-footer__name">Padre Claudiano Avelino</p>
+        <OrnamentalDivider inverted />
         <p>Espiritualidade, reflexão e encontro com a Palavra.</p>
       </div>
 
@@ -54,7 +55,6 @@ const contactHref = siteConfig.contactEmail
 
     <div class="site-footer__bottom">
       <p>Site pessoal de Padre Claudiano Avelino.</p>
-      <p>&copy; {year}</p>
     </div>
   </Container>
 </footer>
@@ -63,12 +63,15 @@ const contactHref = siteConfig.contactEmail
   .site-footer {
     padding-block: clamp(var(--space-9), 8vw, var(--space-11)) var(--space-6);
     color: var(--color-text-inverse);
-    background: var(--color-surface-dark);
+    background-color: var(--color-sacred-green-950);
+    background-image: var(--texture-painted-green);
+    background-position: center;
+    background-size: cover;
   }
 
   .site-footer__grid {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(10rem, 0.75fr));
+    grid-template-columns: minmax(0, 1.8fr) repeat(2, minmax(10rem, 0.7fr));
     gap: var(--space-7);
   }
 
@@ -88,7 +91,7 @@ const contactHref = siteConfig.contactEmail
 
   .site-footer__label {
     margin-block-end: var(--space-3);
-    color: var(--color-background-secondary);
+    color: var(--color-sacred-gold-light);
     font-size: var(--font-size-meta);
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -115,7 +118,8 @@ const contactHref = siteConfig.contactEmail
     gap: var(--space-5);
     padding-block-start: var(--space-6);
     margin-block-start: var(--space-7);
-    border-block-start: var(--border-width-default) solid rgb(247 243 234 / 24%);
+    border-block-start: var(--border-width-default) solid
+      var(--color-sacred-rule-dark);
     font-size: var(--font-size-small);
   }
 

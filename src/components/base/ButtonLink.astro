@@ -39,11 +39,14 @@ const href = buildInternalUrl(rawHref);
     min-height: 3rem;
     padding: var(--space-3) var(--space-5);
     border: var(--border-width-default) solid var(--color-brand-primary);
-    border-radius: var(--radius-small);
+    border-radius: 0.125rem;
     font-family: var(--font-family-interface);
-    font-weight: 700;
+    font-size: var(--font-size-small);
+    font-weight: 650;
+    letter-spacing: 0.055em;
     line-height: 1.4;
     text-align: center;
+    text-transform: uppercase;
     text-decoration: none;
     transition:
       color var(--duration-fast) var(--ease-standard),
@@ -52,24 +55,27 @@ const href = buildInternalUrl(rawHref);
   }
 
   .button-link--primary {
-    color: var(--color-text-inverse);
-    background: var(--color-brand-primary);
+    color: var(--color-sacred-green-950);
+    background: var(--color-sacred-gold-light);
+    border-color: var(--color-sacred-gold-light);
   }
 
   .button-link--primary:hover {
-    background: var(--color-brand-hover);
-    border-color: var(--color-brand-hover);
+    color: var(--color-sacred-green-950);
+    background: var(--color-sacred-ivory);
+    border-color: var(--color-sacred-gold);
   }
 
   .button-link--secondary {
-    color: var(--color-brand-primary);
+    color: var(--color-sacred-green-900);
     background: transparent;
+    border-color: var(--color-sacred-gold);
   }
 
   .button-link--secondary:hover {
-    color: var(--color-brand-hover);
-    background: var(--color-brand-soft);
-    border-color: var(--color-brand-hover);
+    color: var(--color-sacred-green-950);
+    background: rgb(154 120 59 / 10%);
+    border-color: var(--color-sacred-gold);
   }
 
   .button-link:active {

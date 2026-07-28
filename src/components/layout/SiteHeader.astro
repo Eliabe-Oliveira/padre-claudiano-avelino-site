@@ -26,7 +26,8 @@ const items = [
         href={buildInternalUrl("/")}
         aria-label="Padre Claudiano Avelino — Início"
       >
-        Padre Claudiano Avelino
+        <span>Padre</span>
+        <strong>Claudiano Avelino</strong>
       </a>
 
       <nav
@@ -61,28 +62,42 @@ const items = [
     position: sticky;
     inset-block-start: 0;
     z-index: 10;
-    background: rgb(245 241 232 / 96%);
+    color: var(--color-sacred-ivory);
+    background-color: var(--color-sacred-green-950);
+    background-image: var(--texture-painted-green);
+    background-position: center;
+    background-size: cover;
     border-block-end: var(--border-width-default) solid
-      var(--color-border-default);
+      var(--color-sacred-rule-dark);
   }
 
   .site-header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 6rem;
+    min-height: 7rem;
     gap: var(--space-5);
   }
 
   .site-header__name {
-    max-width: 20rem;
-    color: var(--color-text-primary);
+    display: grid;
+    max-width: 19rem;
+    color: var(--color-sacred-gold-light);
     font-family: var(--font-family-editorial);
-    font-size: clamp(1.25rem, 1.05rem + 0.5vw, 1.625rem);
-    font-weight: 600;
-    line-height: 1.15;
+    font-size: 0.75rem;
+    font-weight: 520;
+    letter-spacing: 0.12em;
+    line-height: 1;
     text-decoration: none;
-    text-wrap: balance;
+    text-transform: uppercase;
+  }
+
+  .site-header__name strong {
+    max-width: 12ch;
+    font-size: clamp(1.3rem, 1.05rem + 0.7vw, 1.75rem);
+    font-weight: 480;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
   }
 
   .site-header__desktop-navigation ul {
@@ -96,9 +111,10 @@ const items = [
     display: flex;
     align-items: center;
     min-height: 2.75rem;
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-small);
-    font-weight: 650;
+    color: var(--color-sacred-ivory);
+    font-family: var(--font-family-editorial);
+    font-size: 1rem;
+    font-weight: 450;
     text-decoration: none;
   }
 
@@ -108,7 +124,7 @@ const items = [
     inset-block-end: 0.25rem;
     height: 2px;
     content: "";
-    background: var(--color-accent-primary);
+    background: var(--color-sacred-gold-light);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform var(--duration-fast) var(--ease-standard);
@@ -116,7 +132,7 @@ const items = [
 
   .site-header__desktop-navigation a:hover,
   .site-header__desktop-navigation a[aria-current="page"] {
-    color: var(--color-brand-primary);
+    color: var(--color-sacred-gold-light);
   }
 
   .site-header__desktop-navigation a:hover::after,
@@ -126,7 +142,7 @@ const items = [
 
   @media (max-width: 55.999rem) {
     .site-header__inner {
-      min-height: 5rem;
+      min-height: 5.5rem;
     }
 
     .site-header__desktop-navigation {
@@ -134,8 +150,12 @@ const items = [
     }
 
     .site-header__name {
-      max-width: 13rem;
-      font-size: 1.125rem;
+      max-width: 11rem;
+      font-size: 0.625rem;
+    }
+
+    .site-header__name strong {
+      font-size: 1.1rem;
     }
   }
 </style>

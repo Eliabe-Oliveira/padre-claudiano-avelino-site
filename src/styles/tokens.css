@@ -15,6 +15,18 @@
   --color-error: #9a3f36;
   --color-success: #426a50;
 
+  /* Etapa 5.7-D: sistema católico renascentista compartilhado. */
+  --color-sacred-green-950: #061a13;
+  --color-sacred-green-900: #0a241b;
+  --color-sacred-green-800: #123226;
+  --color-sacred-ivory: #efe4cf;
+  --color-sacred-ivory-light: #f7efdf;
+  --color-sacred-ink: #29281f;
+  --color-sacred-gold: #9a783b;
+  --color-sacred-gold-light: #c4a15c;
+  --color-sacred-rule-dark: rgb(196 161 92 / 52%);
+  --color-sacred-rule-light: rgb(111 83 39 / 34%);
+
   /* Derived states preserve the approved palette. */
   --color-brand-soft: rgb(52 78 65 / 8%);
   --color-brand-muted: rgb(52 78 65 / 48%);
@@ -65,6 +77,8 @@
   --radius-card: 0.5rem;
   --border-width-default: 1px;
   --shadow-subtle: 0 0.5rem 1.5rem var(--color-shadow);
+  --texture-painted-green: url("../assets/art/renaissance/painted-green.svg");
+  --texture-aged-ivory: url("../assets/art/renaissance/aged-ivory.svg");
 
   --duration-fast: 180ms;
   --duration-standard: 220ms;
