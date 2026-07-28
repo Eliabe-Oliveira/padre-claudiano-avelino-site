@@ -46,13 +46,10 @@ test("valida a reconstrução visual e editorial", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Padre Claudiano Avelino" }),
   ).toBeVisible();
-  await expect(page.locator(".home-hero__portrait picture")).toHaveCount(1);
+  await expect(page.locator(".home-hero__portrait picture")).toHaveCount(0);
   await expect(
-    page.getByRole("link", { name: "Ler as reflexões" }),
+    page.getByRole("link", { name: "Conhecer as reflexões" }).first(),
   ).toHaveAttribute("href", "/reflexoes/");
-  await expect(
-    page.getByRole("link", { name: "Assistir à Homilia de 1 minuto" }),
-  ).toHaveAttribute("href", "/videos/");
   await expect(
     page.getByRole("heading", { name: "Palavra, reflexão e encontro" }),
   ).toBeVisible();
@@ -108,7 +105,8 @@ test("preserva acessibilidade, reflow e rodapé em todas as larguras", async ({
   await page.goto("/");
   expect(
     await page
-      .getByRole("link", { name: "Ler as reflexões" })
+      .getByRole("link", { name: "Conhecer as reflexões" })
+      .first()
       .evaluate((element) => getComputedStyle(element).transitionDuration),
   ).toBe("0s");
 });

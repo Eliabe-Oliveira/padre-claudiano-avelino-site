@@ -41,7 +41,7 @@ test("preserva a reorientação católica renascentista", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("[data-sacred-encounter]")).toHaveCount(1);
   await expect(page.locator("[data-sacred-encounter] picture")).toHaveCount(2);
-  await expect(page.locator(".home-hero__portrait picture")).toHaveCount(1);
+  await expect(page.locator(".home-hero__portrait picture")).toHaveCount(0);
   await expect(page.locator("h1")).toHaveCount(1);
 
   const animation = await page

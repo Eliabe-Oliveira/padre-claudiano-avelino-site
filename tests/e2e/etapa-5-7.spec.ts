@@ -28,20 +28,22 @@ async function expectNoOverflow(page: Page) {
   ).toBe(true);
 }
 
-test("fotografias locais têm fontes responsivas, dimensões e carregamento coerente", async ({
+test("imagens locais têm fontes responsivas, dimensões e carregamento coerente", async ({
   page,
 }) => {
   await page.goto("/");
-  const home = page.locator(".home-hero__portrait picture");
-  await expect(home).toHaveCount(1);
-  await expect(home.locator("source")).toHaveCount(2);
-  await expect(home.locator("img")).toHaveAttribute("alt", /Padre Claudiano/);
-  await expect(home.locator("img")).toHaveAttribute("width", /\d+/);
-  await expect(home.locator("img")).toHaveAttribute("height", /\d+/);
-  await expect(home.locator("img")).toHaveAttribute("loading", "eager");
-  await expect(home.locator("img")).toHaveAttribute("fetchpriority", "high");
-  const homeSrc = await home.locator("img").getAttribute("src");
-  expect(homeSrc).toMatch(/^\/(?:_image\?|.*\.(?:png|webp|avif))/);
+  const hands = page.locator("[data-sacred-encounter] picture");
+  await expect(hands).toHaveCount(2);
+  await expect(hands.first().locator("source")).toHaveCount(2);
+  await expect(hands.first().locator("img")).toHaveAttribute("alt", "");
+  await expect(hands.first().locator("img")).toHaveAttribute("width", /\d+/);
+  await expect(hands.first().locator("img")).toHaveAttribute("height", /\d+/);
+  await expect(hands.first().locator("img")).toHaveAttribute(
+    "loading",
+    "eager",
+  );
+  const handsSrc = await hands.first().locator("img").getAttribute("src");
+  expect(handsSrc).toMatch(/^\/(?:_image\?|.*\.(?:png|webp|avif))/);
 
   await page.goto("/sobre/");
   const about = page.locator("#sobre-biografia picture");
@@ -51,7 +53,7 @@ test("fotografias locais têm fontes responsivas, dimensões e carregamento coer
   await expect(about.locator("img")).toHaveAttribute("loading", "lazy");
   const aboutSrc = await about.locator("img").getAttribute("src");
   expect(aboutSrc).toMatch(/^\/(?:_image\?|.*\.(?:jpeg|jpg|webp|avif))/);
-  expect(aboutSrc).not.toBe(homeSrc);
+  expect(aboutSrc).not.toBe(handsSrc);
 
   await page.goto("/videos/");
   const celebration = page.locator("#videos-abertura picture");

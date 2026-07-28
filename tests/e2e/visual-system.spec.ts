@@ -103,7 +103,7 @@ test("respeita a redução de movimento", async ({ page }) => {
   await page.goto("/");
   expect(
     await page
-      .getByRole("link", { name: "Ler as reflexões" })
+      .getByRole("link", { name: "Conhecer as reflexões" })
       .first()
       .evaluate((element) => getComputedStyle(element).transitionDuration),
   ).toBe("0s");

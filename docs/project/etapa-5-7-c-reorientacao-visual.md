@@ -28,11 +28,13 @@ versão WebP de 16 KB para evitar rasterização de filtros no navegador.
 
 ## Início
 
-O hero preserva nome, posicionamento, descrição e ações. O plano verde tornou-se
-mais profundo e recebeu o detalhe das mãos de _A Criação de Adão_. A obra é
-dividida em duas metades decorativas que se aproximam por poucos pixels em um
-ciclo longo. O retrato do Padre permanece factual, em escala subordinada à
-composição simbólica.
+O hero foi reduzido ao nome, à frase “Palavra, reflexão e encontro com Deus.” e
+a uma única ação para conhecer as reflexões. O plano verde tornou-se mais
+profundo e recebeu o detalhe das mãos de _A Criação de Adão_. A obra é dividida
+em duas camadas decorativas que se aproximam por poucos pixels em um ciclo
+longo. Fotografia, explicação longa, chamada de vídeos e demais informações
+ficam fora da primeira dobra, preservando silêncio, espaço vazio e predominância
+da arte.
 
 Declaração editorial, eixos, temas e encerramento mantêm conteúdo e ordem. A
 textura pictórica e os acentos ocres relacionam essas seções à nova atmosfera.

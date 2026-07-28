@@ -41,11 +41,22 @@ test("Início apresenta a nova ordem editorial sem estados vazios repetidos", as
   await expect(page.getByText(/Fixture técnica/i)).toHaveCount(0);
   await expect(page.getByText(/Sistema visual/i)).toHaveCount(0);
   await expect(page.getByText(/Provincial/i)).toHaveCount(0);
-  await expect(page.locator(".home-hero__portrait img")).toHaveCount(1);
+  await expect(page.locator(".home-hero__portrait img")).toHaveCount(0);
   await expect(page.locator("[data-sacred-encounter] img")).toHaveCount(2);
   await expect(
     page.locator("[data-sacred-encounter] img").first(),
   ).toHaveAttribute("alt", "");
+  await expect(
+    page
+      .locator("#inicio-abertura")
+      .getByText("Palavra, reflexão e encontro com Deus.", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page
+      .locator("#inicio-abertura")
+      .getByRole("link", { name: "Conhecer as reflexões" }),
+  ).toHaveCount(1);
+  await expect(page.locator("#inicio-abertura .button-link")).toHaveCount(1);
   await expect(page.locator("iframe, form")).toHaveCount(0);
   expect(externalRequests).toEqual([]);
 });

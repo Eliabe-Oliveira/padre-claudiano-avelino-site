@@ -23,6 +23,9 @@
 .home-hero {
   max-width: none;
   width: 100%;
+  grid-template-columns: minmax(16rem, 0.72fr) minmax(28rem, 1.28fr);
+  min-height: calc(100svh - 5.5rem);
+  gap: clamp(var(--space-5), 3vw, var(--space-8));
   padding-inline: max(var(--page-gutter), calc((100vw - 80rem) / 2));
   color: var(--color-text-inverse);
   background-color: #132a22;
@@ -33,18 +36,24 @@
 }
 
 .home-hero h1,
-.home-hero .type-body-large,
-.home-hero__positioning {
+.home-hero__message {
   color: var(--color-text-inverse);
 }
 
-.home-hero h1 i,
-.home-hero .type-meta {
+.home-hero h1 i {
   color: var(--color-renaissance-ochre-light);
 }
 
-.home-hero__positioning {
-  border-color: var(--color-renaissance-ochre-light);
+.home-hero__content {
+  gap: clamp(var(--space-5), 3vw, var(--space-7));
+}
+
+.home-hero__message {
+  max-width: 22ch;
+  font-family: var(--font-family-editorial);
+  font-size: clamp(1.35rem, 1rem + 0.9vw, 2rem);
+  line-height: 1.25;
+  text-wrap: balance;
 }
 
 .home-hero .button-link--primary {
@@ -53,14 +62,9 @@
   border-color: var(--color-text-inverse);
 }
 
-.home-hero .button-link--secondary {
-  color: var(--color-text-inverse);
-  border-color: var(--color-renaissance-ochre-light);
-}
-
 .home-hero__visual {
   place-items: stretch;
-  min-height: 40rem;
+  min-height: clamp(30rem, 68vh, 44rem);
 }
 
 .home-hero__visual::before {
@@ -132,23 +136,6 @@
   background: var(--sacred-texture);
   opacity: 0.1;
   mix-blend-mode: soft-light;
-}
-
-.home-hero__portrait {
-  position: absolute;
-  z-index: 3;
-  inset-inline-end: var(--space-5);
-  inset-block-end: 0;
-  width: clamp(9rem, 14vw, 14rem);
-  padding: var(--space-2) var(--space-2) 0;
-  background: var(--color-background-primary);
-  border-block-start: 2px solid var(--color-renaissance-ochre-light);
-}
-
-.home-hero__photo {
-  width: 100%;
-  max-height: 20rem;
-  transform: none;
 }
 
 .editorial-statement {
@@ -389,30 +376,30 @@
 
 @media (max-width: 55.999rem) {
   .home-hero {
+    grid-template-columns: minmax(0, 0.82fr) minmax(20rem, 1.18fr);
     padding-inline: var(--page-gutter);
   }
 
   .home-hero__visual {
-    min-height: 33rem;
+    min-height: 30rem;
   }
 
   .sacred-encounter {
     inset-inline: 0;
     height: 20rem;
   }
-
-  .home-hero__portrait {
-    width: 11rem;
-  }
 }
 
 @media (max-width: 47.999rem) {
   .home-hero {
+    grid-template-columns: 1fr;
+    align-content: center;
+    min-height: calc(100svh - 5rem);
     padding-block-start: var(--space-8);
   }
 
   .home-hero__visual {
-    min-height: 31rem;
+    min-height: 17rem;
   }
 
   .sacred-encounter {
@@ -426,13 +413,6 @@
 
   .sacred-encounter__image {
     width: 190%;
-  }
-
-  .home-hero__portrait {
-    inset-block-start: 14.5rem;
-    inset-block-end: auto;
-    inset-inline-end: var(--space-3);
-    width: 9rem;
   }
 
   .about-positioning > .container {
