@@ -1,10 +1,10 @@
 ---
 import Container from "../base/Container.astro";
+import { siteConfig } from "../../config/site";
+import { buildMailto } from "../../lib/contact";
+import { buildInternalUrl } from "../../lib/urls";
 
 const year = new Date().getFullYear();
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const withBase = (path: string) =>
-  path === "/" ? `${base}/` : `${base}${path}`;
 const items = [
   { label: "Início", href: "/" },
   { label: "Sobre", href: "/sobre/" },
@@ -12,6 +12,9 @@ const items = [
   { label: "Vídeos", href: "/videos/" },
   { label: "Contato", href: "/contato/" },
 ];
+const contactHref = siteConfig.contactEmail
+  ? buildMailto(siteConfig.contactEmail, siteConfig.contactSubject)
+  : undefined;
 ---
 
 <footer class="site-footer">
@@ -28,7 +31,7 @@ const items = [
           {
             items.map((item) => (
               <li>
-                <a href={withBase(item.href)}>{item.label}</a>
+                <a href={buildInternalUrl(item.href)}>{item.label}</a>
               </li>
             ))
           }
@@ -37,7 +40,15 @@ const items = [
 
       <div class="flow">
         <p class="site-footer__label">Contato</p>
-        <p>E-mail de contato a definir</p>
+        {
+          siteConfig.contactEmail && contactHref ? (
+            <a class="site-footer__contact" href={contactHref}>
+              {siteConfig.contactEmail}
+            </a>
+          ) : (
+            <p>E-mail de contato a definir</p>
+          )
+        }
       </div>
     </div>
 
@@ -87,6 +98,12 @@ const items = [
     align-items: center;
     min-height: 2.75rem;
     color: var(--color-text-inverse);
+    text-underline-offset: 0.2em;
+  }
+
+  .site-footer__contact {
+    color: var(--color-text-inverse);
+    overflow-wrap: anywhere;
     text-underline-offset: 0.2em;
   }
 

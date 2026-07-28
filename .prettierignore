@@ -5,3 +5,4 @@ playwright-report
 test-results
 coverage
 package-lock.json
+tests/performance/artifacts

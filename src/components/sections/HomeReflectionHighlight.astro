@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { EDITORIAL_THEME_LABELS } from "../../config/editorial";
+import { formatPublicationDate } from "../../lib/dates";
+import Container from "../base/Container.astro";
+import EditorialLink from "../base/EditorialLink.astro";
+
+interface Props {
+  reflection?: CollectionEntry<"reflections">;
+}
+
+const { reflection } = Astro.props;
+---
+
+<section id="inicio-reflexao-destaque" class="page-section">
+  <Container variant="institutional">
+    <div class="editorial-block flow">
+      <p class="type-meta">Reflexão em destaque</p>
+      {
+        reflection ? (
+          <>
+            <p class="content-meta">
+              {EDITORIAL_THEME_LABELS[reflection.data.theme]} ·{" "}
+              {formatPublicationDate(reflection.data.publishedAt)}
+            </p>
+            <h2>{reflection.data.title}</h2>
+            <p class="type-editorial">{reflection.data.excerpt}</p>
+            <EditorialLink href={`/reflexoes/${reflection.data.slug}/`}>
+              Continuar a reflexão
+            </EditorialLink>
+          </>
+        ) : (
+          <>
+            <h2>Reflexão em destaque</h2>
+            <p class="type-editorial">
+              As primeiras reflexões serão publicadas em breve.
+            </p>
+            <EditorialLink href="/reflexoes/">
+              Conhecer o espaço de reflexões
+            </EditorialLink>
+          </>
+        )
+      }
+    </div>
+  </Container>
+</section>

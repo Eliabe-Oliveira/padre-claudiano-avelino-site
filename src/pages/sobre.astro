@@ -1,0 +1,177 @@
+---
+import { Picture } from "astro:assets";
+import Container from "../components/base/Container.astro";
+import EditorialLink from "../components/base/EditorialLink.astro";
+import ClosingInvitation from "../components/sections/ClosingInvitation.astro";
+import InstitutionalIntro from "../components/sections/InstitutionalIntro.astro";
+import { siteMedia } from "../config/media";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const themes = [
+  {
+    title: "Evangelho e vida cotidiana",
+    description:
+      "A escuta do Evangelho em diálogo com experiências, escolhas e desafios concretos.",
+  },
+  {
+    title: "Oração e vida espiritual",
+    description:
+      "O cultivo do silêncio, da presença e de uma relação mais profunda com Deus.",
+  },
+  {
+    title: "Santos e testemunhos de fé",
+    description:
+      "Vidas que ajudam a reconhecer formas possíveis e cotidianas de santidade.",
+  },
+  {
+    title: "Família, relações e virtudes cristãs",
+    description:
+      "Reflexões sobre convivência, cuidado, serviço, perdão e responsabilidade.",
+  },
+  {
+    title: "Palavra, pensamento e comunicação",
+    description:
+      "O encontro entre fé, reflexão e os modos de comunicar no mundo contemporâneo.",
+  },
+];
+---
+
+<BaseLayout
+  title="Sobre | Padre Claudiano Avelino"
+  description="Conheça a trajetória de Padre Claudiano Avelino e os temas que orientam suas reflexões."
+  currentPath="/sobre/"
+  pageType="profile"
+  socialImage={siteMedia.aboutPortrait?.src}
+  socialImageAlt={siteMedia.aboutPortrait?.alt}
+  structuredDataType="profile"
+>
+  <InstitutionalIntro
+    id="sobre-abertura"
+    label="Sobre"
+    title="Uma trajetória dedicada à Palavra e à comunicação"
+    intro="Natural de Valente, na Bahia, Padre Claudiano Avelino é sacerdote e religioso paulino. Sua trajetória reúne espiritualidade, comunicação, formação e trabalho editorial."
+  />
+
+  <section id="sobre-biografia" class="page-section page-section--alternate">
+    <Container variant="institutional" class="about-biography">
+      <div class="editorial-block flow">
+        <h2>Trajetória</h2>
+        <p class="type-editorial">
+          Padre Claudiano Avelino é mestre em Filosofia pela Pontifícia
+          Universidade Católica de São Paulo (PUC-SP) e doutor pela Universidade
+          Federal de São Paulo (UNIFESP).
+        </p>
+        <p class="type-editorial">
+          Ao longo de sua caminhada, tem se dedicado à espiritualidade, à
+          formação, à vida pastoral, à comunicação e ao trabalho editorial. Sua
+          atuação procura aproximar a profundidade da fé das questões concretas
+          que atravessam a experiência cotidiana.
+        </p>
+        <p class="type-editorial">
+          Este site nasce como um espaço pessoal de partilha. Nele, reflexões e
+          breves homilias convidam à escuta, à oração e ao encontro com a
+          Palavra.
+        </p>
+      </div>
+      {
+        siteMedia.aboutPortrait && (
+          <Picture
+            class="about-biography__photo"
+            src={siteMedia.aboutPortrait.src}
+            alt={siteMedia.aboutPortrait.alt}
+            formats={["avif", "webp"]}
+            widths={[360, 480, 720]}
+            sizes="(max-width: 47.999rem) calc(100vw - 2.5rem), 25rem"
+            quality={80}
+            loading="lazy"
+            style={`object-position: ${siteMedia.aboutPortrait.objectPosition}`}
+          />
+        )
+      }
+    </Container>
+  </section>
+
+  <section id="sobre-palavra-comunicacao" class="page-section">
+    <Container variant="institutional">
+      <div class="editorial-block flow">
+        <h2>Palavra, pensamento e comunicação</h2>
+        <p class="type-editorial">
+          Em sua trajetória, a Palavra não aparece separada do pensamento ou da
+          comunicação. A reflexão filosófica, a experiência pastoral e o
+          trabalho editorial se encontram no compromisso de comunicar com
+          clareza, profundidade e proximidade.
+        </p>
+        <p class="type-editorial">
+          A espiritualidade, nesse caminho, não se reduz a respostas prontas.
+          Ela também envolve silêncio, escuta, discernimento e atenção ao modo
+          como a fé encontra a vida.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section id="sobre-temas" class="page-section page-section--surface">
+    <Container variant="cards">
+      <div class="editorial-block flow">
+        <h2>O que orienta suas reflexões</h2>
+        <p class="type-editorial">
+          Os conteúdos do site se organizam em cinco núcleos editoriais.
+        </p>
+        <ol class="theme-list">
+          {
+            themes.map((theme) => (
+              <li class="theme-list__item flow">
+                <h3>{theme.title}</h3>
+                <p>{theme.description}</p>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </Container>
+  </section>
+
+  <section id="sobre-homilia" class="page-section">
+    <Container variant="institutional">
+      <div class="editorial-block flow">
+        <h2>Homilia de 1 minuto</h2>
+        <p class="type-editorial">
+          Homilia de 1 minuto é uma proposta de breves reflexões em vídeo a
+          partir da Palavra de Deus. Em poucos instantes, cada mensagem procura
+          oferecer uma pausa, uma pergunta ou um convite para continuar o dia
+          com um novo olhar.
+        </p>
+        <EditorialLink href="/videos/">Conhecer as homilias</EditorialLink>
+      </div>
+    </Container>
+  </section>
+
+  <ClosingInvitation variant="light" />
+</BaseLayout>
+
+<style>
+  .about-biography {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    align-items: start;
+    gap: clamp(var(--space-7), 6vw, var(--space-10));
+  }
+
+  .about-biography__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+  }
+
+  @media (max-width: 47.999rem) {
+    .about-biography {
+      grid-template-columns: 1fr;
+    }
+
+    .about-biography__photo {
+      width: min(100%, 30rem);
+    }
+  }
+</style>

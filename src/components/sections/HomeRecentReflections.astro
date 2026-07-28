@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { EDITORIAL_THEME_LABELS } from "../../config/editorial";
+import { formatPublicationDate } from "../../lib/dates";
+import Container from "../base/Container.astro";
+import EditorialLink from "../base/EditorialLink.astro";
+
+interface Props {
+  reflections: CollectionEntry<"reflections">[];
+}
+
+const { reflections } = Astro.props;
+---
+
+<section id="inicio-reflexoes-recentes" class="page-section">
+  <Container variant="cards">
+    <div class="editorial-block flow">
+      <h2>Reflexões recentes</h2>
+      {
+        reflections.length > 0 ? (
+          <ul class="preview-list" role="list">
+            {reflections.map((reflection) => (
+              <li class="preview-list__item flow">
+                <p class="content-meta">
+                  {EDITORIAL_THEME_LABELS[reflection.data.theme]} ·{" "}
+                  {formatPublicationDate(reflection.data.publishedAt)}
+                </p>
+                <h3>{reflection.data.title}</h3>
+                <p class="type-editorial">{reflection.data.excerpt}</p>
+                <EditorialLink href={`/reflexoes/${reflection.data.slug}/`}>
+                  Continuar a reflexão
+                </EditorialLink>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="type-editorial">
+            O acervo de reflexões será iniciado em breve.
+          </p>
+        )
+      }
+    </div>
+  </Container>
+</section>

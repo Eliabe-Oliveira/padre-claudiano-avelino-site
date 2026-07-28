@@ -1,0 +1,88 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { EDITORIAL_THEME_LABELS } from "../../config/editorial";
+import { formatPublicationDate } from "../../lib/dates";
+import { buildReflectionPath } from "../../lib/reflections";
+import EditorialLink from "../base/EditorialLink.astro";
+
+interface Props {
+  reflection: CollectionEntry<"reflections">;
+  headingLevel?: "h2" | "h3";
+  variant?: "standard" | "compact";
+}
+
+const {
+  reflection,
+  headingLevel: Heading = "h2",
+  variant = "standard",
+} = Astro.props;
+const href = buildReflectionPath(reflection.data.slug);
+---
+
+<article class:list={["reflection-card", `reflection-card--${variant}`]}>
+  {
+    reflection.data.cover && reflection.data.coverAlt && (
+      <Image
+        class="reflection-card__cover"
+        src={reflection.data.cover}
+        alt={reflection.data.coverAlt}
+        widths={[480, 720]}
+        sizes="(max-width: 48rem) 100vw, 36rem"
+        loading="lazy"
+      />
+    )
+  }
+  <div class="reflection-card__content flow">
+    <p class="type-meta">
+      {EDITORIAL_THEME_LABELS[reflection.data.theme]}
+    </p>
+    <Heading>{reflection.data.title}</Heading>
+    <p class="reflection-card__date">
+      <time datetime={reflection.data.publishedAt.toISOString()}>
+        {formatPublicationDate(reflection.data.publishedAt)}
+      </time>
+    </p>
+    <p class="type-editorial">{reflection.data.excerpt}</p>
+    <EditorialLink href={href}>Ler a reflexão</EditorialLink>
+  </div>
+</article>
+
+<style>
+  .reflection-card {
+    overflow: hidden;
+    background: var(--color-surface-primary);
+    border: var(--border-width-default) solid var(--color-border-default);
+    border-radius: var(--radius-card);
+  }
+
+  .reflection-card__cover {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .reflection-card__content {
+    --flow-space: var(--space-4);
+    padding: var(--space-6);
+  }
+
+  .reflection-card--compact .reflection-card__content {
+    padding: var(--space-5);
+  }
+
+  .reflection-card h2,
+  .reflection-card h3 {
+    font-size: var(--font-size-h3);
+  }
+
+  .reflection-card--compact h3 {
+    font-size: var(--font-size-h4);
+  }
+
+  .reflection-card__date {
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+</style>

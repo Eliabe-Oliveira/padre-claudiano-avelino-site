@@ -1,0 +1,48 @@
+---
+import ButtonLink from "../base/ButtonLink.astro";
+import Container from "../base/Container.astro";
+
+interface Props {
+  variant?: "dark" | "light";
+}
+
+const { variant = "dark" } = Astro.props;
+---
+
+<section
+  id={variant === "dark" ? "inicio-encerramento" : "sobre-convite"}
+  class:list={["closing-invitation", `closing-invitation--${variant}`]}
+>
+  <Container variant="opening">
+    <div class="editorial-block flow">
+      {
+        variant === "dark" ? (
+          <>
+            <h2>A espiritualidade nem sempre começa com uma resposta.</h2>
+            <p class="type-body-large">Muitas vezes, começa com uma pausa.</p>
+            <div class="page-actions">
+              <ButtonLink href="/reflexoes/">Ler as reflexões</ButtonLink>
+              <ButtonLink href="/sobre/" variant="secondary">
+                Conhecer Padre Claudiano
+              </ButtonLink>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2>Um convite à leitura e à escuta</h2>
+            <p class="type-editorial">
+              As reflexões e homilias deste espaço procuram acompanhar o caminho
+              cotidiano com serenidade, profundidade e proximidade.
+            </p>
+            <div class="page-actions">
+              <ButtonLink href="/reflexoes/">Ler as reflexões</ButtonLink>
+              <ButtonLink href="/" variant="secondary">
+                Voltar ao início
+              </ButtonLink>
+            </div>
+          </>
+        )
+      }
+    </div>
+  </Container>
+</section>

@@ -47,6 +47,9 @@ describe("URLs e IDs do YouTube", () => {
   });
 
   it("constrói thumbnail URL", () => {
+    expect(buildYouTubeThumbnailUrl(SYNTACTIC_YOUTUBE_ID)).toBe(
+      `https://i.ytimg.com/vi/${SYNTACTIC_YOUTUBE_ID}/hqdefault.jpg`,
+    );
     expect(
       buildYouTubeThumbnailUrl(SYNTACTIC_YOUTUBE_ID, "maxresdefault"),
     ).toBe(`https://i.ytimg.com/vi/${SYNTACTIC_YOUTUBE_ID}/maxresdefault.jpg`);

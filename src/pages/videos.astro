@@ -1,0 +1,179 @@
+---
+import Container from "../components/base/Container.astro";
+import EditorialLink from "../components/base/EditorialLink.astro";
+import ReflectionCard from "../components/reflections/ReflectionCard.astro";
+import FeaturedVideo from "../components/videos/FeaturedVideo.astro";
+import VideoCard from "../components/videos/VideoCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  assertContentIntegrity,
+  getFeaturedVideo,
+  getPublishedRelatedReflection,
+  getPublishedVideos,
+} from "../lib/content";
+import { excludeFeaturedVideoFromListing } from "../lib/videos";
+
+await assertContentIntegrity();
+
+const [publishedVideos, featuredVideo] = await Promise.all([
+  getPublishedVideos(),
+  getFeaturedVideo(),
+]);
+const listedVideos = excludeFeaturedVideoFromListing(
+  publishedVideos,
+  featuredVideo,
+);
+const relatedReflection = featuredVideo
+  ? await getPublishedRelatedReflection(featuredVideo)
+  : undefined;
+---
+
+<BaseLayout
+  title="Vídeos | Padre Claudiano Avelino"
+  description="Homilia de 1 minuto: breves reflexões em vídeo a partir da Palavra de Deus."
+  currentPath="/videos/"
+  structuredDataType="collection"
+>
+  <Container
+    as="section"
+    variant="opening"
+    id="videos-abertura"
+    class="videos-opening"
+  >
+    <p class="type-meta">Vídeos</p>
+    <h1>Homilia de 1 minuto</h1>
+    <p class="type-body-large">
+      Uma breve pausa para escutar o Evangelho e levá-lo para a vida. Em cada
+      vídeo, Padre Claudiano apresenta uma reflexão simples e direta a partir da
+      Palavra de Deus.
+    </p>
+  </Container>
+
+  {
+    featuredVideo && (
+      <FeaturedVideo video={featuredVideo} id="videos-destaque" />
+    )
+  }
+
+  <section id="videos-listagem" class="videos-listing">
+    <Container variant="cards">
+      {
+        listedVideos.length > 0 ? (
+          <>
+            <h2>Últimas homilias</h2>
+            <div class="videos-grid">
+              {listedVideos.map((video) => (
+                <VideoCard {video} headingLevel="h3" />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div class="videos-empty flow">
+            <h2>As primeiras homilias serão reunidas em breve.</h2>
+            <p class="type-editorial">
+              Este espaço receberá breves reflexões em vídeo a partir da Palavra
+              de Deus.
+            </p>
+          </div>
+        )
+      }
+    </Container>
+  </section>
+
+  {
+    relatedReflection && (
+      <section
+        id="videos-reflexao-relacionada"
+        class="videos-related-reflection"
+      >
+        <Container variant="cards">
+          <h2>Para continuar a reflexão</h2>
+          <div class="videos-related-reflection__card">
+            <ReflectionCard
+              reflection={relatedReflection}
+              headingLevel="h3"
+              variant="compact"
+            />
+          </div>
+        </Container>
+      </section>
+    )
+  }
+
+  <section id="videos-encerramento" class="videos-closing">
+    <Container variant="institutional">
+      <div class="flow">
+        <h2>
+          Cada homilia nasce de uma passagem do Evangelho e propõe um pequeno
+          espaço de escuta durante o dia.
+        </h2>
+        <EditorialLink href="/reflexoes/">Ler as reflexões</EditorialLink>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
+
+<style>
+  .videos-opening {
+    display: grid;
+    gap: var(--space-5);
+    padding-block: clamp(var(--space-9), 8vw, var(--space-11));
+  }
+
+  .videos-opening h1 {
+    max-width: 13ch;
+  }
+
+  .videos-opening .type-body-large {
+    max-width: 44rem;
+  }
+
+  .videos-listing {
+    padding-block: var(--section-space);
+    background: var(--color-surface-primary);
+    border-block: var(--border-width-default) solid var(--color-border-default);
+  }
+
+  .videos-listing h2,
+  .videos-related-reflection h2 {
+    margin-block-end: var(--space-7);
+  }
+
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .videos-empty {
+    --flow-space: var(--space-5);
+    max-width: var(--width-opening);
+  }
+
+  .videos-related-reflection {
+    padding-block: var(--section-space);
+  }
+
+  .videos-related-reflection__card {
+    max-width: 36rem;
+  }
+
+  .videos-closing {
+    padding-block: var(--section-space);
+    background: var(--color-background-secondary);
+  }
+
+  .videos-closing .flow {
+    --flow-space: var(--space-5);
+  }
+
+  .videos-closing h2 {
+    max-width: 30ch;
+  }
+
+  @media (max-width: 47.999rem) {
+    .videos-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import { formatPublicationDate } from "../../lib/dates";
+
+interface Props {
+  publishedAt: Date;
+  updatedAt?: Date;
+  scriptureReference?: string;
+}
+
+const { publishedAt, updatedAt, scriptureReference } = Astro.props;
+const publicationIso = publishedAt.toISOString();
+const updateIso = updatedAt?.toISOString();
+const hasDistinctUpdate =
+  updatedAt && updatedAt.getTime() !== publishedAt.getTime();
+---
+
+<div class="reflection-meta">
+  <p>
+    Publicado em <time datetime={publicationIso}>
+      {formatPublicationDate(publishedAt)}
+    </time>
+  </p>
+  {
+    hasDistinctUpdate && (
+      <p>
+        Atualizado em{" "}
+        <time datetime={updateIso}>{formatPublicationDate(updatedAt)}</time>
+      </p>
+    )
+  }
+  {scriptureReference && <p>{scriptureReference}</p>}
+</div>
+
+<style>
+  .reflection-meta {
+    display: grid;
+    gap: var(--space-2);
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-interface);
+  }
+</style>

@@ -1,318 +1,41 @@
 ---
+import ClosingInvitation from "../components/sections/ClosingInvitation.astro";
+import HomeHero from "../components/sections/HomeHero.astro";
+import HomeIntroduction from "../components/sections/HomeIntroduction.astro";
+import HomeRecentReflections from "../components/sections/HomeRecentReflections.astro";
+import HomeReflectionHighlight from "../components/sections/HomeReflectionHighlight.astro";
+import HomeVideoHighlight from "../components/sections/HomeVideoHighlight.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ButtonLink from "../components/base/ButtonLink.astro";
-import Container from "../components/base/Container.astro";
-import EditorialLink from "../components/base/EditorialLink.astro";
-import SectionHeading from "../components/base/SectionHeading.astro";
-import VisuallyHidden from "../components/accessibility/VisuallyHidden.astro";
-import { assertContentIntegrity } from "../lib/content";
+import {
+  assertContentIntegrity,
+  getFeaturedReflection,
+  getFeaturedVideo,
+  getPublishedReflections,
+} from "../lib/content";
 
-// Garantia temporária: toda build da V1 valida as coleções editoriais.
+// A página inicial preserva a validação global das coleções durante cada build.
 await assertContentIntegrity();
 
-const colors = [
-  ["Fundo principal", "background-primary"],
-  ["Fundo alternativo", "background-secondary"],
-  ["Superfície", "surface-primary"],
-  ["Verde noturno", "surface-dark"],
-  ["Texto principal", "text-primary"],
-  ["Texto secundário", "text-secondary"],
-  ["Verde principal", "brand-primary"],
-  ["Terracota", "accent-primary"],
-  ["Bordas", "border-default"],
-];
-
-const spaces = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+const [featuredReflection, featuredVideo, publishedReflections] =
+  await Promise.all([
+    getFeaturedReflection(),
+    getFeaturedVideo(),
+    getPublishedReflections(),
+  ]);
+const recentReflections = publishedReflections.slice(0, 3);
 ---
 
 <BaseLayout
-  title="Sistema visual — Palavra que respira"
-  description="Validação interna do sistema visual e dos componentes-base."
+  title="Padre Claudiano Avelino"
+  description="Reflexões e breves homilias sobre espiritualidade católica, oração e encontro com a Palavra de Deus."
   currentPath="/"
+  pageType="website"
+  structuredDataType="home"
 >
-  <Container
-    as="section"
-    variant="opening"
-    class="technical-opening section-space"
-  >
-    <p class="type-meta">Validação interna · Etapa 5.2</p>
-    <h1>Sistema visual — Palavra que respira</h1>
-    <p class="type-body-large">
-      Validação interna dos fundamentos visuais e dos componentes-base do site
-      de Padre Claudiano Avelino.
-    </p>
-  </Container>
-
-  <section class="technical-section technical-section--alternate section-space">
-    <Container>
-      <SectionHeading
-        label="01 · Tokens"
-        title="Paleta"
-        intro="Amostra técnica das cores aprovadas e de seus papéis na interface."
-      />
-      <ul class="color-grid" role="list">
-        {
-          colors.map(([label, token]) => (
-            <li class="color-swatch">
-              <span
-                class="color-swatch__sample"
-                style={`--swatch-color: var(--color-${token})`}
-              />
-              <span>{label}</span>
-              <code>{`--color-${token}`}</code>
-            </li>
-          ))
-        }
-      </ul>
-    </Container>
-  </section>
-
-  <Container
-    as="section"
-    variant="reading"
-    class="technical-section section-space"
-  >
-    <SectionHeading
-      label="02 · Escala"
-      title="Tipografia"
-      intro="Source Serif 4 organiza a leitura editorial; Inter orienta navegação, metadados e controles."
-    />
-    <div class="type-specimen flow">
-      <p class="type-display">Display editorial</p>
-      <h2>Título de segundo nível</h2>
-      <h3>Título de terceiro nível</h3>
-      <p class="type-body-large">
-        Corpo grande para textos de abertura técnica.
-      </p>
-      <p class="type-editorial">
-        Corpo editorial com largura e ritmo controlados. Este parágrafo neutro
-        demonstra legibilidade e inclui um <a href="#links-editoriais"
-          >link reconhecível em texto corrido</a
-        >.
-      </p>
-      <p class="type-meta">Metadado técnico · 13 px</p>
-    </div>
-  </Container>
-
-  <section class="technical-section technical-section--surface section-space">
-    <Container>
-      <SectionHeading
-        label="03 · Ritmo"
-        title="Espaçamento"
-        intro="Escala progressiva usada para intervalos, blocos e seções."
-      />
-      <div class="spacing-scale">
-        {
-          spaces.map((space) => (
-            <div class="spacing-item">
-              <code>{`--space-${space}`}</code>
-              <span style={`--sample-space: var(--space-${space})`} />
-            </div>
-          ))
-        }
-      </div>
-    </Container>
-  </section>
-
-  <Container as="section" class="technical-section section-space">
-    <SectionHeading
-      label="04 · Navegação"
-      title="Botões"
-      intro="Links de navegação com variações primária e secundária, estados de foco e área de toque adequada."
-    />
-    <div class="component-row">
-      <ButtonLink href="#containers">Variação primária</ButtonLink>
-      <ButtonLink href="#containers" variant="secondary"
-        >Variação secundária</ButtonLink
-      >
-    </div>
-  </Container>
-
-  <section
-    class="technical-section technical-section--alternate section-space"
-    id="links-editoriais"
-  >
-    <Container>
-      <SectionHeading
-        label="05 · Leitura"
-        title="Links editoriais"
-        intro="Tratamento textual com indicador simples, sem aparência comercial."
-      />
-      <EditorialLink href="#section-heading"
-        >Examinar o próximo componente</EditorialLink
-      >
-    </Container>
-  </section>
-
-  <Container
-    as="section"
-    variant="opening"
-    class="technical-section section-space"
-    id="section-heading"
-  >
-    <SectionHeading
-      label="06 · Componente"
-      title="SectionHeading"
-      intro="Combinação reutilizável de rótulo, título e introdução, alinhada à esquerda."
-    />
-  </Container>
-
-  <section
-    class="technical-section technical-section--surface section-space"
-    id="containers"
-  >
-    <Container>
-      <SectionHeading
-        label="07 · Layout"
-        title="Containers"
-        intro="A borda tracejada identifica apenas nesta demonstração as larguras geral e de leitura."
-      />
-      <div class="container-demo">Container geral</div>
-    </Container>
-    <Container variant="reading">
-      <div class="container-demo">Container de leitura · máximo de 736 px</div>
-    </Container>
-  </section>
-
-  <Container
-    as="section"
-    variant="reading"
-    class="technical-section section-space"
-  >
-    <SectionHeading
-      label="08 · Teclado"
-      title="Estados de foco"
-      intro="Use Tab para verificar o contorno terracota, seu deslocamento e o skip link."
-    />
-    <a class="focus-demo" href="#conteudo-principal">
-      Elemento técnico focalizável
-      <VisuallyHidden> que retorna ao início do conteúdo</VisuallyHidden>
-    </a>
-  </Container>
-
-  <section class="technical-section technical-section--alternate section-space">
-    <Container variant="reading">
-      <SectionHeading
-        label="09 e 10 · Estrutura global"
-        title="Cabeçalho e rodapé"
-        intro="Os componentes que envolvem esta página demonstram navegação responsiva, item atual, menu móvel e agrupamento vertical no rodapé."
-      />
-      <p class="technical-note type-editorial">
-        Esta seção é somente uma referência técnica aos componentes visíveis no
-        início e no fim do documento.
-      </p>
-    </Container>
-  </section>
+  <HomeHero />
+  <HomeIntroduction />
+  <HomeReflectionHighlight reflection={featuredReflection} />
+  <HomeVideoHighlight video={featuredVideo} />
+  <HomeRecentReflections reflections={recentReflections} />
+  <ClosingInvitation />
 </BaseLayout>
-
-<style>
-  .technical-opening {
-    --flow-space: var(--space-5);
-  }
-
-  .technical-opening h1 {
-    margin-block: var(--space-5);
-  }
-
-  .technical-section :global(.section-heading) {
-    margin-block-end: var(--space-7);
-  }
-
-  .technical-section--alternate {
-    background: var(--color-background-secondary);
-  }
-
-  .technical-section--surface {
-    background: var(--color-surface-primary);
-    border-block: var(--border-width-default) solid var(--color-border-default);
-  }
-
-  .color-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
-    gap: var(--space-4);
-    margin: 0;
-    padding: 0;
-  }
-
-  .color-swatch {
-    display: grid;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    background: var(--color-surface-primary);
-    border: var(--border-width-default) solid var(--color-border-default);
-    border-radius: var(--radius-card);
-  }
-
-  .color-swatch__sample {
-    height: var(--space-8);
-    background: var(--swatch-color);
-    border: var(--border-width-default) solid var(--color-border-default);
-    border-radius: var(--radius-medium);
-  }
-
-  code {
-    overflow-wrap: anywhere;
-    color: var(--color-text-secondary);
-    font-family: var(--font-family-interface);
-    font-size: var(--font-size-small);
-  }
-
-  .type-specimen {
-    --flow-space: var(--space-6);
-  }
-
-  .spacing-scale {
-    display: grid;
-    gap: var(--space-3);
-  }
-
-  .spacing-item {
-    display: grid;
-    grid-template-columns: 6rem minmax(0, 1fr);
-    align-items: center;
-    gap: var(--space-4);
-  }
-
-  .spacing-item span {
-    width: min(var(--sample-space), 100%);
-    height: var(--space-3);
-    background: var(--color-brand-primary);
-  }
-
-  .component-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-  }
-
-  .container-demo {
-    padding: var(--space-5);
-    color: var(--color-text-secondary);
-    border: var(--border-width-default) dashed var(--color-accent-primary);
-  }
-
-  .technical-section--surface :global(.container--reading) {
-    margin-block-start: var(--space-5);
-  }
-
-  .focus-demo {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-    color: var(--color-brand-primary);
-    font-weight: 700;
-    text-underline-offset: 0.2em;
-  }
-
-  .technical-note {
-    margin-block-start: var(--space-5);
-  }
-
-  @media (max-width: 30rem) {
-    .component-row {
-      align-items: stretch;
-      flex-direction: column;
-    }
-  }
-</style>

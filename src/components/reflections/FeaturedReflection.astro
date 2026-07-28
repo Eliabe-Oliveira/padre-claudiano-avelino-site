@@ -1,0 +1,100 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { EDITORIAL_THEME_LABELS } from "../../config/editorial";
+import { formatPublicationDate } from "../../lib/dates";
+import { buildReflectionPath } from "../../lib/reflections";
+import Container from "../base/Container.astro";
+import EditorialLink from "../base/EditorialLink.astro";
+
+interface Props {
+  reflection: CollectionEntry<"reflections">;
+  id?: string;
+}
+
+const { reflection, id } = Astro.props;
+---
+
+<section {id} class="featured-reflection">
+  <Container variant="cards">
+    <div
+      class:list={[
+        "featured-reflection__inner",
+        reflection.data.cover && "featured-reflection__inner--with-cover",
+      ]}
+    >
+      <div class="featured-reflection__content flow">
+        <p class="type-meta">Reflexão em destaque</p>
+        <p class="featured-reflection__meta">
+          {EDITORIAL_THEME_LABELS[reflection.data.theme]} ·
+          <time datetime={reflection.data.publishedAt.toISOString()}>
+            {formatPublicationDate(reflection.data.publishedAt)}
+          </time>
+        </p>
+        <h2>{reflection.data.title}</h2>
+        <p class="type-editorial">{reflection.data.excerpt}</p>
+        <EditorialLink href={buildReflectionPath(reflection.data.slug)}>
+          Continuar a reflexão
+        </EditorialLink>
+      </div>
+      {
+        reflection.data.cover && reflection.data.coverAlt && (
+          <Image
+            class="featured-reflection__cover"
+            src={reflection.data.cover}
+            alt={reflection.data.coverAlt}
+            widths={[640, 960]}
+            sizes="(max-width: 48rem) 100vw, 50vw"
+          />
+        )
+      }
+    </div>
+  </Container>
+</section>
+
+<style>
+  .featured-reflection {
+    padding-block: var(--section-space);
+    background: var(--color-background-secondary);
+  }
+
+  .featured-reflection__inner {
+    padding: clamp(var(--space-6), 5vw, var(--space-9));
+    background: var(--color-surface-primary);
+    border: var(--border-width-default) solid var(--color-border-default);
+    border-radius: var(--radius-card);
+  }
+
+  .featured-reflection__inner--with-cover {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.85fr);
+    align-items: center;
+    gap: var(--space-7);
+  }
+
+  .featured-reflection__content {
+    --flow-space: var(--space-4);
+  }
+
+  .featured-reflection__meta {
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+
+  .featured-reflection__cover {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-medium);
+  }
+
+  @media (max-width: 47.999rem) {
+    .featured-reflection__inner--with-cover {
+      grid-template-columns: 1fr;
+    }
+
+    .featured-reflection__cover {
+      grid-row: 2;
+    }
+  }
+</style>

@@ -1,0 +1,75 @@
+---
+import ButtonLink from "../components/base/ButtonLink.astro";
+import Container from "../components/base/Container.astro";
+import InstitutionalIntro from "../components/sections/InstitutionalIntro.astro";
+import { siteConfig } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildMailto } from "../lib/contact";
+
+const mailto = siteConfig.contactEmail
+  ? buildMailto(siteConfig.contactEmail, siteConfig.contactSubject)
+  : undefined;
+---
+
+<BaseLayout
+  title="Contato | Padre Claudiano Avelino"
+  description="Canal de contato relacionado ao site pessoal de Padre Claudiano Avelino."
+  currentPath="/contato/"
+  structuredDataType="contact"
+>
+  <InstitutionalIntro
+    id="contato-abertura"
+    label="Contato"
+    title="Entre em contato"
+    intro="Para mensagens relacionadas ao site pessoal, às reflexões e aos conteúdos de Padre Claudiano Avelino, utilize o endereço de e-mail indicado nesta página."
+  />
+
+  <section id="contato-canal" class="page-section page-section--alternate">
+    <Container variant="reading">
+      <div class="contact-channel flow">
+        {
+          siteConfig.contactEmail && mailto ? (
+            <>
+              <p class="type-meta">E-mail</p>
+              <h2 class="contact-channel__email">{siteConfig.contactEmail}</h2>
+              <ButtonLink href={mailto}>Enviar uma mensagem</ButtonLink>
+            </>
+          ) : (
+            <>
+              <h2>E-mail de contato</h2>
+              <p class="type-editorial">
+                O endereço de contato será disponibilizado em breve.
+              </p>
+            </>
+          )
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section id="contato-orientacao" class="page-section">
+    <Container variant="reading">
+      <div class="editorial-block flow">
+        <h2>Orientação institucional</h2>
+        <p class="type-editorial">
+          Este é um canal relacionado ao site pessoal de Padre Claudiano
+          Avelino. Questões institucionais devem ser encaminhadas aos canais
+          oficiais das respectivas organizações.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <section id="contato-privacidade" class="page-section page-section--surface">
+    <Container variant="reading">
+      <div class="editorial-block flow">
+        <h2>Privacidade</h2>
+        <p class="type-editorial">
+          Nenhuma informação é coletada ou armazenada por esta página. Ao
+          utilizar o link de e-mail, a mensagem será aberta no aplicativo de
+          e-mail do visitante.
+        </p>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,3 +1,11 @@
+import {
+  selectPublishedReflections,
+  type ContentReference,
+  type EntryLike,
+  type PublishedOptions,
+  type ReflectionDataLike,
+} from "./validation";
+
 const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 
 export type YouTubeThumbnailQuality =
@@ -46,4 +54,45 @@ export function buildYouTubeThumbnailUrl(
 ): string {
   assertValidYouTubeId(id);
   return `https://i.ytimg.com/vi/${id}/${quality}.jpg`;
+}
+
+export function excludeFeaturedVideoFromListing<
+  TEntry extends EntryLike<{ featured: boolean }>,
+>(entries: readonly TEntry[], featured?: TEntry): TEntry[] {
+  return entries.filter((entry) => entry.id !== featured?.id);
+}
+
+export function selectPublishedRelatedReflection<
+  TEntry extends EntryLike<ReflectionDataLike>,
+>(
+  reference: ContentReference | undefined,
+  candidates: readonly TEntry[],
+  options: PublishedOptions = {},
+): TEntry | undefined {
+  if (!reference) return undefined;
+  return selectPublishedReflections(candidates, options).find(
+    (entry) => entry.id === reference.id,
+  );
+}
+
+export const PLAYER_STATES = [
+  "idle",
+  "loading",
+  "playing",
+  "error",
+  "unavailable",
+] as const;
+export type PlayerState = (typeof PLAYER_STATES)[number];
+export type PlayerEvent = "request" | "loaded" | "failed" | "blocked" | "reset";
+
+export function transitionPlayerState(
+  state: PlayerState,
+  event: PlayerEvent,
+): PlayerState {
+  if (event === "reset") return "idle";
+  if (state === "idle" && event === "request") return "loading";
+  if (state === "loading" && event === "loaded") return "playing";
+  if (state === "loading" && event === "failed") return "error";
+  if (state === "loading" && event === "blocked") return "unavailable";
+  return state;
 }

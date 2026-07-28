@@ -16,9 +16,14 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:github-pages": "playwright test --config=playwright.github-pages.config.ts",
+    "test:e2e:headers": "playwright test --config=playwright.headers.config.ts",
+    "test:build": "node tests/build/validate-build.mjs",
+    "audit:lighthouse": "node tests/performance/lighthouse-audit.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/source-serif-4": "^5.3.0",
     "astro": "^6.4.8"
@@ -28,8 +33,10 @@
     "@axe-core/playwright": "^4.12.1",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.62.0",
+    "chrome-launcher": "^1.2.1",
     "eslint": "^10.8.0",
     "eslint-plugin-astro": "^3.0.1",
+    "lighthouse": "^13.4.1",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3",

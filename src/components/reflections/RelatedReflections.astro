@@ -1,0 +1,49 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../base/Container.astro";
+import ReflectionCard from "./ReflectionCard.astro";
+
+interface Props {
+  reflections: CollectionEntry<"reflections">[];
+}
+
+const { reflections } = Astro.props;
+---
+
+{
+  reflections.length > 0 && (
+    <section class="related-reflections">
+      <Container variant="cards">
+        <h2>Continue a leitura</h2>
+        <div class="related-reflections__grid">
+          {reflections.map((reflection) => (
+            <ReflectionCard {reflection} headingLevel="h3" variant="compact" />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+<style>
+  .related-reflections {
+    padding-block: var(--space-8);
+    background: var(--color-background-secondary);
+  }
+
+  .related-reflections h2 {
+    margin-block-end: var(--space-6);
+  }
+
+  .related-reflections__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 47.999rem) {
+    .related-reflections__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

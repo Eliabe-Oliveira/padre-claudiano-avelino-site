@@ -8,6 +8,11 @@ import {
   type ContentReference,
   type PublishedOptions,
 } from "./validation";
+import {
+  selectPublishedRelatedVideo,
+  selectRelatedPublishedReflections,
+} from "./reflections";
+import { selectPublishedRelatedReflection } from "./videos";
 
 const reflectionSourceFiles = import.meta.glob("../data/reflections/**/*.md");
 const videoSourceFiles = import.meta.glob("../data/videos/**/*.{yaml,yml}");
@@ -51,6 +56,53 @@ export async function getFeaturedVideo(
   return selectFeaturedEntry(
     await getPublishedVideos(options),
     "videos publicados",
+  );
+}
+
+export async function getRelatedPublishedReflections(
+  reflection: CollectionEntry<"reflections">,
+  options: PublishedOptions = {},
+): Promise<CollectionEntry<"reflections">[]> {
+  if (reflection.data.relatedReflections.length === 0) return [];
+
+  const resolved = await Promise.all(
+    reflection.data.relatedReflections.map((referenceValue) =>
+      getEntry(referenceValue),
+    ),
+  );
+
+  return selectRelatedPublishedReflections(
+    reflection,
+    resolved.filter(
+      (entry): entry is CollectionEntry<"reflections"> => entry !== undefined,
+    ),
+    options,
+  );
+}
+
+export async function getPublishedRelatedVideo(
+  reflection: CollectionEntry<"reflections">,
+  options: PublishedOptions = {},
+): Promise<CollectionEntry<"videos"> | undefined> {
+  if (!reflection.data.relatedVideo) return undefined;
+  const resolved = await getEntry(reflection.data.relatedVideo);
+  return selectPublishedRelatedVideo(
+    reflection.data.relatedVideo,
+    resolved ? [resolved] : [],
+    options,
+  );
+}
+
+export async function getPublishedRelatedReflection(
+  video: CollectionEntry<"videos">,
+  options: PublishedOptions = {},
+): Promise<CollectionEntry<"reflections"> | undefined> {
+  if (!video.data.relatedReflection) return undefined;
+  const resolved = await getEntry(video.data.relatedReflection);
+  return selectPublishedRelatedReflection(
+    video.data.relatedReflection,
+    resolved ? [resolved] : [],
+    options,
   );
 }
 

@@ -1,0 +1,164 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import {
+  buildYouTubeThumbnailUrl,
+  buildYouTubeWatchUrl,
+} from "../../lib/videos";
+
+interface Props {
+  youtubeId: string;
+  title: string;
+  thumbnail?: CollectionEntry<"videos">["data"]["thumbnail"];
+  thumbnailAlt?: string;
+  featured?: boolean;
+  duration?: string;
+}
+
+const {
+  youtubeId,
+  title,
+  thumbnail,
+  thumbnailAlt,
+  featured = false,
+  duration,
+} = Astro.props;
+const watchUrl = buildYouTubeWatchUrl(youtubeId);
+const alt = thumbnailAlt ?? `Miniatura do vídeo ${title}`;
+---
+
+<div
+  class:list={["youtube-facade", featured && "youtube-facade--featured"]}
+  data-youtube-facade
+  data-youtube-id={youtubeId}
+  data-video-title={title}
+  data-player-state="idle"
+>
+  <div class="youtube-facade__viewport" data-player-viewport>
+    {
+      thumbnail ? (
+        <Image
+          class="youtube-facade__thumbnail"
+          src={thumbnail}
+          alt={alt}
+          widths={[640, 960, 1280]}
+          sizes="(max-width: 48rem) 100vw, 62.5rem"
+          loading={featured ? "eager" : "lazy"}
+        />
+      ) : (
+        <img
+          class="youtube-facade__thumbnail"
+          src={buildYouTubeThumbnailUrl(youtubeId)}
+          alt={alt}
+          width="480"
+          height="270"
+          loading={featured ? "eager" : "lazy"}
+          decoding="async"
+          referrerpolicy="strict-origin-when-cross-origin"
+        />
+      )
+    }
+    <div class="youtube-facade__control">
+      <button type="button" aria-label={`Reproduzir: ${title}`} data-play-video>
+        Reproduzir vídeo
+      </button>
+      {duration && <span class="youtube-facade__duration">{duration}</span>}
+    </div>
+  </div>
+
+  <p class="youtube-facade__status" role="status" aria-live="polite"></p>
+  <p class="youtube-facade__error" data-player-error hidden>
+    Não foi possível carregar o vídeo nesta página.
+  </p>
+  <p class="youtube-facade__unavailable" data-player-unavailable hidden>
+    Este vídeo não está disponível para reprodução incorporada.
+  </p>
+  <a
+    class="youtube-facade__fallback"
+    href={watchUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Assistir no YouTube
+  </a>
+</div>
+
+<script src="../../scripts/youtube-facade.ts"></script>
+
+<style>
+  .youtube-facade {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .youtube-facade__viewport {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    color: var(--color-text-inverse);
+    background: var(--color-surface-dark);
+    border-radius: var(--radius-medium);
+  }
+
+  .youtube-facade__thumbnail,
+  .youtube-facade__viewport :global(iframe) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+  }
+
+  .youtube-facade__control {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--color-overlay);
+  }
+
+  .youtube-facade__control button {
+    min-height: 3rem;
+    padding: var(--space-3) var(--space-5);
+    color: var(--color-text-inverse);
+    background: var(--color-brand-primary);
+    border: var(--border-width-default) solid var(--color-text-inverse);
+    border-radius: var(--radius-small);
+    font-family: var(--font-family-interface);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .youtube-facade__duration {
+    padding: var(--space-1) var(--space-2);
+    color: var(--color-text-inverse);
+    background: var(--color-surface-dark);
+    border-radius: var(--radius-small);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+
+  .youtube-facade__status,
+  .youtube-facade__error,
+  .youtube-facade__unavailable {
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+
+  .youtube-facade__status {
+    min-height: 1.5em;
+  }
+
+  .youtube-facade__fallback {
+    justify-self: start;
+    min-height: 2.75rem;
+    color: var(--color-brand-primary);
+    font-family: var(--font-family-interface);
+    font-weight: 700;
+    text-underline-offset: 0.25em;
+  }
+</style>

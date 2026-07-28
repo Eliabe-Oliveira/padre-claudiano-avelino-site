@@ -1,19 +1,29 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-test("não apresenta violações críticas ou sérias detectáveis pelo axe", async ({
-  page,
-}) => {
-  await page.goto("/");
-
+async function expectNoBlockingAxeViolations(
+  page: import("@playwright/test").Page,
+) {
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
     .analyze();
+  expect(
+    results.violations.filter(
+      ({ impact }) => impact === "critical" || impact === "serious",
+    ),
+  ).toEqual([]);
+}
 
-  const blockingViolations = results.violations.filter(
-    (violation) =>
-      violation.impact === "critical" || violation.impact === "serious",
-  );
+test("não apresenta violações críticas ou sérias nas três páginas", async ({
+  page,
+}) => {
+  for (const route of ["/", "/sobre/", "/contato/"]) {
+    await page.goto(route);
+    await expectNoBlockingAxeViolations(page);
+  }
 
-  expect(blockingViolations).toEqual([]);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/sobre/");
+  await page.getByRole("button", { name: "Menu" }).click();
+  await expectNoBlockingAxeViolations(page);
 });

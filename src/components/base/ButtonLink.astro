@@ -1,4 +1,6 @@
 ---
+import { buildInternalUrl } from "../../lib/urls";
+
 interface Props {
   href: string;
   variant?: "primary" | "secondary";
@@ -9,13 +11,14 @@ interface Props {
 }
 
 const {
-  href,
+  href: rawHref,
   variant = "primary",
   target,
   rel,
   "aria-label": ariaLabel,
   class: className,
 } = Astro.props;
+const href = buildInternalUrl(rawHref);
 ---
 
 <a

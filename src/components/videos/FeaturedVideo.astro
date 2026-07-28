@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../base/Container.astro";
+import EditorialLink from "../base/EditorialLink.astro";
+import YouTubeFacade from "./YouTubeFacade.astro";
+
+interface Props {
+  video: CollectionEntry<"videos">;
+  id?: string;
+  showArchiveLink?: boolean;
+}
+
+const { video, id, showArchiveLink = false } = Astro.props;
+---
+
+<section {id} class="featured-video">
+  <Container variant="player">
+    <div class="featured-video__content flow">
+      <p class="type-meta">Homilia de 1 minuto</p>
+      <h2>{video.data.title}</h2>
+      <p class="featured-video__reference">{video.data.scriptureReference}</p>
+      <p class="type-editorial">{video.data.description}</p>
+      {
+        showArchiveLink && (
+          <EditorialLink href="/videos/">
+            Conhecer o espaço de vídeos
+          </EditorialLink>
+        )
+      }
+    </div>
+    <YouTubeFacade
+      youtubeId={video.data.youtubeId}
+      title={video.data.title}
+      thumbnail={video.data.thumbnail}
+      thumbnailAlt={video.data.thumbnailAlt}
+      featured
+      duration={video.data.duration}
+    />
+  </Container>
+</section>
+
+<style>
+  .featured-video {
+    padding-block: var(--section-space);
+    background: var(--color-background-secondary);
+  }
+
+  .featured-video :global(.container) {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .featured-video__content {
+    --flow-space: var(--space-4);
+    max-width: var(--width-opening);
+  }
+
+  .featured-video__reference {
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+</style>

@@ -28,6 +28,7 @@ npm install
 | `npm run format:check` | Confere a formatação sem alterar arquivos.        |
 | `npm run test`         | Executa os testes unitários com Vitest.           |
 | `npm run test:e2e`     | Executa os testes de navegação com Playwright.    |
+| `npm run test:build`   | Audita URLs e arquivos do build estático.         |
 
 ## Estrutura
 
@@ -45,8 +46,23 @@ npm install
 
 ## Estado
 
-O projeto está na Etapa 5.3: modelo de conteúdo, Content Collections e validações. As coleções reais permanecem vazias e as páginas editoriais ainda não foram implementadas. A página existente continua sendo somente uma validação interna.
+A Etapa 5.8 está tecnicamente concluída: as páginas existentes possuem URLs
+públicas centralizadas, canonical, Open Graph, JSON-LD, sitemap, robots e
+favicon. A configuração futura de cabeçalhos do Cloudflare Pages também está
+preparada. Nenhuma publicação foi realizada.
+
+O contato é configurado no build pela variável opcional `CONTACT_EMAIL`. Sem ela, a página informa que o endereço será disponibilizado em breve; um valor preenchido e inválido interrompe o build.
 
 As instruções de manutenção editorial estão em [`CONTENT_GUIDE.md`](./CONTENT_GUIDE.md). Use `npm run check`, `npm run test` e `npm run build` para validar alterações de conteúdo.
 
-Nenhuma etapa posterior, incluindo a Etapa 5.4, deve ser iniciada automaticamente. Commit, push, deploy e publicação exigem autorização expressa.
+A documentação técnica da etapa está em
+[`docs/project/etapa-5-8-seo-seguranca.md`](./docs/project/etapa-5-8-seo-seguranca.md).
+
+Use `npm run build` para o build local,
+`GITHUB_PAGES=true npm run build` para validar o subdiretório do GitHub Pages ou
+`SITE_URL=https://dominio-final.example/ npm run build` como sintaxe
+ilustrativa para uma futura raiz pública.
+
+O endereço definitivo de contato e os conteúdos reais continuam pendentes.
+Nenhuma etapa posterior deve ser iniciada automaticamente. Commit, push, deploy
+e publicação exigem autorização expressa.

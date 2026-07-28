@@ -1,0 +1,144 @@
+---
+import { getImage, Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import defaultSocialImage from "../assets/photos/final/padre-claudiano-retrato.png";
+import Breadcrumbs from "../components/layout/Breadcrumbs.astro";
+import RelatedReflections from "../components/reflections/RelatedReflections.astro";
+import ReflectionMeta from "../components/reflections/ReflectionMeta.astro";
+import ShareLinks from "../components/reflections/ShareLinks.astro";
+import Container from "../components/base/Container.astro";
+import EditorialLink from "../components/base/EditorialLink.astro";
+import { EDITORIAL_THEME_LABELS } from "../config/editorial";
+import { buildBlogPostingStructuredData } from "../lib/structured-data";
+import { buildAbsoluteUrl, buildInternalUrl } from "../lib/urls";
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  reflection: CollectionEntry<"reflections">;
+  Content: AstroComponentFactory;
+  relatedReflections: CollectionEntry<"reflections">[];
+  relatedVideo?: CollectionEntry<"videos">;
+  currentPath: string;
+}
+
+const { reflection, Content, relatedReflections, relatedVideo, currentPath } =
+  Astro.props;
+const description = reflection.data.seoDescription ?? reflection.data.excerpt;
+const socialImage =
+  reflection.data.socialImage ?? reflection.data.cover ?? defaultSocialImage;
+const socialImageAlt =
+  reflection.data.cover && socialImage === reflection.data.cover
+    ? reflection.data.coverAlt
+    : "Padre Claudiano Avelino em retrato, olhando para a câmera.";
+const generatedSocialImage = await getImage({ src: socialImage });
+const site = Astro.site ?? new URL("http://localhost:4321/");
+const pageUrl = buildAbsoluteUrl(buildInternalUrl(currentPath), site);
+const homeUrl = buildAbsoluteUrl(buildInternalUrl("/"), site);
+const reflectionsUrl = buildAbsoluteUrl(buildInternalUrl("/reflexoes/"), site);
+const socialImageUrl = buildAbsoluteUrl(
+  buildInternalUrl(generatedSocialImage.src),
+  site,
+);
+const generatedPersonImage = await getImage({ src: defaultSocialImage });
+const personImageUrl = buildAbsoluteUrl(
+  buildInternalUrl(generatedPersonImage.src),
+  site,
+);
+const structuredData = buildBlogPostingStructuredData(
+  {
+    url: pageUrl,
+    name: reflection.data.title,
+    description,
+    publishedAt: reflection.data.publishedAt,
+    updatedAt: reflection.data.updatedAt,
+    image: socialImageUrl,
+    section: EDITORIAL_THEME_LABELS[reflection.data.theme],
+    breadcrumbs: [
+      { name: "Início", url: homeUrl },
+      { name: "Reflexões", url: reflectionsUrl },
+      { name: reflection.data.title, url: pageUrl },
+    ],
+  },
+  { url: homeUrl, image: personImageUrl },
+);
+---
+
+<BaseLayout
+  title={`${reflection.data.title} | Padre Claudiano Avelino`}
+  {description}
+  {currentPath}
+  canonicalPath={currentPath}
+  pageType="article"
+  {socialImage}
+  {socialImageAlt}
+  publishedAt={reflection.data.publishedAt}
+  updatedAt={reflection.data.updatedAt}
+  section={EDITORIAL_THEME_LABELS[reflection.data.theme]}
+  {structuredData}
+>
+  <Container variant="reading" class="reflection-page">
+    <Breadcrumbs
+      items={[
+        { label: "Início", href: "/" },
+        { label: "Reflexões", href: "/reflexoes/" },
+        { label: reflection.data.title },
+      ]}
+    />
+
+    <article
+      class="reflection-article"
+      data-closing-type={reflection.data.closingType}
+    >
+      <header class="reflection-header flow">
+        <p class="type-meta">
+          {EDITORIAL_THEME_LABELS[reflection.data.theme]}
+        </p>
+        <h1>{reflection.data.title}</h1>
+        <ReflectionMeta
+          publishedAt={reflection.data.publishedAt}
+          updatedAt={reflection.data.updatedAt}
+          scriptureReference={reflection.data.scriptureReference}
+        />
+        <p class="reflection-header__excerpt">{reflection.data.excerpt}</p>
+      </header>
+
+      {
+        reflection.data.cover && reflection.data.coverAlt && (
+          <Image
+            class="reflection-cover"
+            src={reflection.data.cover}
+            alt={reflection.data.coverAlt}
+            widths={[720, 1080, 1440]}
+            sizes="(max-width: 48rem) 100vw, 46rem"
+          />
+        )
+      }
+
+      <div class="reflection-body">
+        <Content />
+      </div>
+
+      {
+        relatedVideo && (
+          <aside class="related-video flow">
+            <p class="type-meta">Homilia relacionada</p>
+            <h2>{relatedVideo.data.title}</h2>
+            <p>{relatedVideo.data.scriptureReference}</p>
+            <EditorialLink href="/videos/">Conhecer esta homilia</EditorialLink>
+          </aside>
+        )
+      }
+
+      <ShareLinks title={reflection.data.title} />
+    </article>
+  </Container>
+
+  <RelatedReflections reflections={relatedReflections} />
+
+  <Container variant="reading" class="reflection-return">
+    <EditorialLink href="/reflexoes/">
+      Voltar para todas as reflexões
+    </EditorialLink>
+  </Container>
+</BaseLayout>

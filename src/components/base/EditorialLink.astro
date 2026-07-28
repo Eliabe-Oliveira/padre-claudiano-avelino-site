@@ -1,10 +1,13 @@
 ---
+import { buildInternalUrl } from "../../lib/urls";
+
 interface Props {
   href: string;
   class?: string;
 }
 
-const { href, class: className } = Astro.props;
+const { href: rawHref, class: className } = Astro.props;
+const href = buildInternalUrl(rawHref);
 ---
 
 <a class:list={["editorial-link", className]} {href}>

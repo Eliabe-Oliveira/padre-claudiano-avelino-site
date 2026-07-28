@@ -1,15 +1,14 @@
 ---
 import Container from "../base/Container.astro";
 import MobileNavigation from "./MobileNavigation.astro";
+import { buildInternalUrl, stripBasePath } from "../../lib/urls";
 
 interface Props {
   currentPath: string;
 }
 
 const { currentPath } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const withBase = (path: string) =>
-  path === "/" ? `${base}/` : `${base}${path}`;
+const logicalCurrentPath = stripBasePath(currentPath);
 const items = [
   { label: "Início", href: "/" },
   { label: "Sobre", href: "/sobre/" },
@@ -24,7 +23,7 @@ const items = [
     <div class="site-header__inner">
       <a
         class="site-header__name"
-        href={withBase("/")}
+        href={buildInternalUrl("/")}
         aria-label="Padre Claudiano Avelino — Início"
       >
         Padre Claudiano Avelino
@@ -39,8 +38,10 @@ const items = [
             items.map((item) => (
               <li>
                 <a
-                  href={withBase(item.href)}
-                  aria-current={currentPath === item.href ? "page" : undefined}
+                  href={buildInternalUrl(item.href)}
+                  aria-current={
+                    logicalCurrentPath === item.href ? "page" : undefined
+                  }
                 >
                   {item.label}
                 </a>
@@ -50,7 +51,7 @@ const items = [
         </ul>
       </nav>
 
-      <MobileNavigation {currentPath} />
+      <MobileNavigation currentPath={logicalCurrentPath} />
     </div>
   </Container>
 </header>

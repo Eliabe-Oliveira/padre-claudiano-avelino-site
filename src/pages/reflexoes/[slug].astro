@@ -1,0 +1,38 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import ReflectionLayout from "../../layouts/ReflectionLayout.astro";
+import {
+  getPublishedReflections,
+  getPublishedRelatedVideo,
+  getRelatedPublishedReflections,
+} from "../../lib/content";
+import { buildReflectionPath } from "../../lib/reflections";
+
+export async function getStaticPaths() {
+  const reflections = await getPublishedReflections();
+  return reflections.map((reflection) => ({
+    params: { slug: reflection.data.slug },
+    props: { reflection },
+  }));
+}
+
+interface Props {
+  reflection: CollectionEntry<"reflections">;
+}
+
+const { reflection } = Astro.props;
+const { Content } = await render(reflection);
+const [relatedReflections, relatedVideo] = await Promise.all([
+  getRelatedPublishedReflections(reflection),
+  getPublishedRelatedVideo(reflection),
+]);
+const currentPath = buildReflectionPath(reflection.data.slug);
+---
+
+<ReflectionLayout
+  {reflection}
+  {Content}
+  {relatedReflections}
+  {relatedVideo}
+  {currentPath}
+/>

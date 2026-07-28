@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from "astro:content";
+import YouTubeFacade from "./YouTubeFacade.astro";
+
+interface Props {
+  video: CollectionEntry<"videos">;
+  headingLevel?: "h2" | "h3";
+  variant?: "standard" | "compact";
+}
+
+const {
+  video,
+  headingLevel: Heading = "h2",
+  variant = "standard",
+} = Astro.props;
+---
+
+<article class:list={["video-card", `video-card--${variant}`]}>
+  <YouTubeFacade
+    youtubeId={video.data.youtubeId}
+    title={video.data.title}
+    thumbnail={video.data.thumbnail}
+    thumbnailAlt={video.data.thumbnailAlt}
+    duration={video.data.duration}
+  />
+  <div class="video-card__content flow">
+    <p class="type-meta">Homilia de 1 minuto</p>
+    <Heading>{video.data.title}</Heading>
+    <p class="video-card__reference">{video.data.scriptureReference}</p>
+    <p class="type-editorial">{video.data.description}</p>
+  </div>
+</article>
+
+<style>
+  .video-card {
+    overflow: hidden;
+    background: var(--color-surface-primary);
+    border: var(--border-width-default) solid var(--color-border-default);
+    border-radius: var(--radius-card);
+  }
+
+  .video-card__content {
+    --flow-space: var(--space-4);
+    padding: var(--space-6);
+  }
+
+  .video-card--compact .video-card__content {
+    padding: var(--space-5);
+  }
+
+  .video-card h2,
+  .video-card h3 {
+    font-size: var(--font-size-h3);
+  }
+
+  .video-card__reference {
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import { buildInternalUrl } from "../../lib/urls";
+
+interface Item {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="breadcrumbs" aria-label="Navegação estrutural">
+  <ol>
+    {
+      items.map((item, index) => {
+        const current = index === items.length - 1;
+        return (
+          <li>
+            {item.href && !current ? (
+              <a href={buildInternalUrl(item.href)}>{item.label}</a>
+            ) : (
+              <span aria-current={current ? "page" : undefined}>
+                {item.label}
+              </span>
+            )}
+            {!current && (
+              <span class="breadcrumbs__separator" aria-hidden="true">
+                /
+              </span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-interface);
+    font-size: var(--font-size-small);
+    list-style: none;
+  }
+
+  .breadcrumbs li {
+    display: inline-flex;
+    gap: var(--space-2);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .breadcrumbs a {
+    color: var(--color-brand-primary);
+    text-underline-offset: 0.2em;
+  }
+
+  .breadcrumbs__separator {
+    color: var(--color-brand-muted);
+  }
+</style>

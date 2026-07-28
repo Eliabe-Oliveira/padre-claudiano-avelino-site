@@ -208,3 +208,27 @@ Use somente fotografias com autorização e origem verificadas. Uma imagem dispo
 6. Corrigir todas as inconsistências apresentadas.
 7. Alterar para `published` somente após aprovação editorial.
 8. Repetir as validações antes de qualquer publicação autorizada.
+
+## 24. Headings no corpo da reflexão
+
+O título principal da página é gerado pelo layout. O corpo Markdown pode usar
+`##` e `###`, mas nunca deve conter heading de nível 1 (`#`). HTML bruto, MDX,
+scripts, iframes e imagens remotas também não são permitidos.
+
+## 25. Relações editoriais
+
+Reflexões relacionadas são exclusivamente as referências cadastradas em
+`relatedReflections`, na ordem definida pelo editor. Não são inferidas por tema.
+Use no máximo três relações relevantes e não repita IDs nem relacione a reflexão
+consigo mesma.
+
+## 26. Miniaturas e incorporação de vídeos
+
+Prefira miniaturas locais autorizadas, cadastradas em `thumbnail` com
+`thumbnailAlt`. Sem arquivo local, a fachada usa `i.ytimg.com` e realiza essa
+requisição antes da reprodução. O iframe de `youtube-nocookie.com` somente é
+criado depois de uma ação explícita do visitante.
+
+Antes de publicar um vídeo, valide manualmente se ele continua disponível e
+autorizado para incorporação. Restrições de idade ou de incorporação não devem
+ser contornadas.

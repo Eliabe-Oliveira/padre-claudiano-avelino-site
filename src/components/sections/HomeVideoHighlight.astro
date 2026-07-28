@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Container from "../base/Container.astro";
+import EditorialLink from "../base/EditorialLink.astro";
+import FeaturedVideo from "../videos/FeaturedVideo.astro";
+
+interface Props {
+  video?: CollectionEntry<"videos">;
+}
+
+const { video } = Astro.props;
+---
+
+{
+  video ? (
+    <FeaturedVideo {video} id="inicio-homilia" showArchiveLink />
+  ) : (
+    <section id="inicio-homilia" class="page-section page-section--surface">
+      <Container variant="institutional">
+        <div class="editorial-block flow">
+          <p class="type-meta">Homilia de 1 minuto</p>
+          <>
+            <h2>Homilia de 1 minuto</h2>
+            <p class="type-editorial">
+              Breves reflexões em vídeo serão reunidas aqui em breve.
+            </p>
+            <EditorialLink href="/videos/">
+              Conhecer o espaço de vídeos
+            </EditorialLink>
+          </>
+        </div>
+      </Container>
+    </section>
+  )
+}

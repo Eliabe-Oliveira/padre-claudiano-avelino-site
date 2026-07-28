@@ -1,12 +1,12 @@
 ---
+import { buildInternalUrl, stripBasePath } from "../../lib/urls";
+
 interface Props {
   currentPath: string;
 }
 
 const { currentPath } = Astro.props;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const withBase = (path: string) =>
-  path === "/" ? `${base}/` : `${base}${path}`;
+const logicalCurrentPath = stripBasePath(currentPath);
 const items = [
   { label: "Início", href: "/" },
   { label: "Sobre", href: "/sobre/" },
@@ -16,22 +16,21 @@ const items = [
 ];
 ---
 
-<div class="mobile-navigation" data-mobile-navigation>
-  <button
+<details class="mobile-navigation" data-mobile-navigation>
+  <summary
     class="mobile-navigation__toggle"
-    type="button"
+    role="button"
     aria-expanded="false"
     aria-controls="mobile-navigation-panel"
     data-menu-toggle
   >
     <span data-menu-label>Menu</span>
-  </button>
+  </summary>
 
   <div
     class="mobile-navigation__panel"
     id="mobile-navigation-panel"
     data-menu-panel
-    hidden
   >
     <nav aria-label="Navegação principal móvel">
       <ul role="list">
@@ -39,8 +38,10 @@ const items = [
           items.map((item) => (
             <li>
               <a
-                href={withBase(item.href)}
-                aria-current={currentPath === item.href ? "page" : undefined}
+                href={buildInternalUrl(item.href)}
+                aria-current={
+                  logicalCurrentPath === item.href ? "page" : undefined
+                }
               >
                 {item.label}
               </a>
@@ -50,42 +51,9 @@ const items = [
       </ul>
     </nav>
   </div>
-</div>
+</details>
 
-<script>
-  const navigationRoots = document.querySelectorAll<HTMLElement>(
-    "[data-mobile-navigation]",
-  );
-
-  for (const root of navigationRoots) {
-    const toggle = root.querySelector<HTMLButtonElement>("[data-menu-toggle]");
-    const panel = root.querySelector<HTMLElement>("[data-menu-panel]");
-    const label = root.querySelector<HTMLElement>("[data-menu-label]");
-
-    if (!toggle || !panel || !label) continue;
-
-    const setOpen = (open: boolean) => {
-      toggle.setAttribute("aria-expanded", String(open));
-      panel.hidden = !open;
-      label.textContent = open ? "Fechar menu" : "Menu";
-    };
-
-    toggle.addEventListener("click", () => {
-      setOpen(toggle.getAttribute("aria-expanded") !== "true");
-    });
-
-    panel.addEventListener("click", (event) => {
-      if ((event.target as HTMLElement).closest("a")) setOpen(false);
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !panel.hidden) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  }
-</script>
+<script src="../../scripts/mobile-navigation.ts"></script>
 
 <style>
   .mobile-navigation {
@@ -102,6 +70,11 @@ const items = [
     border-radius: var(--radius-small);
     font-weight: 700;
     cursor: pointer;
+    list-style: none;
+  }
+
+  .mobile-navigation__toggle::-webkit-details-marker {
+    display: none;
   }
 
   .mobile-navigation__toggle:hover {
@@ -118,6 +91,10 @@ const items = [
     border-block-end: var(--border-width-default) solid
       var(--color-border-default);
     box-shadow: var(--shadow-subtle);
+  }
+
+  .mobile-navigation:not([open]) .mobile-navigation__panel {
+    display: none;
   }
 
   .mobile-navigation__panel ul {
